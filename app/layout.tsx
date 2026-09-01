@@ -3,8 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Arden Works | Bespoke Patios & Landscaping Glasgow',
+  description: 'Bespoke patios and engineered landscaping for Greater Glasgow, Bearsden, Newton Mearns and surrounding areas.',
   generator: 'v0.app',
   icons: {
     icon: [

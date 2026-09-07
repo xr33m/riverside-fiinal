@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
-import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES } from '@/lib/content'
+import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES, BRAND } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://ardenworks.co.uk'
+  const baseUrl = BRAND.domain
 
   const locationUrls = SUBURBS.map((s) => ({
     url: `${baseUrl}/locations/${s.slug}`,

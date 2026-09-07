@@ -1,6 +1,6 @@
 # SEO & GEO Implementation Blueprint: Glasgow Landscaping Master Strategy
 
-This document serves as the absolute technical and content specification for building out the front-end SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) structure for our Glasgow landscaping business.
+This document serves as the absolute technical and content specification for building out the front-end SEO, Generative Engine Optimization (GEO), and Answer Engine Optimization (AEO) structure for **Riverside Landscaping** (Official Website: `https://riverside-landscaping.co.uk`, Phone: `07507 604713`).
 
 ## 1. Siloing & Information Architecture (IA)
 
@@ -19,7 +19,9 @@ We run a strict Physical/Directory Silo Architecture. Content must never cross-l
 │   ├── /bearsden/
 │   ├── /newton-mearns/
 │   ├── /west-end-glasgow/
-│   └── /clarkston/
+│   ├── /clarkston/
+│   ├── /giffnock/
+│   └── /milngavie/
 │
 └── /knowledge-base/ (Topical Authority Silo)
     ├── /cost-guides/
@@ -31,16 +33,18 @@ We run a strict Physical/Directory Silo Architecture. Content must never cross-l
 - **Child-to-Parent**: All service pages breadcrumb back to `/landscaping-services/`.
 - **Cross-Silo (Geo to Service)**: Location pages (`/locations/bearsden/`) link ONLY to specific service sub-pages with exact contextual anchor text (e.g., "Read about our Bearsden porcelain paving process").
 
+---
+
 ## 2. On-Page SEO Formulas & Metadata Rules
 
 Every page generated MUST adhere strictly to the exact Title Tag and Heading structures defined below.
 
 ### A. Title Tag Formula
 
-`BEST [Primary Category] [Area] - If you're looking for [Service] near me or [Secondary Service] near me - [Business Name] is the #1 [Primary Category] in Glasgow`
+`BEST [Primary Category] [Area] - If you're looking for [Service] near me or [Secondary Service] near me - Riverside Landscaping is the #1 [Primary Category] in Glasgow`
 
 **Example (Paving Page):**
-`BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow`
+`BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow`
 
 ### B. Heading Tag Rules
 
@@ -48,13 +52,7 @@ Every page generated MUST adhere strictly to the exact Title Tag and Heading str
 - **H2s**: `[Secondary Category 1]`, `[Secondary Category 2]`, `[Location Pain Point / Solution]`
 - **H3s**: Specific features, micro-services, and local sub-neighbourhoods.
 
-#### Heading Template for Service Pages:
-- **H1**: Porcelain Paving & Patio Installation in Bearsden
-- **H2**: Driveway Installers & Hardscaping Near Me
-- **H2**: Garden Drainage Solutions for Clay Soil & Wet Glasgow Weather
-- **H2**: Frequently Asked Questions About Paving in Bearsden
-- **H3**: Geotextile Membrane & MOT Type 1 Sub-Base Prep
-- **H3**: Scottish Whinstone & Resin Bound Driveway Options
+---
 
 ## 3. GEO & AEO Content Optimization Rules
 
@@ -65,14 +63,16 @@ AI Engines (ChatGPT, Perplexity, Gemini, Google AI Overviews) extract concise, a
 The first paragraph under ANY H2 query or FAQ item MUST begin with a 20-35 word direct statement answering the query before adding deeper narrative detail.
 
 **Example:** "How long does a porcelain patio take to lay in Glasgow?"
-**Direct Answer:** "A standard 40m² porcelain patio in Glasgow takes 5 to 7 working days to complete, including excavation, sub-base compaction, and weather-sheltered mortar installation."
+**Direct Answer:** "A standard 40m² porcelain patio in Glasgow takes 5 to 7 working days to complete by Riverside Landscaping, including excavation, sub-base compaction, and weather-sheltered mortar installation."
 
 ### B. High-Impact Topical & Local Relevance Vectors
 
 Incorporate local environmental context into content to establish local entity trust:
-- **Glasgow Clay Soil (Boulders/Till)**: Mention how wet weather turns clay into a bog and why a 150mm–200mm MOT Type 1 sub-base is required.
+- **Glasgow & Ayrshire Clay Soil (Boulders/Till)**: Mention how wet weather turns clay into a bog and why a 150mm–200mm MOT Type 1 sub-base is required.
 - **BS7533 Standards**: Reference British Standards for paving installation to signal technical expertise.
 - **Tenement/Suburban Access**: Address real local hurdles (narrow alleyways, shared lanes in the West End vs. open access in Newton Mearns).
+
+---
 
 ## 4. Technical Schema Engine (JSON-LD)
 
@@ -84,14 +84,14 @@ Inject comprehensive JSON-LD schema into Next.js layouts (`/app/layout.tsx` or d
   "@graph": [
     {
       "@type": "LandscapingBusiness",
-      "@id": "https://yourdomain.co.uk/#business",
-      "name": "Apex Landscaping Glasgow",
-      "url": "https://yourdomain.co.uk",
-      "telephone": "+441410000000",
+      "@id": "https://riverside-landscaping.co.uk/#business",
+      "name": "Riverside Landscaping",
+      "url": "https://riverside-landscaping.co.uk",
+      "telephone": "+447507604713",
       "priceRange": "££-£££",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Sample Street",
+        "streetAddress": "Central Depot",
         "addressLocality": "Glasgow",
         "postalCode": "G1 1AA",
         "addressCountry": "GB"
@@ -114,46 +114,56 @@ Inject comprehensive JSON-LD schema into Next.js layouts (`/app/layout.tsx` or d
         "Driveway Installation",
         "Winter Hardscaping"
       ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://yourdomain.co.uk/porcelain-paving-glasgow/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Can you lay porcelain paving during Glasgow winters?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. We use rapid-setting frost-proof mortars and weather-sheltered working rigs. As long as ground temps remain above 0°C, hardscaping can safely continue through winter."
-          }
-        }
-      ]
     }
   ]
 }
 ```
+
+---
 
 ## 5. Phased Implementation Roadmap
 
 Antigravity must execute this plan systematically across 4 phases:
 `[Phase 1: Foundation] ──► [Phase 2: Core Silos] ──► [Phase 3: Hyper-Local] ──► [Phase 4: GEO/AEO Authority]`
 
-### Phase 1: Technical & Schema Infrastructure
-- Set up global Next.js routing matching the physical silo structure.
-- Build dynamic Meta & Schema generation handlers supporting LandscapingBusiness, Service, and FAQPage JSON-LD.
-- Generate dynamic sitemap.xml and robots.txt prioritizing `/landscaping-services/` and `/locations/`.
+---
 
-### Phase 2: Core Hubs & Service Pages
-- Build out Homepage, `/landscaping-services/` (Hub), and main transactional child pages.
-- Enforce Title Tag formula, H1/H2 hierarchy, and the 3-Second Direct Answer rule across all service pages.
-- Embed before/after comparison components and winter CTA conversion triggers on every service page.
+## 6. Top-Ranker Wireframe Architecture for Area & Service Pages
 
-### Phase 3: Location Page Expansion (GEO Dominance)
-- Deploy target suburb pages (`/locations/bearsden/`, `/locations/newton-mearns/`).
-- Populate each with location-specific contextual signals (clay soil depth, rainfall mitigation, specific housing style references).
-- Implement cross-silo internal links from location pages directly to core service pages.
+To guarantee #1 local search rankings, AI engine citation, and maximum customer conversion rates, all area and service pages must conform to these high-performance wireframe blueprints:
 
-### Phase 4: Topical Authority Engine (AEO Capture)
-- Deploy knowledge base hub (`/knowledge-base/`).
-- Publish high-intent local question guides (e.g., "How Much Does a Patio Cost in Glasgow? [2026 Price Breakdown]").
-- Connect all informational articles back to the main transactional service pages using exact match anchor text.
+### Blueprint A: Hyper-Local Area Page Wireframe (`/locations/[slug]`)
+1. **Header & Breadcrumbs**: Child-to-parent navigation (`Home / Locations / [Suburb Name]`).
+2. **Hero Section (Above the Fold)**:
+   - H1: `Porcelain Paving & Landscaping in [Suburb Name]`
+   - Trust Badges: 5.0 ★ Google Rating, 10-Year Guarantee, BS7533 Structural Standard.
+   - Subhead highlighting local soil profile (e.g. Heavy Boulder Clay in G61).
+3. **3-Second Direct Answer Banner**: Concise 20-35 word summary answering installation timeframe and sub-base depth.
+4. **Hardscaping & Driveways Near Me Section**:
+   - H2: `Driveway Installers & Hardscaping Near Me in [Suburb Name]`
+   - Direct Answer paragraph.
+   - H3: Site Access & Logistics Profile.
+   - H3: Recommended Installation Method.
+5. **Micro-Geography & Local Entity Vectors (Crucial for Rank #1)**:
+   - **Main Arterial Roads**: Drymen Road (A809), Ayr Road (A77), Byres Road, Busby Road (A727).
+   - **Key Landmarks**: Bearsden Cross, The Avenue Shopping Centre, Botanic Gardens, Clarkston Toll.
+   - **Sub-Districts**: Thorn, Whitecraigs, Hyndland, Netherlee, Kilmardinny.
+6. **GBP Driving Directions & Entity Link**:
+   - Step-by-step driving directions from suburb landmarks directly back to Riverside Landscaping Central Depot (`G1 1AA`).
+7. **Cross-Silo Transactional Links**: Links pointing exclusively to service sub-pages with exact anchor text ("Read about our [Suburb] porcelain paving process").
+8. **3-Step Lead Calculator Trigger CTA**.
+
+### Blueprint B: Topical Authority Service Page Wireframe (`/landscaping-services/[slug]`)
+1. **Header & Breadcrumbs**: Child-to-parent navigation (`Home / Landscaping Services / [Service Name]`).
+2. **Hero Section**:
+   - H1: `[Primary Category] & Patio Installation in Glasgow & Ayrshire`
+   - BS7533 Specification Badge + 10-Year Guarantee.
+3. **3-Second Direct Answer Banner**: Concise summary answering price, timeline, and sub-base prep.
+4. **Secondary Category & Clay Soil Mitigation Sections**:
+   - H2: `Driveway Installers & Hardscaping Near Me`
+   - H2: `Garden Drainage Solutions for Clay Soil & Wet Weather`
+   - H3: Geotextile Membrane & MOT Type 1 Sub-Base Prep.
+   - H3: Scottish Whinstone & Resin Options.
+5. **Technical Build Specifications**: Checklist covering slurry primer, diamond cutting, and slot drainage.
+6. **AEO FAQ Accordion**: Conversational Q&As with JSON-LD `@graph` schema output.
+7. **Suburb Coverage Grid**: Linking to all target suburb pages with contextual anchor text.

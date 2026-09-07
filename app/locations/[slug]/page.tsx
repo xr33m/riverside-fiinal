@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { SUBURBS, SERVICES, generateGraphSchema } from '@/lib/content'
-import { MapPin, ShieldCheck, CheckCircle2, ArrowRight, Layers, HelpCircle } from 'lucide-react'
+import { SUBURBS, SERVICES, BRAND, generateGraphSchema } from '@/lib/content'
+import { MapPin, ShieldCheck, CheckCircle2, ArrowRight, Layers, HelpCircle, Navigation, Compass } from 'lucide-react'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: suburb.titleTag,
-    description: `Expert porcelain paving, garden drainage, and driveway installation in ${suburb.name} (${suburb.postcodePrefix}). Engineered for ${suburb.soilProfile}.`,
+    description: `Expert porcelain paving, garden drainage, and driveway installation in ${suburb.name} (${suburb.postcodePrefix}). Engineered for ${suburb.soilProfile} by Riverside Landscaping.`,
   }
 }
 
@@ -33,7 +33,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  const schema = generateGraphSchema(`https://ardenworks.co.uk/locations/${suburb.slug}`)
+  const schema = generateGraphSchema(`${BRAND.domain}/locations/${suburb.slug}`)
 
   return (
     <>
@@ -63,13 +63,13 @@ export default async function LocationDetailPage({ params }: PageProps) {
           <header className="space-y-4 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-mono">
               <MapPin className="w-3.5 h-3.5" />
-              <span>{suburb.name} ({suburb.postcodePrefix}) Specification</span>
+              <span>{suburb.name} ({suburb.postcodePrefix}) GEO Specification</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
               Porcelain Paving & Landscaping in {suburb.name}
             </h1>
             <p className="text-slate-300 text-lg leading-relaxed">
-              Custom hardscaping engineered specifically for {suburb.name}&apos;s {suburb.soilProfile.toLowerCase()} and local planning standards.
+              Bespoke hardscaping engineered by <strong>Riverside Landscaping</strong> specifically for {suburb.name}&apos;s {suburb.soilProfile.toLowerCase()} and local planning standards.
             </p>
           </header>
 
@@ -79,7 +79,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
               3-Second Direct Answer
             </span>
             <p className="text-slate-100 text-base leading-relaxed font-medium">
-              Landscaping and porcelain patio installations in {suburb.name} take 5 to 7 working days, utilizing a 150mm–200mm MOT Type 1 sub-base to counteract local {suburb.soilProfile.toLowerCase()} retention.
+              Riverside Landscaping porcelain patio installations in {suburb.name} take 5 to 7 working days, utilizing a 150mm–200mm MOT Type 1 sub-base to counteract local {suburb.soilProfile.toLowerCase()} water retention.
             </p>
           </section>
 
@@ -90,9 +90,8 @@ export default async function LocationDetailPage({ params }: PageProps) {
               <h2 className="text-2xl font-serif font-bold text-white">
                 Driveway Installers & Hardscaping Near Me in {suburb.name}
               </h2>
-              {/* Direct Answer Paragraph */}
               <p className="text-slate-200 text-base leading-relaxed border-l-2 border-emerald-500/40 pl-3">
-                Our hardscaping teams operating in {suburb.name} deliver BS7533-compliant driveways and outdoor dining terraces, overcoming site challenges like {suburb.keyChallenge.toLowerCase()}
+                Riverside Landscaping teams operating in {suburb.name} deliver BS7533-compliant driveways and outdoor dining terraces, overcoming site challenges like {suburb.keyChallenge.toLowerCase()}
               </p>
 
               {/* H3 Sub-sections */}
@@ -112,10 +111,80 @@ export default async function LocationDetailPage({ params }: PageProps) {
               </div>
             </section>
 
+            {/* Micro-Geography & Local Entity Vectors (Streets, Landmarks & Neighbourhoods) */}
+            <section className="space-y-6 bg-slate-900/60 p-8 rounded-3xl border border-slate-800">
+              <div className="flex items-center gap-3">
+                <Compass className="w-6 h-6 text-emerald-400" />
+                <h2 className="text-2xl font-serif font-bold text-white">
+                  Local Geography & Sub-Neighbourhood Coverage in {suburb.name}
+                </h2>
+              </div>
+              <p className="text-slate-300 text-sm leading-relaxed">
+                Riverside Landscaping provides daily coverage across all key residential streets, sub-districts, and historic landmarks throughout {suburb.name} ({suburb.postcodePrefix}).
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <h3 className="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">Key Arterial Roads</h3>
+                  <ul className="space-y-1 text-xs text-slate-300">
+                    {suburb.mainRoads.map((road, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span>{road}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <h3 className="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">Sub-Districts Served</h3>
+                  <ul className="space-y-1 text-xs text-slate-300">
+                    {suburb.neighbourhoods.map((n, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span>{n}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+                  <h3 className="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">Nearby Landmarks</h3>
+                  <ul className="space-y-1 text-xs text-slate-300">
+                    {suburb.keyLandmarks.map((lm, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                        <span>{lm}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </section>
+
+            {/* GBP Driving Directions & Entity Signal */}
+            <section className="space-y-4 bg-slate-900/40 p-8 rounded-3xl border border-slate-800">
+              <div className="flex items-center gap-3">
+                <Navigation className="w-6 h-6 text-emerald-400" />
+                <h2 className="text-2xl font-serif font-bold text-white">
+                  Directions to Riverside Landscaping Central Depot from {suburb.name}
+                </h2>
+              </div>
+              <div className="p-5 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-3">
+                <p className="text-sm text-slate-200 leading-relaxed font-medium">
+                  {suburb.gbpDrivingDirections}
+                </p>
+                <div className="flex items-center gap-2 text-xs text-slate-400 font-mono">
+                  <MapPin className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Central Depot Address: {BRAND.gbpAddress.streetAddress}, {BRAND.gbpAddress.addressLocality} ({BRAND.gbpAddress.postalCode})</span>
+                </div>
+              </div>
+            </section>
+
             {/* H2: Secondary Category 2 */}
             <section className="space-y-4 bg-slate-900/40 p-8 rounded-3xl border border-slate-800">
               <h2 className="text-2xl font-serif font-bold text-white">
-                Garden Drainage Solutions for Clay Soil & Wet Glasgow Weather in {suburb.name}
+                Garden Drainage Solutions for Clay Soil & Wet Weather in {suburb.name}
               </h2>
               <p className="text-slate-200 text-base leading-relaxed border-l-2 border-emerald-500/40 pl-3">
                 Heavy clay deposits in {suburb.name} require deep sub-base excavation (250mm–300mm) combined with non-woven geotextile separation membranes and high-flow ACO slot channels to ensure lifetime water drainage.
@@ -152,7 +221,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
             <div className="space-y-2">
               <h3 className="text-xl font-serif font-bold text-white">Book Your {suburb.name} Site Survey</h3>
               <p className="text-slate-300 text-sm max-w-xl">
-                Get a fixed-price written quote with laser level falls calculation and 10-year structural warranty.
+                Get a fixed-price written quote with laser level falls calculation and 10-year structural warranty from Riverside Landscaping.
               </p>
             </div>
             <Link

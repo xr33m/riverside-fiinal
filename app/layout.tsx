@@ -3,9 +3,9 @@ import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Arden Works | Bespoke Patios & Landscaping Glasgow',
-  description: 'Bespoke patios and engineered landscaping for Greater Glasgow, Bearsden, Newton Mearns and surrounding areas.',
-  generator: 'Arden Works',
+  title: 'Riverside Landscaping | Bespoke Patios, Driveways & Drainage Glasgow & Ayrshire',
+  description: 'Expert landscaping, porcelain paving, driveway installation, and heavy clay soil drainage across Greater Glasgow & Ayrshire. 10+ years experience. Free quotes.',
+  generator: 'Riverside Landscaping',
   icons: {
     icon: [
       {

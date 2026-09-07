@@ -37,11 +37,11 @@ import {
  * Business Configuration & Postcode Rules
  * ------------------------------------------------------------------ */
 const BRAND = {
-  name: 'Arden Works',
-  phoneDisplay: '0141 370 8921',
-  phoneHref: 'tel:+441413708921',
-  emailDisplay: 'surveys@ardenworks.co.uk',
-  emailHref: 'mailto:surveys@ardenworks.co.uk',
+  name: 'Riverside Landscaping',
+  phoneDisplay: '07507 604713',
+  phoneHref: 'tel:+447507604713',
+  emailDisplay: 'info@riverside-landscaping.co.uk',
+  emailHref: 'mailto:info@riverside-landscaping.co.uk',
 }
 
 const goals = ['Fix drainage & clay soil', 'Winter patio & hardscaping', 'Spring installation reservation']

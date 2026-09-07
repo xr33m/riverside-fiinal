@@ -494,8 +494,6 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
               className="hero-video-element"
             >
               <source src={winter ? '/videos/hero-winter.mp4' : '/videos/hero.mp4'} type="video/mp4" />
-              <source src={winter ? '/videos/higgsfield-hero-winter.mp4' : '/videos/higgsfield-hero-summer.mp4'} type="video/mp4" />
-              <source src={winter ? '/videos/higgsfield-hero-winter.webm' : '/videos/higgsfield-hero-summer.webm'} type="video/webm" />
             </video>
           </motion.div>
 

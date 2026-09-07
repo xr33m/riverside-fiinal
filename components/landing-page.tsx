@@ -541,6 +541,14 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
 function Proof() {
   const [pos, setPos] = useState(51)
   const ref = useRef<HTMLDivElement>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const reduceMotion = useReducedMotion()
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ['start end', 'end start'],
+  })
+  const yCompare = useTransform(scrollYProgress, [0, 1], [reduceMotion ? '0%' : '6%', reduceMotion ? '0%' : '-6%'])
 
   const setFromClientX = (clientX: number) => {
     if (!ref.current) return
@@ -565,7 +573,7 @@ function Proof() {
   }
 
   return (
-    <section id="proof" className="section proof-section">
+    <section ref={sectionRef} id="proof" className="section proof-section">
       <div className="section-intro">
         <p className="eyebrow">Proof, not promises</p>
         <h2>
@@ -577,40 +585,58 @@ function Proof() {
         </p>
       </div>
 
-      <div
-        ref={ref}
-        onPointerMove={(e) => {
-          if (e.buttons === 1 || e.pointerType === 'mouse') setFromClientX(e.clientX)
-        }}
-        onPointerDown={(e) => setFromClientX(e.clientX)}
-        onKeyDown={onKeyDown}
-        className="compare"
-        role="slider"
-        tabIndex={0}
-        aria-label="Before and after garden comparison. Use left and right arrow keys to reveal."
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(pos)}
-        aria-valuetext={`${Math.round(pos)}% before image shown`}
-      >
-        <img src="/images/garden-after.png" alt="Finished porcelain patio with perimeter drainage" />
-        <div className="compare-before" style={{ width: `${pos}%` }}>
-          <img src="/images/garden-before.png" alt="Waterlogged clay garden before landscaping" />
+      <motion.div style={{ y: yCompare }}>
+        <div
+          ref={ref}
+          onPointerMove={(e) => {
+            if (e.buttons === 1 || e.pointerType === 'mouse') setFromClientX(e.clientX)
+          }}
+          onPointerDown={(e) => setFromClientX(e.clientX)}
+          onKeyDown={onKeyDown}
+          className="compare"
+          role="slider"
+          tabIndex={0}
+          aria-label="Before and after garden comparison. Use left and right arrow keys to reveal."
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(pos)}
+          aria-valuetext={`${Math.round(pos)}% before image shown`}
+        >
+          <img src="/images/garden-after.png" alt="Finished porcelain patio with perimeter drainage" />
+          <div className="compare-before" style={{ width: `${pos}%` }}>
+            <img src="/images/garden-before.png" alt="Waterlogged clay garden before landscaping" />
+          </div>
+          <div className="compare-handle" style={{ left: `${pos}%` }}>
+            <span>Drag</span>
+            <div />
+          </div>
+          <span className="compare-label before">Before</span>
+          <span className="compare-label after">After</span>
+          <div className="metric">
+            <Droplets size={18} />
+            <strong>100%</strong>
+            <span>sub-surface water mitigation</span>
+          </div>
         </div>
-        <div className="compare-handle" style={{ left: `${pos}%` }}>
-          <span>Drag</span>
-          <div />
-        </div>
-        <span className="compare-label before">Before</span>
-        <span className="compare-label after">After</span>
-        <div className="metric">
-          <Droplets size={18} />
-          <strong>100%</strong>
-          <span>sub-surface water mitigation</span>
-        </div>
-      </div>
+      </motion.div>
       <p className="slider-note">Drag, or focus the image and use ← → keys to reveal</p>
     </section>
+  )
+}
+
+/* ------------------------------------------------------------------ *
+ * Reusable Scroll Parallax Wrapper (alternating drift per card)
+ * ------------------------------------------------------------------ */
+function ParallaxCard({ children, strength = 24 }: { children: React.ReactNode; strength?: number }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const reduceMotion = useReducedMotion()
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] })
+  const y = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : [strength, -strength])
+
+  return (
+    <motion.div ref={ref} style={{ y }}>
+      {children}
+    </motion.div>
   )
 }
 
@@ -651,39 +677,40 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
       </div>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
-        {filtered.map((item) => (
-          <article
-            key={item.id}
-            onClick={() => setSelectedItem(item)}
-            className="group cursor-pointer border border-border bg-background p-4 shadow-sm transition-all hover:border-accent hover:shadow-md"
-          >
-            <div className="relative h-64 overflow-hidden">
-              <img
-                src={item.imageAfter}
-                alt={item.title}
-                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute left-3 top-3 rounded bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
-                {item.area} ({item.postcode})
+        {filtered.map((item, i) => (
+          <ParallaxCard key={item.id} strength={i % 2 === 0 ? 22 : -22}>
+            <article
+              onClick={() => setSelectedItem(item)}
+              className="group cursor-pointer border border-border bg-background p-4 shadow-sm transition-all hover:border-accent hover:shadow-md"
+            >
+              <div className="relative h-64 overflow-hidden">
+                <img
+                  src={item.imageAfter}
+                  alt={item.title}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute left-3 top-3 rounded bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">
+                  {item.area} ({item.postcode})
+                </div>
+                <div className="absolute bottom-3 right-3 rounded bg-accent px-3 py-1 text-xs font-bold text-white shadow">
+                  {item.metric}
+                </div>
               </div>
-              <div className="absolute bottom-3 right-3 rounded bg-accent px-3 py-1 text-xs font-bold text-white shadow">
-                {item.metric}
+              <div className="mt-4">
+                <h3 className="font-serif text-xl font-bold text-primary group-hover:text-accent transition-colors">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">{item.description}</p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {item.specs.slice(0, 3).map((spec) => (
+                    <span key={spec} className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-foreground">
+                      ✓ {spec}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="mt-4">
-              <h3 className="font-serif text-xl font-bold text-primary group-hover:text-accent transition-colors">
-                {item.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">{item.description}</p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {item.specs.slice(0, 3).map((spec) => (
-                  <span key={spec} className="rounded bg-muted px-2.5 py-1 text-xs font-medium text-foreground">
-                    ✓ {spec}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </article>
+            </article>
+          </ParallaxCard>
         ))}
       </div>
 
@@ -1120,14 +1147,18 @@ export default function LandingPage() {
         <Proof />
 
         <section className="offseason">
-          <div>
-            <p className="eyebrow text-accent">Winter Bookings Open · Guaranteed Start Dates</p>
-            <h2>Beat the 12-week spring backlog.</h2>
-            <p>Lock in current material prices and book winter hardscaping while installation calendars remain clear.</p>
-          </div>
-          <button onClick={() => openSurvey('banner')} className="button-light">
-            Reserve your survey <ArrowRight size={17} />
-          </button>
+          <ParallaxCard strength={16}>
+            <div>
+              <p className="eyebrow text-accent">Winter Bookings Open · Guaranteed Start Dates</p>
+              <h2>Beat the 12-week spring backlog.</h2>
+              <p>Lock in current material prices and book winter hardscaping while installation calendars remain clear.</p>
+            </div>
+          </ParallaxCard>
+          <ParallaxCard strength={-16}>
+            <button onClick={() => openSurvey('banner')} className="button-light">
+              Reserve your survey <ArrowRight size={17} />
+            </button>
+          </ParallaxCard>
         </section>
 
         <PortfolioShowcase onSurvey={openSurvey} />

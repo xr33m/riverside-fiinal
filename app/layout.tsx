@@ -5,7 +5,7 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Arden Works | Bespoke Patios & Landscaping Glasgow',
   description: 'Bespoke patios and engineered landscaping for Greater Glasgow, Bearsden, Newton Mearns and surrounding areas.',
-  generator: 'v0.app',
+  generator: 'Arden Works',
   icons: {
     icon: [
       {
@@ -39,10 +39,10 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">
+    <html lang="en" suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         {children}
-        {process.env.NODE_ENV === 'production' && <Analytics />}
+        {process.env.NODE_ENV === 'production' && process.env.VERCEL && <Analytics />}
       </body>
     </html>
   )

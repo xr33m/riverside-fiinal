@@ -370,11 +370,13 @@ function Header({ onSurvey }: { onSurvey: (source: string) => void }) {
           <small>LANDSCAPE ENGINEERING</small>
         </span>
       </a>
-      <nav className="hidden items-center gap-7 md:flex">
+      <nav className="hidden items-center gap-6 md:flex text-sm">
+        <a href="/landscaping-services" className="hover:text-accent font-medium">Services</a>
+        <a href="/locations" className="hover:text-accent font-medium">Locations</a>
+        <a href="/knowledge-base" className="hover:text-accent font-medium">Guides</a>
         <a href="#proof" className="hover:text-accent">Proof &amp; Drainage</a>
         <a href="#portfolio" className="hover:text-accent">Portfolio</a>
-        <a href="#process" className="hover:text-accent">Our Process</a>
-        <a href="#materials" className="hover:text-accent">Materials</a>
+        <a href="#process" className="hover:text-accent">Process</a>
         <a href="#faq" className="hover:text-accent">FAQs</a>
         <a
           href={BRAND.phoneHref}
@@ -983,6 +985,113 @@ function FAQ() {
 }
 
 /* ------------------------------------------------------------------ *
+ * Interactive ROI & Property Value Boost Estimator
+ * ------------------------------------------------------------------ */
+function RoiCalculator({ onSurvey }: { onSurvey: (source: string) => void }) {
+  const [sizeM2, setSizeM2] = useState(50)
+  const [condition, setCondition] = useState<'clay' | 'old' | 'turf'>('clay')
+
+  const valueBoostMin = Math.round(sizeM2 * 260)
+  const valueBoostMax = Math.round(sizeM2 * 410)
+  const maintenanceSavings = Math.round(sizeM2 * 65)
+
+  return (
+    <section id="calculator" className="section roi-section border-t border-border">
+      <div className="grid gap-10 md:grid-cols-12 items-center">
+        <div className="md:col-span-6">
+          <p className="eyebrow text-accent">Home Equity &amp; Value Estimator</p>
+          <h2 className="font-serif text-3xl text-primary sm:text-4xl">
+            Calculate your property investment &amp; return.
+          </h2>
+          <p className="mt-3 text-muted-foreground leading-relaxed">
+            High-end porcelain outdoor living spaces in Bearsden (G61) and Newton Mearns (G77) consistently yield strong resale premiums while eliminating recurring lawn maintenance expenses.
+          </p>
+
+          <div className="mt-8 grid gap-6">
+            <div>
+              <div className="flex justify-between items-center text-sm font-bold text-primary">
+                <label htmlFor="area-slider">Estimated Garden / Patio Area:</label>
+                <span className="rounded bg-primary px-3 py-1 text-xs text-primary-foreground font-mono">{sizeM2} m²</span>
+              </div>
+              <input
+                id="area-slider"
+                type="range"
+                min="20"
+                max="150"
+                step="5"
+                value={sizeM2}
+                onChange={(e) => {
+                  setSizeM2(Number(e.target.value))
+                  trackEvent('calculator_change', { size: e.target.value })
+                }}
+                className="mt-3 w-full accent-accent cursor-pointer"
+              />
+              <div className="flex justify-between text-[11px] text-muted-foreground mt-1">
+                <span>20 m² (Compact Terrace)</span>
+                <span>80 m² (Standard Patio)</span>
+                <span>150 m² (Estate Grounds)</span>
+              </div>
+            </div>
+
+            <div>
+              <label className="text-sm font-bold text-primary block mb-2">Current Garden State:</label>
+              <div className="grid grid-cols-3 gap-2">
+                {[
+                  ['clay', 'Waterlogged Clay'],
+                  ['old', 'Old Slabs'],
+                  ['turf', 'Sloped Lawn'],
+                ].map(([id, label]) => (
+                  <button
+                    key={id}
+                    onClick={() => setCondition(id as any)}
+                    className={`border p-3 text-xs font-bold transition-all text-center ${
+                      condition === id ? 'border-accent bg-accent/10 text-primary' : 'border-border bg-background text-muted-foreground hover:border-primary'
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="md:col-span-6 border border-primary/20 bg-primary text-primary-foreground p-8 rounded shadow-xl flex flex-col justify-between">
+          <div>
+            <div className="flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-wider">
+              <Calculator size={16} /> <span>Estimated Investment Impact (Glasgow Suburbs)</span>
+            </div>
+
+            <div className="mt-6 border-b border-primary-foreground/10 pb-6">
+              <span className="text-xs text-primary-foreground/70 block">Estimated Resale Equity Increase</span>
+              <p className="font-serif text-4xl text-accent font-bold mt-1">
+                +£{valueBoostMin.toLocaleString()} – £{valueBoostMax.toLocaleString()}
+              </p>
+              <p className="text-xs text-primary-foreground/60 mt-1">Based on 5%–10% property value enhancement for luxury outdoor living</p>
+            </div>
+
+            <div className="mt-6">
+              <span className="text-xs text-primary-foreground/70 block">10-Year Sub-Surface Maintenance Savings</span>
+              <p className="font-serif text-3xl text-white font-bold mt-1">
+                £{maintenanceSavings.toLocaleString()} Saved
+              </p>
+              <p className="text-xs text-primary-foreground/60 mt-1">Eliminates re-turfing, drainage pumping, &amp; cracked slab repairs</p>
+            </div>
+          </div>
+
+          <div className="mt-8 border-t border-primary-foreground/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <span className="text-xs text-primary-foreground/80 font-bold">10-Year Structural Guarantee Included</span>
+            <button onClick={() => onSurvey('roi-calculator')} className="button-clay text-xs w-full sm:w-auto">
+              Lock In Survey Quote <ArrowRight size={14} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ *
  * Main Landing Page Component Export
  * ------------------------------------------------------------------ */
 export default function LandingPage() {
@@ -1028,6 +1137,7 @@ export default function LandingPage() {
         <MaterialSelector />
         <TestimonialsShowcase />
         <CoverageChecker onSurvey={openSurvey} />
+        <RoiCalculator onSurvey={openSurvey} />
         <FAQ />
       </main>
 
@@ -1048,8 +1158,12 @@ export default function LandingPage() {
           <a href={BRAND.emailHref}>{BRAND.emailDisplay}</a>
         </div>
         <div>
-          <p className="font-bold text-foreground">Serving Greater Glasgow</p>
-          <p>Bearsden · Newton Mearns<br />Clarkston · Giffnock · Milngavie</p>
+          <p className="font-bold text-foreground">Glasgow Physical Silos</p>
+          <div className="flex flex-col gap-1 text-xs text-muted-foreground pt-1">
+            <a href="/landscaping-services" className="hover:text-accent font-mono">/landscaping-services/</a>
+            <a href="/locations" className="hover:text-accent font-mono">/locations/</a>
+            <a href="/knowledge-base" className="hover:text-accent font-mono">/knowledge-base/</a>
+          </div>
         </div>
       </footer>
 

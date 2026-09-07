@@ -24,6 +24,7 @@ export type AnalyticsEvent =
   | 'survey_validation_error'
   | 'survey_submit'
   | 'survey_complete'
+  | 'calculator_change'
 
 export function trackEvent(
   name: AnalyticsEvent,

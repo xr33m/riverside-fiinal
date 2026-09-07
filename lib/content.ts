@@ -1,6 +1,6 @@
 /**
  * Shared marketing content & technical specifications for Arden Works / Riverside Landscaping.
- * Used across client components and server JSON-LD schemas.
+ * Follows SEO_GEO_STRATEGY.md physical siloing and JSON-LD schema requirements.
  */
 
 export interface PortfolioItem {
@@ -45,18 +45,53 @@ export interface SuburbCoverage {
   soilProfile: string
   keyChallenge: string
   highlightInstall: string
+  accessProfile: string
+  titleTag: string
 }
 
-// Suburb coverage database for Glasgow High-End Suburbs
+export interface ServiceDetail {
+  slug: string
+  name: string
+  category: string
+  primaryCategory: string
+  h1Title: string
+  h2Secondary1: string
+  h2Secondary2: string
+  h2PainPoint: string
+  directAnswer3Sec: string
+  soilContext: string
+  bsStandard: string
+  features: string[]
+  faqs: { question: string; answer: string }[]
+  titleTag: string
+}
+
+export interface KnowledgeArticle {
+  slug: string
+  title: string
+  category: string
+  publishDate: string
+  readingTime: string
+  summary: string
+  directAnswer3Sec: string
+  sections: { h2: string; directAnswer?: string; content: string }[]
+  relatedServiceSlug: string
+  relatedServiceAnchor: string
+  titleTag: string
+}
+
+// Suburb coverage database for Glasgow High-End Suburbs & GEO Silo
 export const SUBURBS: SuburbCoverage[] = [
   {
     slug: 'bearsden',
     name: 'Bearsden',
     postcodePrefix: 'G61',
     council: 'East Dunbartonshire',
-    soilProfile: 'Heavy Boulder Clay',
+    soilProfile: 'Heavy Boulder Clay & Glacial Till',
     keyChallenge: 'High rainfall retention causing boggy lawns and flooded patio edges.',
     highlightInstall: 'Deep MOT Type 1 sub-base with perimeter slot drainage & Italian 20mm porcelain.',
+    accessProfile: 'Suburban driveways & open side access allowing micro-excavator access.',
+    titleTag: "BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'newton-mearns',
@@ -66,6 +101,19 @@ export const SUBURBS: SuburbCoverage[] = [
     soilProfile: 'Dense Clay with Shallow Water Table',
     keyChallenge: 'Low water absorption leading to surface pooling during Glasgow winter storms.',
     highlightInstall: 'Geotextile fabric layer + sub-surface land drain channeling to mains soakaway.',
+    accessProfile: 'Wide suburban plots with direct access suitable for heavy aggregate machinery.',
+    titleTag: "BEST Landscaping Newton Mearns - If you're looking for patio installers near me or driveway installers near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'west-end-glasgow',
+    name: 'West End Glasgow',
+    postcodePrefix: 'G12',
+    council: 'Glasgow City Council',
+    soilProfile: 'Mixed Clay, Silt & Historical Backfill',
+    keyChallenge: 'Restricted tenement rear lane access, tight plot boundaries, and high water table retention.',
+    highlightInstall: 'Compact excavator access, flush threshold slot drains, and precision diamond-cut vitrified porcelain.',
+    accessProfile: 'Narrow rear lane access and shared tenement pend tight clearance handling.',
+    titleTag: "BEST Patio Installers West End Glasgow - If you're looking for porcelain paving near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'giffnock',
@@ -75,6 +123,8 @@ export const SUBURBS: SuburbCoverage[] = [
     soilProfile: 'Sloped Clay Glacial Till',
     keyChallenge: 'Water run-off towards house foundations and garden boundary walls.',
     highlightInstall: 'Retaining wall engineering with integrated catch basins & frost-proof mortar.',
+    accessProfile: 'Elevated terraced gardens requiring calculated slope drainage falls.',
+    titleTag: "BEST Hardscaping Giffnock - If you're looking for patio installers near me or retaining wall builders near me - Apex Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'clarkston',
@@ -84,6 +134,8 @@ export const SUBURBS: SuburbCoverage[] = [
     soilProfile: 'Compacted Heavy Clay',
     keyChallenge: 'Slab movement and joint degradation caused by frost heave.',
     highlightInstall: 'BS7533-compliant rigid pavement installation with zero water retention.',
+    accessProfile: 'Established residential driveways requiring load-certified aggregate sub-bases.',
+    titleTag: "BEST Driveway Installers Clarkston - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'milngavie',
@@ -93,6 +145,183 @@ export const SUBURBS: SuburbCoverage[] = [
     soilProfile: 'Mixed Clay & Silt Soil',
     keyChallenge: 'Slippery moss accumulation on traditional porous stone slabs.',
     highlightInstall: 'Non-porous vitrified porcelain paving with R11 anti-slip textured finish.',
+    accessProfile: 'Mature garden boundaries requiring careful root zone preservation.',
+    titleTag: "BEST Porcelain Paving Milngavie - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+]
+
+// Transactional Services Database matching physical silo /landscaping-services/
+export const SERVICES: ServiceDetail[] = [
+  {
+    slug: 'porcelain-paving-glasgow',
+    name: 'Porcelain Paving & Patio Installation',
+    category: 'Landscaping Services',
+    primaryCategory: 'Porcelain Paving',
+    h1Title: 'Porcelain Paving & Patio Installation in Glasgow',
+    h2Secondary1: 'Driveway Installers & Hardscaping Near Me',
+    h2Secondary2: 'Garden Drainage Solutions for Clay Soil & Wet Glasgow Weather',
+    h2PainPoint: 'Preventing Waterlogging & Frost Heave on Glasgow Clay Soil',
+    directAnswer3Sec: 'A standard 40m² porcelain patio in Glasgow takes 5 to 7 working days to complete, including excavation, 150mm-200mm sub-base compaction, and weather-sheltered BS7533 mortar installation.',
+    soilContext: 'Glasgow clay soil expands rapidly during wet winters. We excavate 250mm to 300mm deep, laying non-woven geotextile membrane under 150mm-200mm of MOT Type 1 aggregate to prevent sinking or shifting.',
+    bsStandard: 'Strictly built to BS7533 standards with full-bed polymer slurry priming and rapid-setting frost-proof mortars for year-round durability.',
+    features: [
+      'Italian 20mm Vitrified R11 Anti-Slip Porcelain Slabs',
+      'BS7533 Polymer Slurry Primer Adhesion Layer',
+      '150mm–200mm MOT Type 1 Sub-Base Compaction',
+      'Integrated Sub-Surface ACO Slot Drainage Channels',
+      '10-Year Written Structural Guarantee Certificate',
+    ],
+    faqs: [
+      {
+        question: 'Can you lay porcelain paving during Glasgow winters?',
+        answer: 'Yes. We use rapid-setting frost-proof mortars and weather-sheltered working rigs. As long as ground temps remain above 0°C, hardscaping can safely continue through winter.',
+      },
+      {
+        question: 'How thick is the sub-base required for heavy Glasgow clay soil?',
+        answer: 'Heavy Glasgow clay requires a 150mm to 200mm compacted MOT Type 1 sub-base lined with a non-woven geotextile membrane to isolate clay movement.',
+      },
+      {
+        question: 'What is the cost per m² for porcelain paving in Glasgow?',
+        answer: 'Fully installed vitrified porcelain paving in Glasgow ranges between £120 and £180 per m² depending on site levels, drainage setup, and material specs.',
+      },
+    ],
+    titleTag: "BEST Porcelain Paving Glasgow - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'driveway-installers-glasgow',
+    name: 'Driveway Installation & Hardscaping',
+    category: 'Landscaping Services',
+    primaryCategory: 'Driveway Installation',
+    h1Title: 'Driveway Installers & Permeable Block Paving in Glasgow',
+    h2Secondary1: 'Porcelain Paving & Patio Installers Near Me',
+    h2Secondary2: 'Retaining Walls & Heavy Vehicle Load Foundations',
+    h2PainPoint: 'Engineered Driveways Built to Withstand Scottish Rain & Frost Cycles',
+    directAnswer3Sec: 'Our Glasgow driveway installations take 4 to 6 days for a 60m² area, utilizing heavy vehicle load-rated foundations, permeable block paving, and integrated perimeter water channels.',
+    soilContext: 'Scottish glacial till and clay require 200mm-250mm of crushed aggregate foundation with geotextile isolation to prevent tire rutting and surface subsidence.',
+    bsStandard: 'Complies with BS7533 structural paving requirements, featuring load-bearing aggregate beds and high-adhesion edge restraints.',
+    features: [
+      'Heavy Load-Bearing 200mm+ MOT Sub-Base',
+      'Permeable Block Paving & Scottish Whinstone Coping',
+      'ACO Channel Drainage Connected to Mains Soakaways',
+      'Concrete Kerb Edge Restraints Set in Full Beds',
+      '10-Year Load & Settlement Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'Do I need planning permission for a new driveway in Glasgow?',
+        answer: 'Driveways using permeable block paving or discharging water onto your lawn do not require planning permission in Glasgow. We handle SUDS compliance on every build.',
+      },
+      {
+        question: 'How long does a block paving driveway take to install?',
+        answer: 'A standard 50m²–80m² driveway takes 4 to 6 working days, from initial sub-base excavation to final silica sand jointing.',
+      },
+    ],
+    titleTag: "BEST Driveway Installers Glasgow - If you're looking for block paving near me or resin driveways near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'garden-drainage-solutions-glasgow',
+    name: 'Garden Drainage & Land Drainage Engineering',
+    category: 'Landscaping Services',
+    primaryCategory: 'Garden Drainage Solutions',
+    h1Title: 'Garden Drainage Solutions for Clay Soil in Glasgow',
+    h2Secondary1: 'Sub-Surface Land Drains & Perimeter Slot Channels',
+    h2Secondary2: 'Porcelain Patios with Integrated Water Mitigation',
+    h2PainPoint: 'Eliminating Waterlogged Lawns & Standing Water in Wet Weather',
+    directAnswer3Sec: 'Glasgow garden drainage systems resolve waterlogged clay soils in 2 to 4 days using deep perforated land drain piping, wrapped in clean gravel and non-woven geotextile fleece.',
+    soilContext: 'Glasgow receives over 1,200mm of annual rainfall on non-porous clay soil. Our French drain networks and catch basins divert water away from house footings directly into approved soakaways.',
+    bsStandard: 'Engineered in accordance with British Building Regulations Part H for gravity drainage and surface water discharge compliance.',
+    features: [
+      'Deep French Drain Networks & Perforated Pipe Runs',
+      'Geotextile Fleece Wrapping to Prevent Silt Clogging',
+      'High-Volume Catch Basins & Underground Silt Traps',
+      'Perimeter Slot Drains Flush with Patio Thresholds',
+      '10-Year Water Mitigation Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'How do you fix a waterlogged garden in Glasgow?',
+        answer: 'We install sub-surface land drains wrapped in geotextile filter socks and 20mm clean gravel, redirecting groundwater into high-capacity soakaway crates.',
+      },
+      {
+        question: 'Will land drains work in heavy Glasgow boulder clay?',
+        answer: 'Yes. By excavating through the clay crust and surrounding pipes with porous aggregate, groundwater flows freely without back-pooling.',
+      },
+    ],
+    titleTag: "BEST Garden Drainage Solutions Glasgow - If you're looking for land drains near me or patio drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'decking-fencing-glasgow',
+    name: 'Composite Decking & Architectural Fencing',
+    category: 'Landscaping Services',
+    primaryCategory: 'Decking & Fencing',
+    h1Title: 'Composite Decking & Architectural Slatted Fencing in Glasgow',
+    h2Secondary1: 'Porcelain Paving & Terraced Hardscaping Near Me',
+    h2Secondary2: 'Weatherproof Composite Framing & Privacy Screens',
+    h2PainPoint: 'Rot-Proof Outdoor Living Built for Damp Scottish Climates',
+    directAnswer3Sec: 'Composite decking and cedar-style slatted fencing installations take 3 to 5 days, utilizing sub-frame aluminum substructures that resist rot in damp Glasgow climates.',
+    soilContext: 'High atmospheric moisture in Glasgow rots traditional timber posts. We set structural posts in 600mm deep concrete footings with sub-surface drainage sleeves.',
+    bsStandard: 'Built using structural grade C24 treated timber or rot-proof aluminum joists anchored with stainless steel fixings.',
+    features: [
+      'Ultra-Low Maintenance Composite Deck Boards',
+      'Rot-Proof Aluminum & C24 Sub-Frame Framing',
+      'Contemporary Cedar Slatted Privacy Fencing',
+      'Integrated Under-Deck Drainage Systems',
+      '15-Year Manufacturer & 10-Year Workmanship Warranty',
+    ],
+    faqs: [
+      {
+        question: 'Does composite decking get slippery in Glasgow winters?',
+        answer: 'Quality composite decking features anti-slip woodgrain texturing and non-porous capping, preventing algae build-up and remaining safe to walk on year-round.',
+      },
+    ],
+    titleTag: "BEST Composite Decking Glasgow - If you're looking for fence builders near me or timber decking near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+  },
+]
+
+// Informational Articles Database for /knowledge-base/
+export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
+  {
+    slug: 'cost-guides',
+    title: 'How Much Does a Patio Cost in Glasgow? [2026 Price Breakdown]',
+    category: 'Cost Guides',
+    publishDate: '2026-01-15',
+    readingTime: '6 min read',
+    summary: 'Comprehensive 2026 cost breakdown for porcelain paving, excavation, sub-base prep, and drainage in Glasgow suburbs.',
+    directAnswer3Sec: 'A fully installed porcelain patio in Glasgow costs between £120 and £180 per m² in 2026, including excavation of clay soil, 150mm MOT Type 1 sub-base, slurry priming, and resin grouting.',
+    sections: [
+      {
+        h2: 'Average Cost per m² for Glasgow Patios',
+        directAnswer: 'Standard 40m² porcelain patio projects in Glasgow range from £4,800 to £7,200 total, depending on ground levels, access conditions, and slot drainage requirements.',
+        content: 'When budgeting for hardscaping in Glasgow suburbs like Bearsden or Newton Mearns, material selection is only one part of the calculation. Heavy clay soil excavation, waste disposal, and MOT Type 1 aggregate delivery represent approximately 40% of overall project costs.',
+      },
+      {
+        h2: 'Why Glasgow Clay Soil Increases Sub-Base Prep Costs',
+        directAnswer: 'Glasgow clay soil requires 250mm to 300mm deep excavation to prevent frost heave, adding aggregate depth and labor compared to standard UK sandy sub-grades.',
+        content: 'Failing to dig deep enough into Scottish till results in cracked paving within two winter cycles. Professional landscapers use geotextile separation membranes and high-compaction rollers to ensure structural stability.',
+      },
+    ],
+    relatedServiceSlug: 'porcelain-paving-glasgow',
+    relatedServiceAnchor: 'Read our full Glasgow porcelain paving installation process',
+    titleTag: "Patio Installation Cost Glasgow 2026 - Porcelain Paving Price Guide - Apex Landscaping",
+  },
+  {
+    slug: 'glasgow-garden-maintenance',
+    title: 'Glasgow Garden Maintenance & Winter Hardscaping Care',
+    category: 'Maintenance & Care',
+    publishDate: '2026-02-01',
+    readingTime: '5 min read',
+    summary: 'Essential guide to protecting vitrified porcelain, drainage channels, and mortar joints during harsh Scottish winters.',
+    directAnswer3Sec: 'Maintain porcelain paving in Glasgow by clearing leaves in autumn, cleaning drainage slots twice annually, and applying rock salt alternatives during sub-zero freezing spells.',
+    sections: [
+      {
+        h2: 'Protecting Porcelain Paving Against Winter Frost',
+        directAnswer: 'Vitrified porcelain has an ultra-low water absorption rate (<0.05%), meaning ice cannot penetrate the slab, preventing frost cracking and spalling.',
+        content: 'Unlike porous sandstone or concrete flags, vitrified porcelain will not absorb surface moisture. Ensure jointing mortar remains free of organic debris to maintain maximum water shedding into perimeter channels.',
+      },
+    ],
+    relatedServiceSlug: 'garden-drainage-solutions-glasgow',
+    relatedServiceAnchor: 'Explore our Glasgow garden drainage solutions',
+    titleTag: "Glasgow Garden Maintenance & Winter Care Guide - Apex Landscaping",
   },
 ]
 
@@ -273,3 +502,60 @@ export const PROCESS_STEPS = [
     details: ['Precision diamond cuts', 'Weather-proof resin grouting', '10-Year structural certificate'],
   },
 ]
+
+/**
+ * JSON-LD Schema Generator Engine conforming strictly to SEO_GEO_STRATEGY.md (Section 4)
+ */
+export function generateGraphSchema(pageUrl: string, faqItems: { question: string; answer: string }[] = []) {
+  const schemaFaqs = faqItems.length > 0 ? faqItems : faqs.map(([question, answer]) => ({ question, answer }))
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'LandscapingBusiness',
+        '@id': 'https://ardenworks.co.uk/#business',
+        'name': 'Apex Landscaping Glasgow / Arden Works',
+        'url': 'https://ardenworks.co.uk',
+        'telephone': '+441410000000',
+        'priceRange': '££-£££',
+        'address': {
+          '@type': 'PostalAddress',
+          'streetAddress': 'Great Western Road',
+          'addressLocality': 'Glasgow',
+          'postalCode': 'G12 8QQ',
+          'addressCountry': 'GB',
+        },
+        'geo': {
+          '@type': 'GeoCoordinates',
+          'latitude': 55.8642,
+          'longitude': -4.2518,
+        },
+        'areaServed': SUBURBS.map((s) => ({
+          '@type': 'Place',
+          'name': `${s.name}, Glasgow`,
+        })),
+        'knowsAbout': [
+          'Porcelain Paving',
+          'Sub-Base Garden Drainage',
+          'Scottish Whinstone Retaining Walls',
+          'Driveway Installation',
+          'Winter Hardscaping',
+          'BS7533 Pavement Engineering',
+        ],
+      },
+      {
+        '@type': 'FAQPage',
+        '@id': `${pageUrl}#faq`,
+        'mainEntity': schemaFaqs.map((f) => ({
+          '@type': 'Question',
+          'name': f.question,
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': f.answer,
+          },
+        })),
+      },
+    ],
+  }
+}

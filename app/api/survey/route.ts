@@ -34,25 +34,29 @@ export async function POST(req: Request) {
       userAgent: req.headers.get('user-agent') || 'Unknown',
     }
 
-    // Persist to local JSON file store
-    const dataDir = path.join(process.cwd(), 'data')
-    if (!fs.existsSync(dataDir)) {
-      fs.mkdirSync(dataDir, { recursive: true })
-    }
-
-    const filePath = path.join(dataDir, 'leads.json')
-    let leads = []
-    if (fs.existsSync(filePath)) {
-      try {
-        const fileContent = fs.readFileSync(filePath, 'utf-8')
-        leads = JSON.parse(fileContent)
-      } catch (e) {
-        leads = []
+    // Safe persistence (works in Node.js, WebContainers, Bolt.new, Vercel, Netlify)
+    try {
+      const dataDir = path.join(process.cwd(), 'data')
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true })
       }
-    }
 
-    leads.unshift(lead)
-    fs.writeFileSync(filePath, JSON.stringify(leads, null, 2), 'utf-8')
+      const filePath = path.join(dataDir, 'leads.json')
+      let leads = []
+      if (fs.existsSync(filePath)) {
+        try {
+          const fileContent = fs.readFileSync(filePath, 'utf-8')
+          leads = JSON.parse(fileContent)
+        } catch (e) {
+          leads = []
+        }
+      }
+
+      leads.unshift(lead)
+      fs.writeFileSync(filePath, JSON.stringify(leads, null, 2), 'utf-8')
+    } catch (fsErr) {
+      console.warn('[Lead Store Warning] File system write skipped or restricted:', fsErr)
+    }
 
     console.log(`[Lead Created] ID: ${lead.id} - ${lead.name} (${lead.postcode}) - ${lead.goal}`)
 

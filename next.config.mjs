@@ -8,26 +8,31 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Standard Legacy Page 301 Redirects
-      { source: '/services.html', destination: '/services', permanent: true },
-      { source: '/services', destination: '/#services', permanent: true },
+      // Physical Silo Category Hub Redirects
+      { source: '/services.html', destination: '/landscaping-services', permanent: true },
+      { source: '/services', destination: '/landscaping-services', permanent: true },
+      { source: '/services/:slug*', destination: '/landscaping-services/:slug*', permanent: true },
+
+      // GEO Location Silo Redirects
+      { source: '/areas.html', destination: '/locations', permanent: true },
+      { source: '/areas', destination: '/locations', permanent: true },
+      { source: '/areas/:slug*', destination: '/locations/:slug*', permanent: true },
+
+      // Legacy Service Specific Redirects
+      { source: '/porcelain-paving', destination: '/landscaping-services/porcelain-paving-glasgow', permanent: true },
+      { source: '/garden-drainage', destination: '/landscaping-services/garden-drainage-solutions-glasgow', permanent: true },
+      { source: '/driveways', destination: '/landscaping-services/driveway-installers-glasgow', permanent: true },
+      { source: '/landscaping-bearsden', destination: '/locations/bearsden', permanent: true },
+      { source: '/patios-newton-mearns', destination: '/locations/newton-mearns', permanent: true },
+      { source: '/driveways-giffnock', destination: '/locations/giffnock', permanent: true },
+
+      // General Page Anchor Redirects
       { source: '/contact.html', destination: '/#contact', permanent: true },
       { source: '/contact', destination: '/#contact', permanent: true },
-      { source: '/about.html', destination: '/#about', permanent: true },
-      { source: '/about-us', destination: '/#about', permanent: true },
       { source: '/gallery.html', destination: '/#portfolio', permanent: true },
       { source: '/portfolio', destination: '/#portfolio', permanent: true },
       { source: '/reviews', destination: '/#testimonials', permanent: true },
       { source: '/faqs.html', destination: '/#faq', permanent: true },
-      // Legacy Area & Service Specific Redirects
-      { source: '/landscaping-bearsden', destination: '/areas/bearsden', permanent: true },
-      { source: '/patios-newton-mearns', destination: '/areas/newton-mearns', permanent: true },
-      { source: '/driveways-giffnock', destination: '/areas/giffnock', permanent: true },
-      { source: '/porcelain-paving', destination: '/services/porcelain-paving-glasgow', permanent: true },
-      { source: '/garden-drainage', destination: '/services/garden-drainage-engineering', permanent: true },
-      // Catch legacy .php / .html extensions cleanly
-      { source: '/:path*.html', destination: '/:path*', permanent: true },
-      { source: '/:path*.php', destination: '/:path*', permanent: true },
     ]
   },
 }

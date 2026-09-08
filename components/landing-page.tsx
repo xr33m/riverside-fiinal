@@ -700,13 +700,13 @@ function RoiCalculator({ onSurvey }: { onSurvey: (source: string) => void }) {
 
         <div className="md:col-span-6 border border-primary/20 bg-primary text-primary-foreground p-8 rounded shadow-xl flex flex-col justify-between">
           <div>
-            <div className="flex items-center gap-2 text-accent font-bold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-primary-foreground/85 font-bold text-xs uppercase tracking-wider">
               <Calculator size={16} /> <span>Estimated Investment Impact (Glasgow Suburbs)</span>
             </div>
 
             <div className="mt-6 border-b border-primary-foreground/10 pb-6">
               <span className="text-xs text-primary-foreground/70 block">Estimated Resale Equity Increase</span>
-              <p className="font-serif text-4xl text-accent font-bold mt-1">
+              <p className="font-serif text-4xl text-[#8fe3ae] font-bold mt-1">
                 +£{valueBoostMin.toLocaleString()} – £{valueBoostMax.toLocaleString()}
               </p>
               <p className="text-xs text-primary-foreground/60 mt-1">Based on 5%–10% property value enhancement for luxury outdoor living</p>
@@ -766,7 +766,7 @@ export default function LandingPage() {
         <section className="offseason">
           <ParallaxCard strength={16}>
             <div>
-              <p className="eyebrow text-accent">Winter Bookings Open · Guaranteed Start Dates</p>
+              <p className="eyebrow text-primary-foreground/85">Winter Bookings Open · Guaranteed Start Dates</p>
               <h2>Beat the 12-week spring backlog.</h2>
               <p>Lock in current material prices and book winter hardscaping while installation calendars remain clear.</p>
             </div>

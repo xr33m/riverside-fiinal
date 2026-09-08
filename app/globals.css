@@ -466,7 +466,7 @@ h1 {
 }
 
 .metric strong {
-  color: var(--accent);
+  color: #8fe3ae;
   font-family: Georgia, serif;
   font-size: 26px;
 }

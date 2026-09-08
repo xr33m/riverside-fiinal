@@ -898,7 +898,9 @@ function TestimonialsShowcase() {
 
             <div className="mt-6 border-t border-border pt-4">
               <p className="font-bold text-foreground text-sm">{t.name}</p>
-              <p className="text-xs text-muted-foreground">{t.location} ({t.postcode}) · {t.projectType}</p>
+              <p className="text-xs text-muted-foreground">
+                {t.postcode ? `${t.location} (${t.postcode})` : t.location} · {t.projectType}
+              </p>
               <p className="mt-1 text-[10px] uppercase font-bold text-accent">{t.date}</p>
             </div>
           </article>

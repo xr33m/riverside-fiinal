@@ -20,7 +20,7 @@ export interface Testimonial {
   id: string
   name: string
   location: string
-  postcode: string
+  postcode?: string
   projectType: string
   quote: string
   rating: number
@@ -398,36 +398,108 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
 ]
 
 // Customer Testimonials
+// Real Google Business Profile reviews for Riverside Landscaping.
+// No per-customer suburb is available from GBP, so location stays at city level
+// rather than inventing a specific postcode for a named person.
 export const TESTIMONIALS: Testimonial[] = [
   {
-    id: 'test-1',
-    name: 'Fraser & Catriona M.',
-    location: 'Bearsden',
-    postcode: 'G61',
-    projectType: 'Porcelain Patio & Clay Drainage',
-    quote: 'After the first proper downpour in October, our patio was bone dry while our neighbours garden was flooded. The engineering quality is obvious in every detail.',
+    id: 'test-marie-dee',
+    name: 'Marie Dee',
+    location: 'Glasgow',
+    projectType: 'Full Garden Transformation',
+    quote: 'I recently had Riverside Landscaping complete work in my garden and I couldn’t be happier with the results. From the initial quotation through to completion, Leon and his team were professional, reliable, and hardworking. They kept everything tidy throughout the project and completed the work to a very high standard. The finished garden has completely transformed the look of my property, and the attention to detail was excellent.',
     rating: 5,
-    date: 'Installed Winter 2025',
+    date: '10 August 2026',
   },
   {
-    id: 'test-2',
-    name: 'Dr. Alistair K.',
-    location: 'Newton Mearns',
-    postcode: 'G77',
-    projectType: '80m² Outdoor Dining Space',
-    quote: 'Arden Works were spotless from day one. They excavated over 25 tonnes of heavy clay soil and left the site cleaner than they found it. Worth every penny.',
+    id: 'test-susanne-thomson',
+    name: 'Susanne Thomson',
+    location: 'Glasgow',
+    projectType: 'Garden Landscaping',
+    quote: 'Excellent landscaping service! The team was friendly, professional, and did an amazing job transforming our garden. They worked hard, paid attention to detail, and left everything clean and tidy.',
     rating: 5,
-    date: 'Installed Spring 2025',
+    date: '30 June 2026',
   },
   {
-    id: 'test-3',
-    name: 'Evelyn S.',
-    location: 'Giffnock',
-    postcode: 'G46',
-    projectType: 'Terraced Garden & Pergola',
-    quote: 'The Summer/Winter toggle in their proposal convinced us to go ahead in November. We used our heated outdoor space straight through the winter months.',
+    id: 'test-nicholas-mcwilson',
+    name: 'Nicholas McWilson',
+    location: 'Glasgow',
+    projectType: 'Driveway Installation',
+    quote: 'What an amazing team — came out and done my driveway stress free and quickly, so reliable. Couldn’t be any more happier with them.',
     rating: 5,
-    date: 'Installed Winter 2025',
+    date: '30 June 2026',
+  },
+  {
+    id: 'test-suzie-macleod',
+    name: 'Suzie MacLeod',
+    location: 'Glasgow',
+    projectType: 'Landscaping Project',
+    quote: 'Great team, hard working and consistent in good product. Would recommend.',
+    rating: 5,
+    date: '8 June 2026',
+  },
+  {
+    id: 'test-willma-govan',
+    name: 'Willma Govan',
+    location: 'Glasgow',
+    projectType: 'Large-Scale Garden Project',
+    quote: 'The lads at Riverside Landscaping done a fantastic job for me, a big project got it done in convenient time — would absolutely recommend to anyone, so happy with the finished job.',
+    rating: 5,
+    date: '19 May 2026',
+  },
+  {
+    id: 'test-l-d',
+    name: 'L D',
+    location: 'Glasgow',
+    projectType: 'Back Garden Renovation',
+    quote: 'Thank you to the lads at Riverside Landscaping for transforming my back garden and bringing life back to it, would definitely recommend.',
+    rating: 5,
+    date: '18 May 2026',
+  },
+  {
+    id: 'test-heidi-sm',
+    name: 'Heidi Sm',
+    location: 'Glasgow',
+    projectType: 'Patio & Fencing Installation',
+    quote: 'Leon and his team came to our property, installed our new patio and surrounding fences. Would highly recommend this company.',
+    rating: 5,
+    date: '18 April 2026',
+  },
+  {
+    id: 'test-latalia-stewart',
+    name: 'Latalia Stewart',
+    location: 'Glasgow',
+    projectType: 'Back Garden Tiling & Fencing',
+    quote: 'Great experience from start to finish. The team from Riverside did an excellent job on our back garden, installing Caledonian tiles and new fencing to a very high standard. The work was professional throughout, and the price reflected the quality.',
+    rating: 5,
+    date: '27 March 2026',
+  },
+  {
+    id: 'test-isaac-foy',
+    name: 'Isaac Foy',
+    location: 'Glasgow',
+    projectType: 'Landscaping Project',
+    quote: 'Brilliant in every way — great advice, experience and highly standard tradesmen. Done a fantastic job and a good fair estimate for the work undertaken.',
+    rating: 5,
+    date: '27 March 2026',
+  },
+  {
+    id: 'test-geoff-runcie',
+    name: 'Geoff Runcie',
+    location: 'Glasgow',
+    projectType: 'Landscaping Works',
+    quote: 'They responded to my request and I agreed the work scope and accepted their price. Work was done promptly and generally to my satisfaction. On the back of the original job I asked them to do some more work — this again was done promptly. My experience was positive.',
+    rating: 4,
+    date: '27 March 2026',
+  },
+  {
+    id: 'test-l-foy',
+    name: 'L Foy',
+    location: 'Glasgow',
+    projectType: 'Garden Landscaping',
+    quote: 'Had great service from this company — came out, emailed a quote, agreed a price, work got completed and I was very happy with it. Looking forward to spending the spring/summer in my new garden.',
+    rating: 5,
+    date: '10 March 2026',
   },
 ]
 

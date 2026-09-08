@@ -2,7 +2,8 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
-import { BookOpen, ArrowRight, Clock, Calendar, ShieldCheck } from 'lucide-react'
+import { BookOpen, ArrowRight, Clock } from 'lucide-react'
+import { Breadcrumbs, DirectAnswer, SectionCard } from '@/components/silo-ui'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -41,81 +42,69 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <main className="min-w-0 bg-[#0d0f12] text-slate-100 min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
-        {/* Architectural Grid */}
-        <div
-          className="absolute inset-0 pointer-events-none opacity-20"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.15) 1px, transparent 0)`,
-            backgroundSize: '32px 32px',
-          }}
+      <div className="mx-auto max-w-4xl space-y-10 px-4 pb-20 pt-20 sm:px-6 sm:pt-24 lg:px-8">
+        {/* Breadcrumb Navigation */}
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Knowledge Base', href: '/knowledge-base' },
+            { label: article.title },
+          ]}
         />
 
-        <div className="max-w-4xl mx-auto relative z-10 space-y-10">
-          {/* Breadcrumb Navigation */}
-          <nav className="text-xs uppercase tracking-widest text-emerald-400/80 font-mono">
-            <Link href="/" className="hover:underline">Home</Link> &nbsp;/&nbsp;{' '}
-            <Link href="/knowledge-base" className="hover:underline">Knowledge Base</Link> &nbsp;/&nbsp;{' '}
-            <span className="text-slate-400">{article.title}</span>
-          </nav>
-
-          {/* Article Header */}
-          <header className="space-y-4">
-            <div className="flex items-center gap-4 text-xs font-mono text-emerald-400">
-              <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                {article.category}
-              </span>
-              <span className="flex items-center gap-1 text-slate-400"><Clock className="w-3.5 h-3.5" />{article.readingTime}</span>
-            </div>
-            <h1 className="text-3xl sm:text-5xl font-serif font-bold text-white tracking-tight leading-tight">
-              {article.title}
-            </h1>
-            <p className="text-slate-300 text-lg leading-relaxed">{article.summary}</p>
-          </header>
-
-          {/* 3-Second Direct Answer Rule */}
-          <section className="bg-slate-900/90 backdrop-blur border-l-4 border-emerald-500 p-6 rounded-r-2xl border-y border-r border-slate-800 space-y-2">
-            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest font-semibold">
-              3-Second Direct Answer
+        {/* Article Header */}
+        <header className="space-y-4">
+          <div className="flex items-center gap-4 text-xs text-accent">
+            <span className="rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-bold">
+              {article.category}
             </span>
-            <p className="text-slate-100 text-base leading-relaxed font-medium">
-              {article.directAnswer3Sec}
-            </p>
-          </section>
-
-          {/* Article Body Sections */}
-          <div className="space-y-8">
-            {article.sections.map((section, idx) => (
-              <section key={idx} className="space-y-4 bg-slate-900/40 p-8 rounded-3xl border border-slate-800">
-                <h2 className="text-2xl font-serif font-bold text-white">{section.h2}</h2>
-                {section.directAnswer && (
-                  <p className="text-slate-200 text-base font-medium border-l-2 border-emerald-500/50 pl-3 py-1">
-                    {section.directAnswer}
-                  </p>
-                )}
-                <p className="text-slate-300 text-sm leading-relaxed">{section.content}</p>
-              </section>
-            ))}
+            <span className="flex items-center gap-1 text-muted-foreground">
+              <Clock className="h-3.5 w-3.5" />
+              {article.readingTime}
+            </span>
           </div>
+          <h1>{article.title}</h1>
+          <p className="text-lg leading-relaxed text-muted-foreground">{article.summary}</p>
+        </header>
 
-          {/* Connect Informational Article back to Main Transactional Service Page using Exact Match Anchor Text */}
-          <div className="p-6 rounded-2xl bg-emerald-950/40 border border-emerald-500/30 flex items-center justify-between gap-4">
+        {/* 3-Second Direct Answer Rule */}
+        <DirectAnswer>{article.directAnswer3Sec}</DirectAnswer>
+
+        {/* Article Body Sections */}
+        <div className="space-y-8">
+          {article.sections.map((section, idx) => (
+            <SectionCard key={idx}>
+              <h2 className="font-serif text-2xl font-bold text-primary">{section.h2}</h2>
+              {section.directAnswer && (
+                <p className="border-l-2 border-accent/50 py-1 pl-3 text-base font-medium text-foreground">
+                  {section.directAnswer}
+                </p>
+              )}
+              <p className="text-sm leading-relaxed text-muted-foreground">{section.content}</p>
+            </SectionCard>
+          ))}
+        </div>
+
+        {/* Connect Informational Article back to Main Transactional Service Page using Exact Match Anchor Text */}
+        <div className="flex items-center justify-between gap-4 border border-accent/30 bg-accent/5 p-6">
+          <div className="flex items-center gap-3">
+            <BookOpen className="h-5 w-5 shrink-0 text-accent" />
             <div className="space-y-1">
-              <span className="text-xs font-mono text-emerald-400">Main Transactional Service</span>
-              <p className="text-sm font-medium text-white">
+              <span className="text-xs font-semibold text-accent">Main Transactional Service</span>
+              <p className="text-sm font-medium text-primary">
                 Need professional hardscaping installation in Greater Glasgow?
               </p>
             </div>
-            <Link
-              href={`/landscaping-services/${article.relatedServiceSlug}`}
-              className="inline-flex items-center px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-semibold text-xs transition-colors shrink-0"
-            >
-              <span>{article.relatedServiceAnchor}</span>
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Link>
           </div>
+          <Link
+            href={`/landscaping-services/${article.relatedServiceSlug}`}
+            className="button-clay shrink-0 whitespace-nowrap text-xs"
+          >
+            <span>{article.relatedServiceAnchor}</span>
+            <ArrowRight className="ml-2 h-4 w-4" />
+          </Link>
         </div>
-      </main>
+      </div>
     </>
   )
 }

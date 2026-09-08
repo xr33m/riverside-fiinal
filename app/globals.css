@@ -65,6 +65,37 @@ em {
   font-style: normal;
 }
 
+/* Contact Top Bar (sits above the sticky nav, scrolls away with the page) */
+.site-topbar {
+  align-items: center;
+  background: linear-gradient(90deg, var(--primary) 0%, #142e94 55%, var(--accent) 100%);
+  color: #fff;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 20px;
+  justify-content: space-between;
+  padding: 9px max(24px, calc((100vw - 1180px) / 2));
+}
+
+.site-topbar a {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  gap: 6px;
+}
+
+.site-topbar a:hover {
+  color: #fff;
+  opacity: 0.8;
+}
+
+.site-topbar-left {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+}
+
 /* Glassmorphic Sticky Navigation */
 .site-header {
   align-items: center;

@@ -4,6 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import {
   ArrowRight,
+  Award,
   Check,
   ChevronDown,
   ChevronRight,
@@ -33,6 +34,7 @@ import {
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { SurveyDialog } from '@/components/survey-dialog'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 /* ------------------------------------------------------------------ *
  * Hero Section (Higgsfield AI Video Parallax Hero + Motion Scroll)
@@ -151,6 +153,74 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
 }
 
 /* ------------------------------------------------------------------ *
+ * About Section (Trust & Credibility, sits directly under the Hero)
+ * ------------------------------------------------------------------ */
+function AboutSection() {
+  const avgRating = (TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length).toFixed(1)
+
+  return (
+    <section id="about" className="section about-section border-t border-border">
+      <div className="grid gap-10 md:grid-cols-12 md:items-start">
+        <Reveal className="md:col-span-5">
+          <div className="flex items-baseline gap-3">
+            <span className="font-serif text-5xl font-bold text-primary">{avgRating}★</span>
+            <span className="text-xs uppercase leading-snug tracking-wide text-muted-foreground">
+              From {TESTIMONIALS.length} verified<br />Google reviews
+            </span>
+          </div>
+          <p className="eyebrow mt-8 text-accent">About Us</p>
+          <h2 className="mt-1 font-serif text-3xl text-primary sm:text-4xl">
+            Family-run, engineered like a business built to last.
+          </h2>
+          <p className="mt-4 leading-relaxed text-muted-foreground">
+            Riverside Landscaping is a Glasgow-based hardscaping team led by Leon and a small crew of dedicated tradesmen. We don&apos;t treat drainage as an afterthought or paving as a weekend job — every build is engineered to BS7533 standard, sized for Scottish clay and rainfall, and backed by a signed 10-year structural guarantee.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {['BS7533 Certified', "Marshall's Approved Installer", '10-Year Guarantee'].map((badge) => (
+              <span
+                key={badge}
+                className="inline-flex items-center gap-1.5 border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-bold text-accent"
+              >
+                <Award size={13} /> {badge}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="md:col-span-7">
+          <div className="relative h-[320px] w-full overflow-hidden border border-border sm:h-[420px]">
+            <img
+              src="/images/garden-after.png"
+              alt="Completed Riverside Landscaping porcelain patio installation"
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="border border-border bg-secondary/40 p-6">
+              <h3 className="font-serif text-lg font-bold text-primary">Built for Scottish Weather</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Every job is engineered around heavy clay soil and year-round rainfall, not a fair-weather install that fails by the second winter.
+              </p>
+            </div>
+            <div className="flex flex-col justify-between bg-primary p-6 text-primary-foreground">
+              <div>
+                <p className="font-serif text-3xl font-bold">{avgRating}★</p>
+                <p className="mt-1 text-xs text-primary-foreground/70">
+                  {TESTIMONIALS.length} verified Google reviews, no fabricated testimonials
+                </p>
+              </div>
+              <a href="/#testimonials" className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#8fe3ae]">
+                Read the reviews <ArrowRight size={14} />
+              </a>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ *
  * Proof Section (Before / After Comparison Drag Slider)
  * ------------------------------------------------------------------ */
 function Proof() {
@@ -189,7 +259,7 @@ function Proof() {
 
   return (
     <section ref={sectionRef} id="proof" className="section proof-section">
-      <div className="section-intro">
+      <Reveal className="section-intro">
         <p className="eyebrow">Proof, not promises</p>
         <h2>
           Turn the wettest corner<br />
@@ -198,7 +268,7 @@ function Proof() {
         <p>
           Drainage is not an afterthought. It&apos;s the part of the build you never see — and the reason your patio still works after weeks of heavy Scottish rainfall.
         </p>
-      </div>
+      </Reveal>
 
       <motion.div style={{ y: yCompare }}>
         <div
@@ -268,7 +338,7 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
 
   return (
     <section id="portfolio" className="section portfolio-section border-t border-border">
-      <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
+      <Reveal className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
         <div>
           <p className="eyebrow text-accent">Recent Glasgow Builds</p>
           <h2 className="font-serif text-4xl text-primary sm:text-5xl">Architectural Gallery</h2>
@@ -289,7 +359,7 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
             </button>
           ))}
         </div>
-      </div>
+      </Reveal>
 
       <div className="mt-10 grid gap-6 sm:grid-cols-2">
         {filtered.map((item, i) => (
@@ -378,7 +448,7 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
 function Process() {
   return (
     <section id="process" className="section process-section">
-      <div className="section-intro">
+      <Reveal className="section-intro">
         <p className="eyebrow">The Riverside Method</p>
         <h2>
           Built like a small<br />
@@ -387,9 +457,9 @@ function Process() {
         <p className="mt-3">
           Casual contractors lay paving over raw clay. We engineer sub-surface drainage systems certified to BS7533 standards.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="process-grid mt-10">
+      <RevealGrid className="process-grid mt-10">
         {PROCESS_STEPS.map((step) => (
           <article key={step.step} className="border-t border-primary/20 pt-6">
             <span className="process-number font-serif font-bold text-accent text-2xl">{step.step}</span>
@@ -405,7 +475,7 @@ function Process() {
             </ul>
           </article>
         ))}
-      </div>
+      </RevealGrid>
     </section>
   )
 }
@@ -418,7 +488,7 @@ function MaterialSelector() {
 
   return (
     <section id="materials" className="section materials-section border-t border-border">
-      <div className="section-intro">
+      <Reveal className="section-intro">
         <p className="eyebrow text-accent">Architectural Materials</p>
         <h2>
           Vitrified Porcelain &amp;<br />
@@ -427,9 +497,9 @@ function MaterialSelector() {
         <p>
           We source high-density vitrified porcelain from Bologna &amp; Modena, paired with local Scottish Whinstone borders engineered for frost-proof durability.
         </p>
-      </div>
+      </Reveal>
 
-      <div className="mt-10 grid gap-8 md:grid-cols-12">
+      <Reveal delay={0.1} className="mt-10 grid gap-8 md:grid-cols-12">
         <div className="grid gap-3 md:col-span-5">
           {MATERIALS.map((mat) => (
             <button
@@ -478,7 +548,7 @@ function MaterialSelector() {
             </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   )
 }
@@ -489,15 +559,15 @@ function MaterialSelector() {
 function TestimonialsShowcase() {
   return (
     <section id="testimonials" className="section testimonials-section border-t border-border bg-muted/20">
-      <div className="section-intro">
+      <Reveal className="section-intro">
         <p className="eyebrow">Client Verification</p>
         <h2>
           Trusted by homeowners<br />
           <em>across Greater Glasgow.</em>
         </h2>
-      </div>
+      </Reveal>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      <RevealGrid className="mt-10 grid gap-6 sm:grid-cols-3" stagger={0.05}>
         {TESTIMONIALS.map((t) => (
           <article key={t.id} className="border border-border bg-background p-6 shadow-sm flex flex-col justify-between">
             <div>
@@ -520,7 +590,7 @@ function TestimonialsShowcase() {
             </div>
           </article>
         ))}
-      </div>
+      </RevealGrid>
     </section>
   )
 }
@@ -535,7 +605,7 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
   return (
     <section id="coverage" className="section coverage-section border-t border-border">
       <div className="grid gap-8 md:grid-cols-12 items-center">
-        <div className="md:col-span-6">
+        <Reveal className="md:col-span-6">
           <p className="eyebrow text-accent">Service Area Validator</p>
           <h2 className="font-serif text-3xl text-primary sm:text-4xl">Do we cover your postcode?</h2>
           <p className="mt-3 text-muted-foreground">
@@ -563,14 +633,14 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
               <p className="mt-2 text-xs text-foreground">Highlight Fix: {matched.highlightInstall}</p>
             </motion.div>
           )}
-        </div>
+        </Reveal>
 
-        <div className="md:col-span-6 grid grid-cols-2 gap-3">
+        <RevealGrid className="md:col-span-6 grid grid-cols-2 gap-3" stagger={0.04}>
           {SUBURBS.map((s) => (
             <button
               key={s.slug}
               onClick={() => setInput(s.postcodePrefix)}
-              className={`border p-4 text-left transition-all ${
+              className={`w-full border p-4 text-left transition-all ${
                 input === s.postcodePrefix ? 'border-accent bg-accent/10' : 'border-border bg-background hover:border-primary'
               }`}
             >
@@ -578,7 +648,7 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
               <p className="text-xs text-muted-foreground">{s.postcodePrefix} · {s.council}</p>
             </button>
           ))}
-        </div>
+        </RevealGrid>
       </div>
     </section>
   )
@@ -593,14 +663,14 @@ function FAQ() {
 
   return (
     <section id="faq" className="section faq-section">
-      <div className="faq-heading">
+      <Reveal className="faq-heading">
         <p className="eyebrow">Straight answers</p>
         <h2>
           Good questions deserve<br />
           <em>proper answers.</em>
         </h2>
-      </div>
-      <div className="faq-list">
+      </Reveal>
+      <Reveal delay={0.1} className="faq-list">
         {faqs.map(([q, a], i) => (
           <div className="faq-item" key={q}>
             <button onClick={() => setOpen(open === i ? -1 : i)} aria-expanded={open === i}>
@@ -621,7 +691,7 @@ function FAQ() {
             </AnimatePresence>
           </div>
         ))}
-      </div>
+      </Reveal>
     </section>
   )
 }
@@ -640,7 +710,7 @@ function RoiCalculator({ onSurvey }: { onSurvey: (source: string) => void }) {
   return (
     <section id="calculator" className="section roi-section border-t border-border">
       <div className="grid gap-10 md:grid-cols-12 items-center">
-        <div className="md:col-span-6">
+        <Reveal className="md:col-span-6">
           <p className="eyebrow text-accent">Home Equity &amp; Value Estimator</p>
           <h2 className="font-serif text-3xl text-primary sm:text-4xl">
             Calculate your property investment &amp; return.
@@ -696,9 +766,9 @@ function RoiCalculator({ onSurvey }: { onSurvey: (source: string) => void }) {
               </div>
             </div>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="md:col-span-6 border border-primary/20 bg-primary text-primary-foreground p-8 rounded shadow-xl flex flex-col justify-between">
+        <Reveal delay={0.1} className="md:col-span-6 border border-primary/20 bg-primary text-primary-foreground p-8 rounded shadow-xl flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 text-primary-foreground/85 font-bold text-xs uppercase tracking-wider">
               <Calculator size={16} /> <span>Estimated Investment Impact (Glasgow Suburbs)</span>
@@ -727,7 +797,7 @@ function RoiCalculator({ onSurvey }: { onSurvey: (source: string) => void }) {
               Lock In Survey Quote <ArrowRight size={14} />
             </button>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )
@@ -761,6 +831,7 @@ export default function LandingPage() {
       <SiteHeader onSurvey={openSurvey} />
       <main>
         <Hero onSurvey={openSurvey} />
+        <AboutSection />
         <Proof />
 
         <section className="offseason">

@@ -7,6 +7,10 @@ const config: Config = {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        card: {
+          DEFAULT: 'var(--background)',
+          foreground: 'var(--foreground)',
+        },
         primary: {
           DEFAULT: 'var(--primary)',
           foreground: 'var(--primary-foreground)',
@@ -23,6 +27,15 @@ const config: Config = {
       fontFamily: {
         sans: ['Arial', 'sans-serif'],
         serif: ['Georgia', 'serif'],
+      },
+      keyframes: {
+        marquee: {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+      },
+      animation: {
+        marquee: 'marquee var(--duration, 40s) linear infinite',
       },
     },
   },

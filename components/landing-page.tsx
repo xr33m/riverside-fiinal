@@ -33,6 +33,7 @@ import {
 import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { SurveyDialog } from '@/components/survey-dialog'
+import TestimonialMarquee from '@/components/ui/marquee-01'
 
 /* ------------------------------------------------------------------ *
  * Hero Section (Higgsfield AI Video Parallax Hero + Motion Scroll)
@@ -518,29 +519,8 @@ function TestimonialsShowcase() {
         </div>
       </div>
 
-      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {TESTIMONIALS.map((t) => (
-          <article key={t.id} className="flex min-h-[300px] flex-col justify-between border border-border bg-background p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md">
-            <div>
-              <div className="flex gap-0.5 text-[#0b6b45]" aria-label={`${t.rating} star rating`}>
-                {[...Array(t.rating)].map((_, i) => (
-                  <Star size={15} key={i} fill="currentColor" strokeWidth={1.5} />
-                ))}
-              </div>
-              <blockquote className="mt-4 font-serif text-base leading-[1.55] text-primary">
-                &quot;{t.quote}&quot;
-              </blockquote>
-            </div>
-
-            <div className="mt-8 border-t border-border pt-4">
-              <p className="text-sm font-bold text-foreground">{t.name}</p>
-              <p className="text-[11px] text-muted-foreground">
-                {t.postcode ? `${t.location} (${t.postcode})` : t.location} · {t.projectType}
-              </p>
-              <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#0b6b45]">{t.date}</p>
-            </div>
-          </article>
-        ))}
+      <div className="mt-10">
+        <TestimonialMarquee />
       </div>
     </section>
   )

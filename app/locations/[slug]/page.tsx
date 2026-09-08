@@ -83,6 +83,38 @@ export default async function LocationDetailPage({ params }: PageProps) {
             </p>
           </section>
 
+          {/* Local Map & Service Radius */}
+          <section className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div className="md:col-span-3 overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/40">
+              <iframe
+                title={`Map of ${suburb.name}, Glasgow`}
+                src={`https://www.google.com/maps?q=${encodeURIComponent(`${suburb.name}, Glasgow, UK`)}&output=embed`}
+                width="100%"
+                height="320"
+                style={{ border: 0, filter: 'grayscale(0.4) invert(0.9) contrast(0.9)' }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <div className="md:col-span-2 space-y-4 rounded-3xl border border-slate-800 bg-slate-900/40 p-6">
+              <h3 className="text-lg font-serif font-bold text-white flex items-center gap-2">
+                <MapPin className="w-4 h-4 text-emerald-400" />
+                {suburb.name} Service Area
+              </h3>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                Covering {suburb.name} ({suburb.postcodePrefix}) and surrounding {suburb.council} postcodes with the same crews and equipment for every job.
+              </p>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <span className="px-3 py-1 rounded-full bg-slate-950/60 border border-slate-800 text-xs font-mono text-slate-300">
+                  {suburb.postcodePrefix} priority coverage
+                </span>
+                <span className="px-3 py-1 rounded-full bg-slate-950/60 border border-slate-800 text-xs font-mono text-slate-300">
+                  {suburb.council}
+                </span>
+              </div>
+            </div>
+          </section>
+
           {/* Heading Tag Hierarchy: H2s & H3s */}
           <div className="space-y-10 text-slate-300">
             {/* H2: Secondary Category 1 */}

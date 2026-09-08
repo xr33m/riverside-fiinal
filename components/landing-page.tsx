@@ -10,12 +10,7 @@ import {
   ChevronRight,
   Calculator,
   Droplets,
-  Flame,
-  Hammer,
-  Layers,
   MapPin,
-  ShieldCheck,
-  Sparkles,
   Star,
   X,
   Zap,
@@ -38,117 +33,70 @@ import { Reveal, RevealGrid } from '@/components/reveal'
 import TestimonialMarquee from '@/components/ui/marquee-01'
 
 /* ------------------------------------------------------------------ *
- * Hero Section (Higgsfield AI Video Parallax Hero + Motion Scroll)
+ * Hero Section — full-bleed parallax video, minimal overlaid content
  * ------------------------------------------------------------------ */
 function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
-  const [winter, setWinter] = useState(false)
   const reduceMotion = useReducedMotion()
   const heroRef = useRef<HTMLDivElement>(null)
+  const avgRating = (TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length).toFixed(1)
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   })
 
-  // Scroll Parallax Transforms
-  const yVideo = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '28%'])
-  const scaleVideo = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 1.12])
-  const yText = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '-12%'])
-  const opacityText = useTransform(scrollYProgress, [0, 0.85], [1, reduceMotion ? 1 : 0.2])
+  // Scroll Parallax Transforms — background drifts and scales slower than the page scrolls
+  const yMedia = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '18%'])
+  const scaleMedia = useTransform(scrollYProgress, [0, 1], [1, reduceMotion ? 1 : 1.15])
+  const yContent = useTransform(scrollYProgress, [0, 1], ['0%', reduceMotion ? '0%' : '20%'])
+  const opacityContent = useTransform(scrollYProgress, [0, 0.7], [1, reduceMotion ? 1 : 0])
 
   return (
-    <section ref={heroRef} id="top" className="hero relative overflow-hidden">
-      <motion.div style={{ y: yText, opacity: opacityText }} className="hero-copy z-10">
-        <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-bold text-accent shadow-sm">
-          <Zap size={14} /> <span>Winter Installation Schedule: 3 Slots Remaining for G61 / G77</span>
+    <section ref={heroRef} id="top" className="hero-full">
+      <motion.div style={{ y: yMedia, scale: scaleMedia }} className="hero-full-media">
+        <video autoPlay loop muted playsInline poster="/images/garden-after.png">
+          <source src="/videos/hero.mp4" type="video/mp4" />
+        </video>
+      </motion.div>
+      <div className="hero-full-scrim" />
+
+      <motion.div style={{ y: yContent, opacity: opacityContent }} className="hero-full-content">
+        <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-bold text-white backdrop-blur-sm">
+          <Zap size={14} className="text-accent" /> <span>Winter Installation Schedule: 3 Slots Remaining for G61 / G77</span>
         </div>
-        <p className="eyebrow text-accent">Glasgow · Bearsden · Newton Mearns · Giffnock</p>
+        <p className="eyebrow" style={{ color: 'rgba(255,255,255,0.7)' }}>Glasgow · Bearsden · Newton Mearns · Giffnock</p>
         <h1>Bespoke patios &amp; landscaping <em>engineered</em> for Glasgow weather.</h1>
         <p className="hero-sub">
           Eliminate waterlogged lawns with BS7533-compliant deep sub-base drainage. Installed year-round across Greater Glasgow with a 10-year structural guarantee.
         </p>
-        <div className="hero-actions">
+
+        <div className="mt-8 flex flex-wrap items-center gap-6">
           <button onClick={() => onSurvey('hero')} className="button-clay">
             Get your free site survey &amp; estimate <ArrowRight size={17} />
           </button>
-          <a href="#proof" className="button-outline">
-            See the proof <ChevronDown size={17} />
-          </a>
+          <div className="google-badge">
+            <svg viewBox="0 0 24 24" className="size-6 shrink-0" aria-hidden="true">
+              <path fill="#4285F4" d="M21.35 12.27c0-.72-.06-1.42-.18-2.09H12v3.95h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.25Z" />
+              <path fill="#34A853" d="M12 21.7c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.7Z" />
+              <path fill="#FBBC05" d="M6.54 13.78A5.85 5.85 0 0 1 6.23 12c0-.62.11-1.22.31-1.78V7.69H3.3A9.74 9.74 0 0 0 2.26 12c0 1.56.37 3.03 1.04 4.31l3.24-2.53Z" />
+              <path fill="#EA4335" d="M12 6.19c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.7 5.39l3.24 2.53C7.31 7.91 9.46 6.19 12 6.19Z" />
+            </svg>
+            <span className="google-badge-stars" aria-hidden="true">
+              {[...Array(5)].map((_, i) => <Star size={14} key={i} fill="currentColor" strokeWidth={1.5} />)}
+            </span>
+            <span className="text-sm font-bold text-white">{avgRating} · {TESTIMONIALS.length} Google Reviews</span>
+          </div>
         </div>
+
         <p className="microcopy">
           No pushy sales <span>·</span> Guaranteed start date <span>·</span> Valid 12 months
         </p>
       </motion.div>
 
-      <div className="hero-visual z-10">
-        <div className="season-switch">
-          <span className={!winter ? 'active font-bold' : ''}>Summer</span>
-          <button
-            onClick={() => setWinter(!winter)}
-            aria-label="Toggle summer or winter hero view"
-            aria-pressed={winter}
-          >
-            <motion.span
-              animate={{ x: winter ? 24 : 0 }}
-              transition={reduceMotion ? { duration: 0 } : undefined}
-            />
-          </button>
-          <span className={winter ? 'active font-bold' : ''}>Winter</span>
-        </div>
-
-        <div className="hero-image border border-border shadow-2xl relative overflow-hidden">
-          {/* Framer Motion Scroll Parallax Video Frame */}
-          <motion.div
-            style={{ y: yVideo, scale: scaleVideo }}
-            className="absolute inset-0 size-full"
-          >
-            <video
-              key={winter ? 'winter-vid' : 'summer-vid'}
-              autoPlay
-              loop
-              muted
-              playsInline
-              poster="/images/garden-after.png"
-              className="hero-video-element"
-            >
-              <source src={winter ? '/videos/hero-winter.mp4' : '/videos/hero.mp4'} type="video/mp4" />
-            </video>
-          </motion.div>
-
-          <div className="image-caption">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={winter ? 'winter' : 'summer'}
-                initial={reduceMotion ? false : { opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -8 }}
-              >
-                <p className="eyebrow text-accent">
-                  {winter ? 'Winter Workflow · Covered Installation' : 'Outdoor Living · All-Season Finish'}
-                </p>
-                <h2>{winter ? 'Heated & lighted hardscape' : 'Summer outdoor living'}</h2>
-                <p>
-                  {winter
-                    ? 'Keep the garden working after dark with built-in heating & discreet step lighting, installed clean through winter.'
-                    : 'Architect-level porcelain paving built for long Scottish evenings with zero maintenance.'}
-                </p>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-
-      <div className="trust-strip z-10">
-        <span>
-          <Star size={15} fill="currentColor" className="text-accent" /> 5.0 Google rating <b>(128 reviews)</b>
-        </span>
-        <span>
-          <ShieldCheck size={16} className="text-primary" /> Marshall&apos;s approved installer
-        </span>
-        <span>
-          <Hammer size={16} className="text-accent" /> 10-year structural guarantee
-        </span>
-      </div>
+      <a href="#proof" className="hero-scroll-cue">
+        See the proof
+        <ChevronDown size={18} />
+      </a>
     </section>
   )
 }
@@ -823,8 +771,8 @@ export default function LandingPage() {
       <SiteHeader onSurvey={openSurvey} />
       <main>
         <Hero onSurvey={openSurvey} />
-        <AboutSection />
         <Proof />
+        <AboutSection />
 
         <section className="offseason">
           <ParallaxCard strength={16}>

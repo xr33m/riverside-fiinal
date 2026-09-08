@@ -159,6 +159,88 @@ em {
   margin-top: 7px;
 }
 
+/* Full-Bleed Parallax Hero */
+.hero-full {
+  align-items: flex-end;
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-full-media {
+  inset: 0;
+  position: absolute;
+  z-index: 0;
+}
+
+.hero-full-media video,
+.hero-full-media img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.hero-full-scrim {
+  background: linear-gradient(180deg, rgba(8, 14, 46, 0.35) 0%, rgba(8, 14, 46, 0.15) 38%, rgba(6, 11, 38, 0.88) 100%);
+  inset: 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.hero-full-content {
+  color: #fff;
+  margin: 0 auto;
+  max-width: 1180px;
+  padding: 160px max(24px, calc((100vw - 1180px) / 2)) 90px;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+.hero-full-content h1 {
+  color: #fff;
+  max-width: 780px;
+}
+
+.hero-full-content .hero-sub {
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 540px;
+}
+
+.hero-full-content .microcopy {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.hero-scroll-cue {
+  align-items: center;
+  bottom: 28px;
+  color: rgba(255, 255, 255, 0.75);
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  font-weight: 700;
+  gap: 6px;
+  left: 50%;
+  letter-spacing: 0.14em;
+  position: absolute;
+  text-transform: uppercase;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.google-badge {
+  align-items: center;
+  display: inline-flex;
+  gap: 8px;
+}
+
+.google-badge-stars {
+  color: #fbbc04;
+  display: inline-flex;
+  gap: 1px;
+}
+
 /* Hero Section & Higgsfield Video Loop Styling */
 .hero {
   background: linear-gradient(100deg, #f7f9f6 0%, #fff 55%);

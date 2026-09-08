@@ -93,6 +93,11 @@ em {
   font-weight: 700;
 }
 
+.site-header nav a,
+.site-header nav button {
+  white-space: nowrap;
+}
+
 .wordmark {
   align-items: center;
   color: var(--primary);

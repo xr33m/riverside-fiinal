@@ -34,7 +34,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   }
 
   const schema = generateGraphSchema(
-    `https://ardenworks.co.uk/landscaping-services/${service.slug}`,
+    `https://riverside-landscaping.co.uk/landscaping-services/${service.slug}`,
     service.faqs
   )
 

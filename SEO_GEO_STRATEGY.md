@@ -40,7 +40,7 @@ Every page generated MUST adhere strictly to the exact Title Tag and Heading str
 `BEST [Primary Category] [Area] - If you're looking for [Service] near me or [Secondary Service] near me - [Business Name] is the #1 [Primary Category] in Glasgow`
 
 **Example (Paving Page):**
-`BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow`
+`BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow`
 
 ### B. Heading Tag Rules
 
@@ -84,16 +84,16 @@ Inject comprehensive JSON-LD schema into Next.js layouts (`/app/layout.tsx` or d
   "@graph": [
     {
       "@type": "LandscapingBusiness",
-      "@id": "https://yourdomain.co.uk/#business",
-      "name": "Apex Landscaping Glasgow",
-      "url": "https://yourdomain.co.uk",
-      "telephone": "+441410000000",
+      "@id": "https://riverside-landscaping.co.uk/#business",
+      "name": "Riverside Landscaping",
+      "url": "https://riverside-landscaping.co.uk",
+      "telephone": "+447507604713",
       "priceRange": "££-£££",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "Sample Street",
+        "streetAddress": "46 West George Street",
         "addressLocality": "Glasgow",
-        "postalCode": "G1 1AA",
+        "postalCode": "G2 4LL",
         "addressCountry": "GB"
       },
       "geo": {
@@ -117,7 +117,7 @@ Inject comprehensive JSON-LD schema into Next.js layouts (`/app/layout.tsx` or d
     },
     {
       "@type": "FAQPage",
-      "@id": "https://yourdomain.co.uk/porcelain-paving-glasgow/#faq",
+      "@id": "https://riverside-landscaping.co.uk/porcelain-paving-glasgow/#faq",
       "mainEntity": [
         {
           "@type": "Question",

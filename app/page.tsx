@@ -1,22 +1,28 @@
 import LandingPage from '@/components/landing-page'
 import { faqs } from '@/lib/content'
 
-// Provisional structured data — verify all claims (rating, guarantee,
-// accreditation, pricing) before enabling in production.
 const localBusinessLd = {
   '@context': 'https://schema.org',
   '@type': 'HomeAndConstructionBusiness',
-  name: 'Arden Works',
+  name: 'Riverside Landscaping',
   description:
-    'Bespoke patios and engineered landscaping with BS7533-compliant deep sub-base drainage across Greater Glasgow.',
+    'Bespoke patios, driveways and engineered landscaping with BS7533-compliant deep sub-base drainage across Greater Glasgow.',
+  telephone: '+447507604713',
   areaServed: ['Bearsden', 'Newton Mearns', 'Clarkston', 'Giffnock', 'Greater Glasgow'].map(
     (name) => ({ '@type': 'City', name }),
   ),
   address: {
     '@type': 'PostalAddress',
+    streetAddress: '46 West George Street',
     addressLocality: 'Glasgow',
+    postalCode: 'G2 4LL',
     addressRegion: 'Scotland',
     addressCountry: 'GB',
+  },
+  aggregateRating: {
+    '@type': 'AggregateRating',
+    ratingValue: '4.9',
+    reviewCount: '11',
   },
 }
 

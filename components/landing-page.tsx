@@ -37,11 +37,12 @@ import {
  * Business Configuration & Postcode Rules
  * ------------------------------------------------------------------ */
 const BRAND = {
-  name: 'Arden Works',
-  phoneDisplay: '0141 370 8921',
-  phoneHref: 'tel:+441413708921',
-  emailDisplay: 'surveys@ardenworks.co.uk',
-  emailHref: 'mailto:surveys@ardenworks.co.uk',
+  name: 'Riverside Landscaping',
+  phoneDisplay: '07507 604 713',
+  phoneHref: 'tel:+447507604713',
+  // Placeholder until a real inbox is confirmed - swap for the actual address.
+  emailDisplay: 'info@riverside-landscaping.co.uk',
+  emailHref: 'mailto:info@riverside-landscaping.co.uk',
 }
 
 const goals = ['Fix drainage & clay soil', 'Winter patio & hardscaping', 'Spring installation reservation']
@@ -364,10 +365,10 @@ function Header({ onSurvey }: { onSurvey: (source: string) => void }) {
   return (
     <header className={`site-header transition-all duration-300 ${scrolled ? 'site-header-scrolled' : ''}`}>
       <a href="#top" className="wordmark">
-        <span className="wordmark-mark">A</span>
+        <span className="wordmark-mark">R</span>
         <span>
-          Arden<span className="text-accent"> / </span>Works
-          <small>LANDSCAPE ENGINEERING</small>
+          Riverside<span className="text-accent"> / </span>Landscaping
+          <small>GLASGOW LANDSCAPING</small>
         </span>
       </a>
       <nav className="hidden items-center gap-6 md:flex text-sm">
@@ -758,13 +759,13 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
 }
 
 /* ------------------------------------------------------------------ *
- * Process Component (The Arden Method 4-Step Engineering Timeline)
+ * Process Component (The Riverside Method 4-Step Engineering Timeline)
  * ------------------------------------------------------------------ */
 function Process() {
   return (
     <section id="process" className="section process-section">
       <div className="section-intro">
-        <p className="eyebrow">The Arden Method</p>
+        <p className="eyebrow">The Riverside Method</p>
         <h2>
           Built like a small<br />
           <em>piece of architecture.</em>
@@ -1174,10 +1175,10 @@ export default function LandingPage() {
 
       <footer>
         <div className="wordmark">
-          <span className="wordmark-mark">A</span>
+          <span className="wordmark-mark">R</span>
           <span>
-            Arden<span className="text-accent"> / </span>Works
-            <small>LANDSCAPE ENGINEERING</small>
+            Riverside<span className="text-accent"> / </span>Landscaping
+            <small>GLASGOW LANDSCAPING</small>
           </span>
         </div>
         <div>

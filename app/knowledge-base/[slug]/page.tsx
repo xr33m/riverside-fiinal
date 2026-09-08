@@ -33,7 +33,7 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
     notFound()
   }
 
-  const schema = generateGraphSchema(`https://ardenworks.co.uk/knowledge-base/${article.slug}`)
+  const schema = generateGraphSchema(`https://riverside-landscaping.co.uk/knowledge-base/${article.slug}`)
 
   return (
     <>

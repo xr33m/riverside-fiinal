@@ -33,7 +33,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
     notFound()
   }
 
-  const schema = generateGraphSchema(`https://ardenworks.co.uk/locations/${suburb.slug}`)
+  const schema = generateGraphSchema(`https://riverside-landscaping.co.uk/locations/${suburb.slug}`)
 
   return (
     <>

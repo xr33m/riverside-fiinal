@@ -9,7 +9,7 @@ export const metadata = {
 }
 
 export default function LandscapingServicesHubPage() {
-  const schema = generateGraphSchema('https://ardenworks.co.uk/landscaping-services')
+  const schema = generateGraphSchema('https://riverside-landscaping.co.uk/landscaping-services')
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function LandscapingServicesHubPage() {
           <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-6 rounded-2xl space-y-3">
             <h2 className="text-xs font-mono text-emerald-400 uppercase tracking-wider">AEO Direct Summary</h2>
             <p className="text-slate-200 text-base leading-relaxed font-medium">
-              Apex Landscaping provides BS7533-compliant hardscaping services across Greater Glasgow, specializing in 150mm–200mm MOT Type 1 sub-base compaction, heavy clay drainage mitigation, Italian porcelain paving, and weather-sheltered year-round installation.
+              Riverside Landscaping provides BS7533-compliant hardscaping services across Greater Glasgow, specializing in 150mm–200mm MOT Type 1 sub-base compaction, heavy clay drainage mitigation, Italian porcelain paving, and weather-sheltered year-round installation.
             </p>
           </div>
 

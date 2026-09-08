@@ -4,12 +4,12 @@ import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
 import { BookOpen, ArrowRight, Clock, Calendar } from 'lucide-react'
 
 export const metadata = {
-  title: 'Glasgow Landscaping Knowledge Base & Cost Guides 2026 - Apex Landscaping',
+  title: 'Glasgow Landscaping Knowledge Base & Cost Guides 2026 - Riverside Landscaping',
   description: 'Topical authority hub featuring 2026 Glasgow patio cost guides, clay soil drainage engineering breakdowns, and winter hardscaping maintenance tips.',
 }
 
 export default function KnowledgeBaseHubPage() {
-  const schema = generateGraphSchema('https://ardenworks.co.uk/knowledge-base')
+  const schema = generateGraphSchema('https://riverside-landscaping.co.uk/knowledge-base')
 
   return (
     <>

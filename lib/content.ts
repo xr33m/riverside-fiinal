@@ -1,5 +1,5 @@
 /**
- * Shared marketing content & technical specifications for Arden Works / Riverside Landscaping.
+ * Shared marketing content & technical specifications for Riverside Landscaping.
  * Follows SEO_GEO_STRATEGY.md physical siloing and JSON-LD schema requirements.
  */
 
@@ -91,7 +91,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'High rainfall retention causing boggy lawns and flooded patio edges.',
     highlightInstall: 'Deep MOT Type 1 sub-base with perimeter slot drainage & Italian 20mm porcelain.',
     accessProfile: 'Suburban driveways & open side access allowing micro-excavator access.',
-    titleTag: "BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'newton-mearns',
@@ -102,7 +102,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Low water absorption leading to surface pooling during Glasgow winter storms.',
     highlightInstall: 'Geotextile fabric layer + sub-surface land drain channeling to mains soakaway.',
     accessProfile: 'Wide suburban plots with direct access suitable for heavy aggregate machinery.',
-    titleTag: "BEST Landscaping Newton Mearns - If you're looking for patio installers near me or driveway installers near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Landscaping Newton Mearns - If you're looking for patio installers near me or driveway installers near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'west-end-glasgow',
@@ -113,7 +113,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Restricted tenement rear lane access, tight plot boundaries, and high water table retention.',
     highlightInstall: 'Compact excavator access, flush threshold slot drains, and precision diamond-cut vitrified porcelain.',
     accessProfile: 'Narrow rear lane access and shared tenement pend tight clearance handling.',
-    titleTag: "BEST Patio Installers West End Glasgow - If you're looking for porcelain paving near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Patio Installers West End Glasgow - If you're looking for porcelain paving near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'giffnock',
@@ -124,7 +124,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Water run-off towards house foundations and garden boundary walls.',
     highlightInstall: 'Retaining wall engineering with integrated catch basins & frost-proof mortar.',
     accessProfile: 'Elevated terraced gardens requiring calculated slope drainage falls.',
-    titleTag: "BEST Hardscaping Giffnock - If you're looking for patio installers near me or retaining wall builders near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Hardscaping Giffnock - If you're looking for patio installers near me or retaining wall builders near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'clarkston',
@@ -135,7 +135,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Slab movement and joint degradation caused by frost heave.',
     highlightInstall: 'BS7533-compliant rigid pavement installation with zero water retention.',
     accessProfile: 'Established residential driveways requiring load-certified aggregate sub-bases.',
-    titleTag: "BEST Driveway Installers Clarkston - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Driveway Installers Clarkston - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'milngavie',
@@ -146,7 +146,7 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Slippery moss accumulation on traditional porous stone slabs.',
     highlightInstall: 'Non-porous vitrified porcelain paving with R11 anti-slip textured finish.',
     accessProfile: 'Mature garden boundaries requiring careful root zone preservation.',
-    titleTag: "BEST Porcelain Paving Milngavie - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Porcelain Paving Milngavie - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
 ]
 
@@ -185,7 +185,7 @@ export const SERVICES: ServiceDetail[] = [
         answer: 'Fully installed vitrified porcelain paving in Glasgow ranges between £120 and £180 per m² depending on site levels, drainage setup, and material specs.',
       },
     ],
-    titleTag: "BEST Porcelain Paving Glasgow - If you're looking for patio installers near me or garden drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Porcelain Paving Glasgow - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'driveway-installers-glasgow',
@@ -216,7 +216,7 @@ export const SERVICES: ServiceDetail[] = [
         answer: 'A standard 50m²–80m² driveway takes 4 to 6 working days, from initial sub-base excavation to final silica sand jointing.',
       },
     ],
-    titleTag: "BEST Driveway Installers Glasgow - If you're looking for block paving near me or resin driveways near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Driveway Installers Glasgow - If you're looking for block paving near me or resin driveways near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'garden-drainage-solutions-glasgow',
@@ -247,7 +247,7 @@ export const SERVICES: ServiceDetail[] = [
         answer: 'Yes. By excavating through the clay crust and surrounding pipes with porous aggregate, groundwater flows freely without back-pooling.',
       },
     ],
-    titleTag: "BEST Garden Drainage Solutions Glasgow - If you're looking for land drains near me or patio drainage near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Garden Drainage Solutions Glasgow - If you're looking for land drains near me or patio drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'decking-fencing-glasgow',
@@ -274,7 +274,7 @@ export const SERVICES: ServiceDetail[] = [
         answer: 'Quality composite decking features anti-slip woodgrain texturing and non-porous capping, preventing algae build-up and remaining safe to walk on year-round.',
       },
     ],
-    titleTag: "BEST Composite Decking Glasgow - If you're looking for fence builders near me or timber decking near me - Apex Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Composite Decking Glasgow - If you're looking for fence builders near me or timber decking near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
 ]
 
@@ -302,7 +302,7 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     ],
     relatedServiceSlug: 'porcelain-paving-glasgow',
     relatedServiceAnchor: 'Read our full Glasgow porcelain paving installation process',
-    titleTag: "Patio Installation Cost Glasgow 2026 - Porcelain Paving Price Guide - Apex Landscaping",
+    titleTag: "Patio Installation Cost Glasgow 2026 - Porcelain Paving Price Guide - Riverside Landscaping",
   },
   {
     slug: 'glasgow-garden-maintenance',
@@ -321,7 +321,7 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     ],
     relatedServiceSlug: 'garden-drainage-solutions-glasgow',
     relatedServiceAnchor: 'Explore our Glasgow garden drainage solutions',
-    titleTag: "Glasgow Garden Maintenance & Winter Care Guide - Apex Landscaping",
+    titleTag: "Glasgow Garden Maintenance & Winter Care Guide - Riverside Landscaping",
   },
 ]
 
@@ -543,7 +543,7 @@ export const MATERIALS: MaterialSwatch[] = [
   },
 ]
 
-// Process Steps (The Arden Method)
+// Process Steps (The Riverside Method)
 export const PROCESS_STEPS = [
   {
     step: '01',
@@ -586,22 +586,29 @@ export function generateGraphSchema(pageUrl: string, faqItems: { question: strin
     '@graph': [
       {
         '@type': 'LandscapingBusiness',
-        '@id': 'https://ardenworks.co.uk/#business',
-        'name': 'Apex Landscaping Glasgow / Arden Works',
-        'url': 'https://ardenworks.co.uk',
-        'telephone': '+441410000000',
+        '@id': 'https://riverside-landscaping.co.uk/#business',
+        'name': 'Riverside Landscaping',
+        'url': 'https://riverside-landscaping.co.uk',
+        'telephone': '+447507604713',
         'priceRange': '££-£££',
         'address': {
           '@type': 'PostalAddress',
-          'streetAddress': 'Great Western Road',
+          'streetAddress': '46 West George Street',
           'addressLocality': 'Glasgow',
-          'postalCode': 'G12 8QQ',
+          'postalCode': 'G2 4LL',
           'addressCountry': 'GB',
         },
+        // Approximate geocode for 46 West George Street, Glasgow G2 4LL - replace with the
+        // exact coordinates from Google Business Profile / Search Console if precision matters.
         'geo': {
           '@type': 'GeoCoordinates',
-          'latitude': 55.8642,
+          'latitude': 55.8617,
           'longitude': -4.2518,
+        },
+        'aggregateRating': {
+          '@type': 'AggregateRating',
+          'ratingValue': '4.9',
+          'reviewCount': '11',
         },
         'areaServed': SUBURBS.map((s) => ({
           '@type': 'Place',

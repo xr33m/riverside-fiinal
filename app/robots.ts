@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/'],
     },
-    sitemap: 'https://ardenworks.co.uk/sitemap.xml',
+    sitemap: 'https://riverside-landscaping.co.uk/sitemap.xml',
   }
 }

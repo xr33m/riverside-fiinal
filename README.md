@@ -1,8 +1,8 @@
-# Master Implementation Plan: Riverside Landscaping / Arden Works
+# Master Implementation Plan: Riverside Landscaping
 ## Ultra-Clean, High-Converting Hardscaping Landing Page & Scalable Multi-Location Engine (Glasgow Suburbs)
 
 ### Executive Summary
-**Arden Works / Riverside Landscaping** is a premium hardscaping & landscape engineering business operating in Greater Glasgow, targeting high-net-worth residential suburbs including **Bearsden (G61)**, **Newton Mearns (G77)**, **West End Glasgow (G12)**, **Clarkston (G76)**, **Giffnock (G46)**, **Milngavie (G62)**, and **Kilmacolm (PA13)**. 
+**Riverside Landscaping** is a premium hardscaping & landscape engineering business operating in Greater Glasgow, targeting high-net-worth residential suburbs including **Bearsden (G61)**, **Newton Mearns (G77)**, **West End Glasgow (G12)**, **Clarkston (G76)**, **Giffnock (G46)**, **Milngavie (G62)**, and **Kilmacolm (PA13)**. 
 
 The application combines a **£10k luxury design aesthetic** (smooth parallax scrolling, glassmorphism, architectural grid overlays, Higgsfield AI cinematic video loops) with a **scalable GEO/SEO physical silo engine** adhering to [`SEO_GEO_STRATEGY.md`](./SEO_GEO_STRATEGY.md) specifications for AI Search Engine Optimization (AEO/GEO).
 

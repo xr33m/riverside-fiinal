@@ -488,35 +488,56 @@ function MaterialSelector() {
  * ------------------------------------------------------------------ */
 function TestimonialsShowcase() {
   return (
-    <section id="testimonials" className="section testimonials-section border-t border-border bg-muted/20">
-      <div className="section-intro">
-        <p className="eyebrow">Client Verification</p>
-        <h2>
-          Trusted by homeowners<br />
-          <em>across Greater Glasgow.</em>
-        </h2>
+    <section id="testimonials" className="section testimonials-section border-t border-border bg-background">
+      <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+        <div className="section-intro">
+          <p className="eyebrow">Client Verification</p>
+          <h2>
+            Trusted by homeowners<br />
+            <em>across Greater Glasgow.</em>
+          </h2>
+        </div>
+
+        <div className="flex items-center gap-4 border border-border bg-muted/30 px-5 py-4 shadow-sm" aria-label="Google rating: 5 out of 5 stars">
+          <svg viewBox="0 0 24 24" className="size-9 shrink-0" aria-hidden="true">
+            <path fill="#4285F4" d="M21.35 12.27c0-.72-.06-1.42-.18-2.09H12v3.95h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.25Z" />
+            <path fill="#34A853" d="M12 21.7c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.74 9.74 0 0 0 12 21.7Z" />
+            <path fill="#FBBC05" d="M6.54 13.78A5.85 5.85 0 0 1 6.23 12c0-.62.11-1.22.31-1.78V7.69H3.3A9.74 9.74 0 0 0 2.26 12c0 1.56.37 3.03 1.04 4.31l3.24-2.53Z" />
+            <path fill="#EA4335" d="M12 6.19c1.43 0 2.71.49 3.72 1.45l2.79-2.79C16.84 3.27 14.63 2.3 12 2.3a9.74 9.74 0 0 0-8.7 5.39l3.24 2.53C7.31 7.91 9.46 6.19 12 6.19Z" />
+          </svg>
+          <div>
+            <p className="text-sm font-bold text-foreground">Google Reviews</p>
+            <div className="mt-1 flex items-center gap-2">
+              <span className="font-serif text-2xl font-bold leading-none text-primary">5.0</span>
+              <span className="flex gap-0.5 text-[#fbbc04]" aria-hidden="true">
+                {[...Array(5)].map((_, i) => <Star size={15} key={i} fill="currentColor" strokeWidth={1.5} />)}
+              </span>
+            </div>
+            <p className="mt-1 text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground">Verified customer feedback</p>
+          </div>
+        </div>
       </div>
 
-      <div className="mt-10 grid gap-6 sm:grid-cols-3">
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {TESTIMONIALS.map((t) => (
-          <article key={t.id} className="border border-border bg-background p-6 shadow-sm flex flex-col justify-between">
+          <article key={t.id} className="flex min-h-[300px] flex-col justify-between border border-border bg-background p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-md">
             <div>
-              <div className="flex gap-1 text-accent" aria-label={`${t.rating} star rating`}>
+              <div className="flex gap-0.5 text-[#0b6b45]" aria-label={`${t.rating} star rating`}>
                 {[...Array(t.rating)].map((_, i) => (
-                  <Star size={16} key={i} fill="currentColor" />
+                  <Star size={15} key={i} fill="currentColor" strokeWidth={1.5} />
                 ))}
               </div>
-              <blockquote className="mt-4 font-serif text-lg leading-snug text-primary">
+              <blockquote className="mt-4 font-serif text-base leading-[1.55] text-primary">
                 &quot;{t.quote}&quot;
               </blockquote>
             </div>
 
-            <div className="mt-6 border-t border-border pt-4">
-              <p className="font-bold text-foreground text-sm">{t.name}</p>
-              <p className="text-xs text-muted-foreground">
+            <div className="mt-8 border-t border-border pt-4">
+              <p className="text-sm font-bold text-foreground">{t.name}</p>
+              <p className="text-[11px] text-muted-foreground">
                 {t.postcode ? `${t.location} (${t.postcode})` : t.location} · {t.projectType}
               </p>
-              <p className="mt-1 text-[10px] uppercase font-bold text-accent">{t.date}</p>
+              <p className="mt-2 text-[10px] font-bold uppercase tracking-[0.12em] text-[#0b6b45]">{t.date}</p>
             </div>
           </article>
         ))}

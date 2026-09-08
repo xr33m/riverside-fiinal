@@ -19,25 +19,16 @@ export function Marquee({
   return (
     <div
       {...props}
-      style={{
-        '--duration': '40s',
-        ...(props.style ?? {}),
-      }}
       className={cn(
-        'group flex overflow-hidden p-2 [--gap:1rem]',
+        'group flex w-full overflow-hidden',
         className,
       )}
     >
       <div
         className={cn(
-          'flex shrink-0 animate-marquee items-center [--gap:1rem] group-hover:[animation-play-state:paused]',
+          'flex shrink-0 animate-marquee items-center gap-4 group-hover:[animation-play-state:paused]',
           reverse && '[animation-direction:reverse]',
-          pauseOnHover && 'group-hover:[animation-play-state:paused]',
         )}
-        style={{
-          gap: 'var(--gap)',
-          marginRight: 'calc(var(--gap) * -1)',
-        }}
       >
         {children}
         {children}

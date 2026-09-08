@@ -1,5 +1,7 @@
 /**
  * Shared marketing content & technical specifications for Riverside Landscaping.
+ * Official Website: https://riverside-landscaping.co.uk
+ * Phone: 07507 604713 / +447507604713
  * Follows SEO_GEO_STRATEGY.md physical siloing and JSON-LD schema requirements.
  */
 
@@ -46,6 +48,27 @@ export interface SuburbCoverage {
   keyChallenge: string
   highlightInstall: string
   accessProfile: string
+  mainRoads: string[]
+  keyLandmarks: string[]
+  neighbourhoods: string[]
+  gbpDrivingDirections: string
+  titleTag: string
+}
+
+// Ayrshire coverage silo shares the same shape minus depot-specific driving directions,
+// since there is no dedicated Ayrshire address/GBP listing yet (see BRAND_AYRSHIRE below).
+export interface AyrshireTown {
+  slug: string
+  name: string
+  postcodePrefix: string
+  council: string
+  soilProfile: string
+  keyChallenge: string
+  highlightInstall: string
+  accessProfile: string
+  mainRoads: string[]
+  keyLandmarks: string[]
+  neighbourhoods: string[]
   titleTag: string
 }
 
@@ -80,7 +103,44 @@ export interface KnowledgeArticle {
   titleTag: string
 }
 
-// Suburb coverage database for Glasgow High-End Suburbs & GEO Silo
+// Business Contact & NAP Data single source of truth.
+// Address confirmed against the live Google Business Profile - do not change without checking GBP first.
+export const BRAND = {
+  name: 'Riverside Landscaping',
+  legalName: 'Riverside Landscaping Ltd',
+  phoneDisplay: '07507 604713',
+  phoneHref: 'tel:+447507604713',
+  whatsappHref: 'https://wa.me/447507604713',
+  emailDisplay: 'info@riverside-landscaping.co.uk',
+  emailHref: 'mailto:info@riverside-landscaping.co.uk',
+  domain: 'https://riverside-landscaping.co.uk',
+  gbpAddress: {
+    streetAddress: '46 West George Street',
+    addressLocality: 'Glasgow',
+    addressRegion: 'Scotland',
+    postalCode: 'G2 4LL',
+    addressCountry: 'GB',
+  },
+  geoCoordinates: {
+    latitude: 55.8617,
+    longitude: -4.2518,
+  },
+}
+
+// Ayrshire is a real, separate service area but does not have its own Google Business
+// Profile, address, or phone number yet. Reuses the main contact channel for now -
+// swap phoneDisplay/phoneHref/gbpAddress here once a dedicated Ayrshire GBP exists,
+// and start emitting a full LandscapingBusiness schema for /ayrshire/ at that point
+// (see generateAyrshireGraphSchema below, which deliberately omits address/geo today).
+export const BRAND_AYRSHIRE = {
+  name: 'Riverside Landscaping — Ayrshire',
+  phoneDisplay: BRAND.phoneDisplay,
+  phoneHref: BRAND.phoneHref,
+  emailDisplay: BRAND.emailDisplay,
+  emailHref: BRAND.emailHref,
+}
+
+// Suburb & Regional coverage matrix with rich local relevance vectors (streets, landmarks, directions)
 export const SUBURBS: SuburbCoverage[] = [
   {
     slug: 'bearsden',
@@ -88,9 +148,13 @@ export const SUBURBS: SuburbCoverage[] = [
     postcodePrefix: 'G61',
     council: 'East Dunbartonshire',
     soilProfile: 'Heavy Boulder Clay & Glacial Till',
-    keyChallenge: 'High rainfall retention causing boggy lawns and flooded patio edges.',
+    keyChallenge: 'High rainfall retention causing boggy rear lawns and flooded patio edges.',
     highlightInstall: 'Deep MOT Type 1 sub-base with perimeter slot drainage & Italian 20mm porcelain.',
     accessProfile: 'Suburban driveways & open side access allowing micro-excavator access.',
+    mainRoads: ['Drymen Road (A809)', 'Roman Road', 'Milngavie Road (A81)', 'Canniesburn Toll'],
+    keyLandmarks: ['Bearsden Cross', 'Kilmardinny Loch', 'Roman Bath House', 'Douglas Park Golf Club'],
+    neighbourhoods: ['Thorn', 'Bearsden Cross', 'Kilmardinny', 'Westerton', 'Mosshead'],
+    gbpDrivingDirections: 'From Bearsden Cross, head south down Drymen Road (A809) towards Canniesburn Toll roundabout, taking the exit for A81 straight to our central Riverside Landscaping Glasgow depot.',
     titleTag: "BEST Porcelain Paving Bearsden - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
@@ -102,6 +166,10 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Low water absorption leading to surface pooling during Glasgow winter storms.',
     highlightInstall: 'Geotextile fabric layer + sub-surface land drain channeling to mains soakaway.',
     accessProfile: 'Wide suburban plots with direct access suitable for heavy aggregate machinery.',
+    mainRoads: ['Ayr Road (A77)', 'Mearns Road', 'Malletsheugh Road', 'M77 Junction 4/5'],
+    keyLandmarks: ['The Avenue Shopping Centre', 'Whitecraigs Golf Club', 'Rouken Glen Park Boundary', 'Mearns Castle'],
+    neighbourhoods: ['Whitecraigs', 'Broom', 'Crookfur', 'Capelrig', 'Mearns Cross'],
+    gbpDrivingDirections: 'Take Ayr Road (A77) northbound past The Avenue Shopping Centre, connecting to M77 northbound for 10 minutes directly to Riverside Landscaping HQ.',
     titleTag: "BEST Landscaping Newton Mearns - If you're looking for patio installers near me or driveway installers near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
@@ -113,6 +181,10 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Restricted tenement rear lane access, tight plot boundaries, and high water table retention.',
     highlightInstall: 'Compact excavator access, flush threshold slot drains, and precision diamond-cut vitrified porcelain.',
     accessProfile: 'Narrow rear lane access and shared tenement pend tight clearance handling.',
+    mainRoads: ['Byres Road', 'Great Western Road (A82)', 'Hyndland Road', 'Dumbarton Road'],
+    keyLandmarks: ['University of Glasgow', 'Glasgow Botanic Gardens', 'Kelvingrove Art Gallery', 'Ashton Lane'],
+    neighbourhoods: ['Hyndland', 'Dowanhill', 'Kelvinside', 'Partickhill', 'Broomhill'],
+    gbpDrivingDirections: 'Travel east along Great Western Road (A82) past Botanic Gardens, turning onto the M8 expressway connection straight to Riverside Landscaping depot.',
     titleTag: "BEST Patio Installers West End Glasgow - If you're looking for porcelain paving near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
@@ -124,6 +196,10 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Water run-off towards house foundations and garden boundary walls.',
     highlightInstall: 'Retaining wall engineering with integrated catch basins & frost-proof mortar.',
     accessProfile: 'Elevated terraced gardens requiring calculated slope drainage falls.',
+    mainRoads: ['Fenwick Road (A77)', 'Kilbride Road', 'Braidbar Road', 'Station Road'],
+    keyLandmarks: ['Huntly Park', 'Giffnock Tennis Club', 'Orchard Park', 'Giffnock Synagogue'],
+    neighbourhoods: ['Braidbar', 'Orchard Park', 'Thornliebank border', 'Merrylea'],
+    gbpDrivingDirections: 'Head north along Fenwick Road (A77) towards Kilmarnock Road, accessing our central depot within 8 minutes.',
     titleTag: "BEST Hardscaping Giffnock - If you're looking for patio installers near me or retaining wall builders near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
@@ -135,6 +211,10 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Slab movement and joint degradation caused by frost heave.',
     highlightInstall: 'BS7533-compliant rigid pavement installation with zero water retention.',
     accessProfile: 'Established residential driveways requiring load-certified aggregate sub-bases.',
+    mainRoads: ['Busby Road (A727)', 'Mearns Road', 'Stamperland Avenue', 'East Kilbride Road'],
+    keyLandmarks: ['Clarkston Toll', 'Overlee Park', 'Cathcart Castle Golf Club', 'Greenbank Garden'],
+    neighbourhoods: ['Stamperland', 'Netherlee', 'Williamwood', 'Busby'],
+    gbpDrivingDirections: 'From Clarkston Toll, proceed north on Busby Road (A727) through Netherlee to connect directly to Riverside Landscaping HQ.',
     titleTag: "BEST Driveway Installers Clarkston - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
@@ -146,7 +226,104 @@ export const SUBURBS: SuburbCoverage[] = [
     keyChallenge: 'Slippery moss accumulation on traditional porous stone slabs.',
     highlightInstall: 'Non-porous vitrified porcelain paving with R11 anti-slip textured finish.',
     accessProfile: 'Mature garden boundaries requiring careful root zone preservation.',
+    mainRoads: ['Glasgow Road (A81)', 'Strathblane Road', 'Station Road', 'Mugdock Road'],
+    keyLandmarks: ['West Highland Way Start', 'Mugdock Country Park', 'Milngavie Reservoir', 'Clober Golf Club'],
+    neighbourhoods: ['Barloch', 'Clober', 'Mains Estate', 'Tannoch'],
+    gbpDrivingDirections: 'Take Glasgow Road (A81) southbound past Milngavie Reservoir through Bearsden straight to Riverside Landscaping depot.',
     titleTag: "BEST Porcelain Paving Milngavie - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'bothwell',
+    name: 'Bothwell',
+    postcodePrefix: 'G71',
+    council: 'South Lanarkshire',
+    soilProfile: 'Heavy Alluvial Clay & Glacial Till',
+    keyChallenge: 'Sloped conservation area plots with heavy clay run-off towards home foundations.',
+    highlightInstall: 'High-density retaining wall structures + permeable porcelain terraces with sub-base land drainage.',
+    accessProfile: 'Gated residential properties requiring low-noise precision excavation equipment.',
+    mainRoads: ['Main Street (B7071)', 'Bothwell Road', 'Uddingston Road', 'M74 Junction 5'],
+    keyLandmarks: ['Bothwell Castle', 'Bothwell Parish Church', 'Bothwell Castle Golf Club', 'Clyde Walkway'],
+    neighbourhoods: ['Castle Avenue area', 'Silverwells', 'Old Bothwell', 'Laighlands'],
+    gbpDrivingDirections: 'Take M74 northbound from Junction 5 for 12 minutes to access Riverside Landscaping Central Depot.',
+    titleTag: "BEST Luxury Landscaping Bothwell - If you're looking for patio installers near me or retaining wall builders near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'kilmacolm',
+    name: 'Kilmacolm',
+    postcodePrefix: 'PA13',
+    council: 'Inverclyde',
+    soilProfile: 'Upland Peat & Silt over Dense Clay',
+    keyChallenge: 'Excess rain absorption causing boggy lawn areas and moss growth on traditional paving.',
+    highlightInstall: 'BS7533 vitrified non-porous porcelain with R11 slip rating and deep land drain soakaways.',
+    accessProfile: 'Large estate driveways suitable for multi-axle aggregate delivery trucks.',
+    mainRoads: ['Lochwinnoch Road (A761)', 'Bridge of Weir Road', 'Gryffe Road', 'Port Glasgow Road'],
+    keyLandmarks: ['Kilmacolm Hydro Site', 'Knpps Loch', 'Kilmacolm Golf Club', 'Birkmyre Park'],
+    neighbourhoods: ['Gryffe Castle area', 'Birkmyre', 'West End Kilmacolm', 'Duchal Estate border'],
+    gbpDrivingDirections: 'Head east on A761 through Bridge of Weir, connecting to M8 eastbound straight to Riverside Landscaping central headquarters.',
+    titleTag: "BEST Landscaping & Driveways Kilmacolm - If you're looking for patio installers near me or resin driveways near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+]
+
+// Ayrshire coverage silo - separate service area, pending its own Google Business Profile.
+// Coastal Ayrshire towns run on links/sandy soil rather than Glasgow's boulder clay, so the
+// copy below deliberately focuses on wind/salt exposure and free-draining ground instead of
+// reusing the Glasgow clay-drainage narrative.
+export const AYRSHIRE_TOWNS: AyrshireTown[] = [
+  {
+    slug: 'troon',
+    name: 'Troon',
+    postcodePrefix: 'KA10',
+    council: 'South Ayrshire',
+    soilProfile: 'Free-Draining Coastal Links Sand',
+    keyChallenge: 'Salt-laden coastal winds accelerating wear on untreated timber and unsealed jointing.',
+    highlightInstall: 'Wind-rated porcelain edge restraints with corrosion-resistant stainless fixings throughout.',
+    accessProfile: 'Coastal villa plots with generous side access for aggregate delivery.',
+    mainRoads: ['Bentinck Drive', 'Ayr Road (A78)', 'Templehill', 'Prestwick Road'],
+    keyLandmarks: ['Royal Troon Golf Club', 'Troon Beach & Esplanade', 'Troon Harbour', 'Fullarton Woods'],
+    neighbourhoods: ['South Beach', 'Fullarton', 'Barassie', 'St Meddans'],
+    titleTag: "BEST Landscaping Troon - If you're looking for patio installers near me or coastal garden drainage near me - Riverside Landscaping",
+  },
+  {
+    slug: 'prestwick',
+    name: 'Prestwick',
+    postcodePrefix: 'KA9',
+    council: 'South Ayrshire',
+    soilProfile: 'Sandy Links Soil over Compact Subsoil',
+    keyChallenge: 'Rapid surface drying and wind-blown sand requiring stabilised, low-maintenance surfacing.',
+    highlightInstall: 'Compacted MOT sub-base with wind-firm porcelain or resin bound surfacing.',
+    accessProfile: 'Established residential streets with on-road aggregate delivery access.',
+    mainRoads: ['Ayr Road (A79)', 'Main Street', 'Kingcase Road', 'Prestwick Airport Road'],
+    keyLandmarks: ['Prestwick Beach', 'Prestwick Golf Club', 'Glasgow Prestwick Airport', 'Kingcase'],
+    neighbourhoods: ['Kingcase', 'Monkton', 'Prestwick Toll'],
+    titleTag: "BEST Landscaping Prestwick - If you're looking for patio installers near me or driveway installers near me - Riverside Landscaping",
+  },
+  {
+    slug: 'ayr',
+    name: 'Ayr & Alloway',
+    postcodePrefix: 'KA7',
+    council: 'South Ayrshire',
+    soilProfile: 'River Ayr Floodplain Silt & Clay',
+    keyChallenge: 'Riverside plots with higher flood-plain water tables needing engineered surface run-off.',
+    highlightInstall: 'ACO slot drainage tied to soakaways, sized for floodplain-adjacent gardens.',
+    accessProfile: 'Conservation-area properties in Alloway requiring careful, low-impact excavation.',
+    mainRoads: ['Alloway Road (B7024)', 'Doonfoot Road', 'Whitletts Road', 'A77'],
+    keyLandmarks: ['Robert Burns Birthplace Museum', 'Belleisle Park', 'Ayr Racecourse', 'Ayr Beach'],
+    neighbourhoods: ['Alloway', 'Doonfoot', 'Belleisle', 'Wallacetown'],
+    titleTag: "BEST Landscaping Ayr & Alloway - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping",
+  },
+  {
+    slug: 'west-kilbride',
+    name: 'West Kilbride',
+    postcodePrefix: 'KA23',
+    council: 'North Ayrshire',
+    soilProfile: 'Exposed Coastal Clay & Rock Outcrop',
+    keyChallenge: 'Exposed, windswept plots with shallow topsoil over rock needing anchored foundations.',
+    highlightInstall: 'Pinned sub-base foundations with wind-rated fencing and sheltered planting borders.',
+    accessProfile: 'Village properties with narrow lane access suited to compact excavation equipment.',
+    mainRoads: ['Main Street', 'Kirktonhall Road', 'Corse Street', 'A78'],
+    keyLandmarks: ['West Kilbride Village', 'Seamill Beach', 'Law Castle', 'Ardneil Bay'],
+    neighbourhoods: ['Seamill', 'Law Wood', 'Hunterston'],
+    titleTag: "BEST Landscaping West Kilbride - If you're looking for patio installers near me or coastal garden drainage near me - Riverside Landscaping",
   },
 ]
 
@@ -159,10 +336,10 @@ export const SERVICES: ServiceDetail[] = [
     primaryCategory: 'Porcelain Paving',
     h1Title: 'Porcelain Paving & Patio Installation in Glasgow',
     h2Secondary1: 'Driveway Installers & Hardscaping Near Me',
-    h2Secondary2: 'Garden Drainage Solutions for Clay Soil & Wet Glasgow Weather',
-    h2PainPoint: 'Preventing Waterlogging & Frost Heave on Glasgow Clay Soil',
-    directAnswer3Sec: 'A standard 40m² porcelain patio in Glasgow takes 5 to 7 working days to complete, including excavation, 150mm-200mm sub-base compaction, and weather-sheltered BS7533 mortar installation.',
-    soilContext: 'Glasgow clay soil expands rapidly during wet winters. We excavate 250mm to 300mm deep, laying non-woven geotextile membrane under 150mm-200mm of MOT Type 1 aggregate to prevent sinking or shifting.',
+    h2Secondary2: 'Garden Drainage Solutions for Clay Soil & Wet Weather',
+    h2PainPoint: 'Preventing Waterlogging & Frost Heave on Scottish Clay Soil',
+    directAnswer3Sec: 'A standard 40m² porcelain patio in Glasgow takes 5 to 7 working days to complete by Riverside Landscaping, including excavation, 150mm-200mm sub-base compaction, slurry priming, and weather-sheltered mortar installation.',
+    soilContext: 'Glasgow clay soil expands rapidly during wet winters. Riverside Landscaping excavates 250mm to 300mm deep, laying non-woven geotextile membrane under 150mm-200mm of MOT Type 1 aggregate to prevent sinking or shifting.',
     bsStandard: 'Strictly built to BS7533 standards with full-bed polymer slurry priming and rapid-setting frost-proof mortars for year-round durability.',
     features: [
       'Italian 20mm Vitrified R11 Anti-Slip Porcelain Slabs',
@@ -173,7 +350,7 @@ export const SERVICES: ServiceDetail[] = [
     ],
     faqs: [
       {
-        question: 'Can you lay porcelain paving during Glasgow winters?',
+        question: 'Can Riverside Landscaping lay porcelain paving during Scottish winters?',
         answer: 'Yes. We use rapid-setting frost-proof mortars and weather-sheltered working rigs. As long as ground temps remain above 0°C, hardscaping can safely continue through winter.',
       },
       {
@@ -182,7 +359,7 @@ export const SERVICES: ServiceDetail[] = [
       },
       {
         question: 'What is the cost per m² for porcelain paving in Glasgow?',
-        answer: 'Fully installed vitrified porcelain paving in Glasgow ranges between £120 and £180 per m² depending on site levels, drainage setup, and material specs.',
+        answer: 'Fully installed vitrified porcelain paving in Glasgow ranges between £120 and £180 per m² depending on site levels, drainage setup, and material specs. Every job gets a written estimate based on your materials and labour before work starts.',
       },
     ],
     titleTag: "BEST Porcelain Paving Glasgow - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
@@ -196,7 +373,7 @@ export const SERVICES: ServiceDetail[] = [
     h2Secondary1: 'Porcelain Paving & Patio Installers Near Me',
     h2Secondary2: 'Retaining Walls & Heavy Vehicle Load Foundations',
     h2PainPoint: 'Engineered Driveways Built to Withstand Scottish Rain & Frost Cycles',
-    directAnswer3Sec: 'Our Glasgow driveway installations take 4 to 6 days for a 60m² area, utilizing heavy vehicle load-rated foundations, permeable block paving, and integrated perimeter water channels.',
+    directAnswer3Sec: 'Riverside Landscaping driveway installations take 4 to 6 days for a 60m² area, utilizing heavy vehicle load-rated foundations, permeable block paving, and integrated perimeter water channels.',
     soilContext: 'Scottish glacial till and clay require 200mm-250mm of crushed aggregate foundation with geotextile isolation to prevent tire rutting and surface subsidence.',
     bsStandard: 'Complies with BS7533 structural paving requirements, featuring load-bearing aggregate beds and high-adhesion edge restraints.',
     features: [
@@ -209,7 +386,7 @@ export const SERVICES: ServiceDetail[] = [
     faqs: [
       {
         question: 'Do I need planning permission for a new driveway in Glasgow?',
-        answer: 'Driveways using permeable block paving or discharging water onto your lawn do not require planning permission in Glasgow. We handle SUDS compliance on every build.',
+        answer: 'Driveways using permeable block paving or discharging water onto your lawn do not require planning permission in Glasgow. Riverside Landscaping handles SUDS compliance on every build.',
       },
       {
         question: 'How long does a block paving driveway take to install?',
@@ -227,7 +404,7 @@ export const SERVICES: ServiceDetail[] = [
     h2Secondary1: 'Sub-Surface Land Drains & Perimeter Slot Channels',
     h2Secondary2: 'Porcelain Patios with Integrated Water Mitigation',
     h2PainPoint: 'Eliminating Waterlogged Lawns & Standing Water in Wet Weather',
-    directAnswer3Sec: 'Glasgow garden drainage systems resolve waterlogged clay soils in 2 to 4 days using deep perforated land drain piping, wrapped in clean gravel and non-woven geotextile fleece.',
+    directAnswer3Sec: 'Riverside Landscaping garden drainage systems resolve waterlogged clay soils in 2 to 4 days using deep perforated land drain piping, wrapped in clean gravel and non-woven geotextile fleece.',
     soilContext: 'Glasgow receives over 1,200mm of annual rainfall on non-porous clay soil. Our French drain networks and catch basins divert water away from house footings directly into approved soakaways.',
     bsStandard: 'Engineered in accordance with British Building Regulations Part H for gravity drainage and surface water discharge compliance.',
     features: [
@@ -239,7 +416,7 @@ export const SERVICES: ServiceDetail[] = [
     ],
     faqs: [
       {
-        question: 'How do you fix a waterlogged garden in Glasgow?',
+        question: 'How does Riverside Landscaping fix a waterlogged garden in Glasgow?',
         answer: 'We install sub-surface land drains wrapped in geotextile filter socks and 20mm clean gravel, redirecting groundwater into high-capacity soakaway crates.',
       },
       {
@@ -258,7 +435,7 @@ export const SERVICES: ServiceDetail[] = [
     h2Secondary1: 'Porcelain Paving & Terraced Hardscaping Near Me',
     h2Secondary2: 'Weatherproof Composite Framing & Privacy Screens',
     h2PainPoint: 'Rot-Proof Outdoor Living Built for Damp Scottish Climates',
-    directAnswer3Sec: 'Composite decking and cedar-style slatted fencing installations take 3 to 5 days, utilizing sub-frame aluminum substructures that resist rot in damp Glasgow climates.',
+    directAnswer3Sec: 'Composite decking and cedar-style slatted fencing by Riverside Landscaping take 3 to 5 days, utilizing sub-frame aluminum substructures that resist rot in damp Scottish climates.',
     soilContext: 'High atmospheric moisture in Glasgow rots traditional timber posts. We set structural posts in 600mm deep concrete footings with sub-surface drainage sleeves.',
     bsStandard: 'Built using structural grade C24 treated timber or rot-proof aluminum joists anchored with stainless steel fixings.',
     features: [
@@ -276,6 +453,91 @@ export const SERVICES: ServiceDetail[] = [
     ],
     titleTag: "BEST Composite Decking Glasgow - If you're looking for fence builders near me or timber decking near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
+  {
+    slug: 'resin-bound-driveways-glasgow',
+    name: 'Resin Bound Driveways & Surfaces',
+    category: 'Landscaping Services',
+    primaryCategory: 'Resin Bound Driveways',
+    h1Title: 'Resin Bound Driveway Installers in Glasgow',
+    h2Secondary1: 'Block Paving & Hardscaping Driveway Near Me',
+    h2Secondary2: 'SUDS Permeable Drainage & MOT Sub-Base Engineering',
+    h2PainPoint: 'Seamless, Weed-Free & Permeable Driveways Built for Scottish Weather',
+    directAnswer3Sec: 'Riverside Landscaping resin bound driveways take 2 to 4 days to install, utilizing BBA-approved UV-stable polyurethane binder and natural marble or granite aggregates laid over an open-graded asphalt base.',
+    soilContext: 'Glasgow rainfall requires fully permeable driveways. Our resin bound surfaces allow water to drain naturally at up to 850 liters per m² per minute into the sub-base, preventing puddling and SUDS planning delays.',
+    bsStandard: 'Laid to strict 18mm–22mm thickness over load-bearing open-grade tarmacadam complying with BS EN 13108 standards.',
+    features: [
+      'BBA-Certified 100% UV-Stable Polyurethane Resin',
+      '18mm–22mm Structural Aggregate Depth',
+      'SUDS Compliant - Zero Planning Permission Needed',
+      'Seamless, Weed-Resistant & Frost-Proof Finish',
+      '15-Year Structural & Anti-Discoloration Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'Does resin bound paving crack during severe Glasgow winter freezes?',
+        answer: 'No. Our resin bound systems utilize flexible UV-stable polyurethane binders laid over a compacted open-grade binder course, allowing minor thermal expansion without cracking.',
+      },
+      {
+        question: 'Can you lay resin bound surfacing over an existing driveway?',
+        answer: 'Yes, provided the existing concrete or asphalt sub-base is structurally sound, crack-free, and set over adequate MOT Type 1 aggregate.',
+      },
+    ],
+    titleTag: "BEST Resin Bound Driveways Glasgow - If you're looking for resin driveways near me or permeable paving near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'retaining-walls-glasgow',
+    name: 'Retaining Walls & Scottish Stone Masonry',
+    category: 'Landscaping Services',
+    primaryCategory: 'Retaining Walls',
+    h1Title: 'Structural Retaining Wall Builders in Glasgow',
+    h2Secondary1: 'Porcelain Terracing & Tiered Garden Landscaping',
+    h2Secondary2: 'Sub-Surface Weep Hole Drainage & Foundation Engineering',
+    h2PainPoint: 'Preventing Soil Movement & Landslip on Sloped Glasgow Gardens',
+    directAnswer3Sec: 'Riverside Landscaping installs structural retaining walls in 3 to 7 days, using reinforced concrete footings, Scottish Whinstone, or engineered blockwork with integrated back-drainage.',
+    soilContext: 'Sloped gardens in Bearsden and Giffnock exert immense lateral earth pressure when heavy clay becomes saturated. We install deep concrete footings and backfill with clean 20mm gravel to relieve hydro-static pressure.',
+    bsStandard: 'Built strictly to BS8002 code of practice for earth retaining structures with weep-hole water relief channels.',
+    features: [
+      'Engineered Concrete Strip Footings below Frost Line',
+      'Scottish Whinstone & Vitrified Porcelain Facing Option',
+      'Continuous Geotextile Backfill & Filter Sock Drainage',
+      'Integrated Weep-Holes to Prevent Hydrostatic Bulging',
+      '10-Year Structural Wall Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'How high can a garden retaining wall be built without structural calculations?',
+        answer: 'Retaining walls under 1.0m height can be constructed without full structural calculations, but still require engineered concrete footings and weep-hole drainage under Scottish building guidelines.',
+      },
+    ],
+    titleTag: "BEST Retaining Wall Builders Glasgow - If you're looking for stone wall builders near me or terraced landscaping near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'artificial-grass-glasgow',
+    name: 'Luxury Artificial Turf & Lawns',
+    category: 'Landscaping Services',
+    primaryCategory: 'Artificial Turf',
+    h1Title: 'Luxury Artificial Grass Installers in Glasgow',
+    h2Secondary1: 'Porcelain Paving & Patio Landscaping Integration',
+    h2Secondary2: 'Granite Dust Sub-Base Prep & Mud-Free Pet Lawns',
+    h2PainPoint: 'Eliminating Muddy Lawns & Constant Mowing in Wet Scottish Climates',
+    directAnswer3Sec: 'Riverside Landscaping artificial grass installations take 2 to 3 days, replacing soggy lawn turf with a 100mm compacted crushed granite sub-base, weed barrier, and child/pet-safe 38mm-45mm memory yarn grass.',
+    soilContext: 'Clay soils in Glasgow turn natural lawns into mud pits from October to April. Our 100mm granite dust sub-base permits rapid drainage while staying 100% firm under foot.',
+    bsStandard: 'Uses non-toxic, heavy metal-free yarns with high UV stability and latex/polyurethane backing for zero water retention.',
+    features: [
+      '38mm–45mm Ultra-Realism C-Shape Memory Yarns',
+      '100mm Compacted Granite Dust & Type 1 Sub-Base',
+      'Heavy-Duty Geotextile Weed Suppression Membrane',
+      '100% Pet-Friendly Antimicrobial Infill Available',
+      '10-Year Manufacturer & Installation Warranty',
+    ],
+    faqs: [
+      {
+        question: 'Will artificial grass drain properly on Glasgow heavy clay soil?',
+        answer: 'Yes. We excavate the muddy clay surface and replace it with a 100mm permeable aggregate sub-base, ensuring rainfall drains through at over 60 liters per minute per m².',
+      },
+    ],
+    titleTag: "BEST Artificial Grass Glasgow - If you're looking for astro turf near me or mud free lawn near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
 ]
 
 // Informational Articles Database for /knowledge-base/
@@ -286,8 +548,8 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     category: 'Cost Guides',
     publishDate: '2026-01-15',
     readingTime: '6 min read',
-    summary: 'Comprehensive 2026 cost breakdown for porcelain paving, excavation, sub-base prep, and drainage in Glasgow suburbs.',
-    directAnswer3Sec: 'A fully installed porcelain patio in Glasgow costs between £120 and £180 per m² in 2026, including excavation of clay soil, 150mm MOT Type 1 sub-base, slurry priming, and resin grouting.',
+    summary: 'Comprehensive 2026 cost breakdown for porcelain paving, excavation, sub-base prep, and drainage by Riverside Landscaping.',
+    directAnswer3Sec: 'A fully installed porcelain patio in Glasgow costs between £120 and £180 per m² in 2026, based on typical material and labour costs. Riverside Landscaping confirms your exact number with a written estimate after a free site survey.',
     sections: [
       {
         h2: 'Average Cost per m² for Glasgow Patios',
@@ -323,6 +585,30 @@ export const KNOWLEDGE_ARTICLES: KnowledgeArticle[] = [
     relatedServiceAnchor: 'Explore our Glasgow garden drainage solutions',
     titleTag: "Glasgow Garden Maintenance & Winter Care Guide - Riverside Landscaping",
   },
+  {
+    slug: 'clay-soil-drainage-guide',
+    title: 'Solving Heavy Clay Soil Drainage in Glasgow Gardens: Complete Engineering Guide',
+    category: 'Technical Guides',
+    publishDate: '2026-02-20',
+    readingTime: '7 min read',
+    summary: 'Technical guide to French drains, geotextile sub-base separation, and soakaway calculations for Greater Glasgow soils.',
+    directAnswer3Sec: 'Fix heavy clay soil drainage in Glasgow by excavating 250mm–300mm deep, laying non-woven geotextile fleece, and installing perforated French drain pipes surrounded by 20mm clean gravel connected to soakaway crates.',
+    sections: [
+      {
+        h2: 'Why Standard Lawns & Patios Fail on Scottish Glacial Till',
+        directAnswer: 'Glasgow clay soil retains up to 70% more surface water than sandy loam, creating hydrostatic pressure under paving slabs during severe freeze-thaw cycles.',
+        content: 'Glacial till in areas like Bearsden (G61) and Newton Mearns (G77) acts as a water barrier. Without subsurface land drains, heavy winter rain collects beneath shallow patio bases, forcing aggregate upwards during freeze events.',
+      },
+      {
+        h2: 'The 3-Layer Drainage Solution for Waterlogged Gardens',
+        directAnswer: 'A robust clay drainage system comprises: 1) Geotextile isolation fleece, 2) 150mm MOT Type 1 sub-base with perforated land drains, and 3) Flush ACO slot channels shedding water to soakaways.',
+        content: 'By establishing continuous laser-leveled falls (1:60 ratio), surface runoff flows cleanly into perimeter slot channels before penetrating sub-layers.',
+      },
+    ],
+    relatedServiceSlug: 'garden-drainage-solutions-glasgow',
+    relatedServiceAnchor: 'View our full Glasgow land drainage engineering specifications',
+    titleTag: "Glasgow Clay Soil Drainage Guide - French Drains & Sub-Base Prep - Riverside Landscaping",
+  },
 ]
 
 // FAQ Copy — single source of truth for accordion and schema JSON-LD
@@ -337,7 +623,7 @@ export const faqs: [string, string][] = [
   ],
   [
     'How much does a porcelain patio cost in Bearsden or Newton Mearns?',
-    'Fully installed porcelain paving with complete site excavation, BS7533 sub-base preparation, and integrated drainage ranges between £120 and £180 per m² depending on site levels and material selection.',
+    'Porcelain paving with complete site excavation, BS7533 sub-base preparation, and integrated drainage typically runs between £120 and £180 per m². We do not quote fixed prices upfront — every job gets a written estimate based on your specific materials and labour after a free site survey.',
   ],
   [
     'What is your structural guarantee on hardscaping builds?',
@@ -550,7 +836,7 @@ export const PROCESS_STEPS = [
     title: 'Laser Levels & Water Table Survey',
     subtitle: 'Fall calculation & drainage mapping',
     description: 'We map site contours, door threshold clearance, and rainwater runoff paths before a single slab is ordered.',
-    details: ['Laser transit level check', 'Mains drainage connection audit', 'Fixed-price written proposal'],
+    details: ['Laser transit level check', 'Mains drainage connection audit', 'Written estimate from materials & labour costs'],
   },
   {
     step: '02',
@@ -586,24 +872,23 @@ export function generateGraphSchema(pageUrl: string, faqItems: { question: strin
     '@graph': [
       {
         '@type': 'LandscapingBusiness',
-        '@id': 'https://riverside-landscaping.co.uk/#business',
-        'name': 'Riverside Landscaping',
-        'url': 'https://riverside-landscaping.co.uk',
-        'telephone': '+447507604713',
+        '@id': `${BRAND.domain}/#business`,
+        'name': BRAND.name,
+        'url': BRAND.domain,
+        'telephone': BRAND.phoneDisplay,
         'priceRange': '££-£££',
         'address': {
           '@type': 'PostalAddress',
-          'streetAddress': '46 West George Street',
-          'addressLocality': 'Glasgow',
-          'postalCode': 'G2 4LL',
-          'addressCountry': 'GB',
+          'streetAddress': BRAND.gbpAddress.streetAddress,
+          'addressLocality': BRAND.gbpAddress.addressLocality,
+          'addressRegion': BRAND.gbpAddress.addressRegion,
+          'postalCode': BRAND.gbpAddress.postalCode,
+          'addressCountry': BRAND.gbpAddress.addressCountry,
         },
-        // Approximate geocode for 46 West George Street, Glasgow G2 4LL - replace with the
-        // exact coordinates from Google Business Profile / Search Console if precision matters.
         'geo': {
           '@type': 'GeoCoordinates',
-          'latitude': 55.8617,
-          'longitude': -4.2518,
+          'latitude': BRAND.geoCoordinates.latitude,
+          'longitude': BRAND.geoCoordinates.longitude,
         },
         'aggregateRating': {
           '@type': 'AggregateRating',
@@ -612,7 +897,7 @@ export function generateGraphSchema(pageUrl: string, faqItems: { question: strin
         },
         'areaServed': SUBURBS.map((s) => ({
           '@type': 'Place',
-          'name': `${s.name}, Glasgow`,
+          'name': `${s.name}, ${s.council}`,
         })),
         'knowsAbout': [
           'Porcelain Paving',
@@ -621,8 +906,37 @@ export function generateGraphSchema(pageUrl: string, faqItems: { question: strin
           'Driveway Installation',
           'Winter Hardscaping',
           'BS7533 Pavement Engineering',
+          'Turfing and Decking Contractors',
         ],
       },
+      {
+        '@type': 'FAQPage',
+        '@id': `${pageUrl}#faq`,
+        'mainEntity': schemaFaqs.map((f) => ({
+          '@type': 'Question',
+          'name': f.question,
+          'acceptedAnswer': {
+            '@type': 'Answer',
+            'text': f.answer,
+          },
+        })),
+      },
+    ],
+  }
+}
+
+/**
+ * Lightweight schema for the /ayrshire/ silo. Deliberately omits LandscapingBusiness
+ * address/geo (no dedicated Ayrshire GBP listing exists yet) so we don't publish a
+ * fabricated NAP record - swap this for generateGraphSchema-style full business
+ * markup once BRAND_AYRSHIRE has a real address and phone number.
+ */
+export function generateAyrshireGraphSchema(pageUrl: string, faqItems: { question: string; answer: string }[] = []) {
+  const schemaFaqs = faqItems.length > 0 ? faqItems : faqs.map(([question, answer]) => ({ question, answer }))
+
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
       {
         '@type': 'FAQPage',
         '@id': `${pageUrl}#faq`,

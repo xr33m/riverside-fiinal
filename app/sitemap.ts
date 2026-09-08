@@ -1,8 +1,8 @@
 import { MetadataRoute } from 'next'
-import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES } from '@/lib/content'
+import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES, AYRSHIRE_TOWNS, BRAND } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://riverside-landscaping.co.uk'
+  const baseUrl = BRAND.domain
 
   const locationUrls = SUBURBS.map((s) => ({
     url: `${baseUrl}/locations/${s.slug}`,
@@ -23,6 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
+  }))
+
+  const ayrshireUrls = AYRSHIRE_TOWNS.map((t) => ({
+    url: `${baseUrl}/ayrshire/${t.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly' as const,
+    priority: 0.6,
   }))
 
   return [
@@ -50,8 +57,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly' as const,
       priority: 0.8,
     },
+    {
+      url: `${baseUrl}/ayrshire`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.6,
+    },
     ...serviceUrls,
     ...locationUrls,
     ...knowledgeUrls,
+    ...ayrshireUrls,
   ]
 }

@@ -1,4 +1,5 @@
 import { MetadataRoute } from 'next'
+import { BRAND } from '@/lib/content'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/api/'],
     },
-    sitemap: 'https://riverside-landscaping.co.uk/sitemap.xml',
+    sitemap: `${BRAND.domain}/sitemap.xml`,
   }
 }

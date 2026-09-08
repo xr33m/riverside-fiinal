@@ -155,7 +155,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         {/* Winter CTA Trigger */}
         <CtaBanner
           heading="Ready for a BS7533 Structural Handover?"
-          body="Book your site survey today to receive a fixed-price written proposal with 10-year structural guarantee."
+          body="Book your site survey today to receive a written estimate based on your materials and labour, backed by a 10-year structural guarantee."
           ctaLabel="Book Site Survey"
           source={`service-detail-${service.slug}`}
         />

@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { ArrowRight, Menu, Phone, X } from 'lucide-react'
 import { trackEvent } from '@/lib/analytics'
-import { BRAND } from '@/lib/brand'
+import { BRAND } from '@/lib/content'
 
 /* ------------------------------------------------------------------ *
  * Glassmorphic Shrinking Header Navigation

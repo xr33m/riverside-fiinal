@@ -58,7 +58,7 @@ export function SiteChrome({ children }: { children: ReactNode }) {
           >
             <span>
               <b>Ready to eliminate waterlogged lawns?</b>
-              <small>Fixed-price survey, valid 12 months, zero pressure.</small>
+              <small>Free estimate, valid 12 months, zero pressure.</small>
             </span>
             <button onClick={() => openSurvey('sticky')} className="button-clay">
               Get Started <ArrowRight size={16} />

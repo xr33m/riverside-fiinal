@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, Check, ChevronRight, MapPin, X } from 'lucide-react'
 import { trackEvent } from '@/lib/analytics'
+import { estimateRange } from '@/lib/pricing'
 
 const goals = ['Fix drainage & clay soil', 'Winter patio & hardscaping', 'Spring installation reservation']
 
@@ -29,9 +30,12 @@ function getPriorityArea(postcode: string): string | null {
 /* ------------------------------------------------------------------ *
  * Multi-Step Survey Dialog (Wired to Server API `/api/survey`)
  * ------------------------------------------------------------------ */
+const TOTAL_STEPS = 4
+
 export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState(1)
   const [goal, setGoal] = useState('')
+  const [sizeM2, setSizeM2] = useState(40)
   const [postcode, setPostcode] = useState('')
   const [form, setForm] = useState({ name: '', email: '', phone: '' })
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -43,6 +47,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
   const close = useCallback(() => {
     setStep(1)
     setGoal('')
+    setSizeM2(40)
     setPostcode('')
     setForm({ name: '', email: '', phone: '' })
     setErrors({})
@@ -102,14 +107,15 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
   if (!open) return null
 
   const priorityArea = getPriorityArea(postcode)
+  const estimate = estimateRange(goal, sizeM2)
 
   const advance = async () => {
     const nextErrors: Record<string, string> = {}
     if (step === 1 && !goal) nextErrors.goal = 'Choose the project outcome that fits best.'
-    if (step === 2 && !UK_POSTCODE.test(postcode.trim())) {
+    if (step === 3 && !UK_POSTCODE.test(postcode.trim())) {
       nextErrors.postcode = 'Enter a valid UK postcode so we can confirm coverage.'
     }
-    if (step === 3) {
+    if (step === 4) {
       if (!form.name.trim()) nextErrors.name = 'Please add your name.'
       if (!/^\S+@\S+\.\S+$/.test(form.email)) nextErrors.email = 'Please enter a valid email.'
       if (!form.phone.trim()) nextErrors.phone = 'Please add a contact phone number.'
@@ -119,7 +125,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
       trackEvent('survey_validation_error', { field: Object.keys(nextErrors)[0] })
       return
     }
-    if (step < 3) {
+    if (step < TOTAL_STEPS) {
       setStep(step + 1)
       return
     }
@@ -132,6 +138,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           goal,
+          sizeM2,
           postcode: postcode.toUpperCase(),
           name: form.name,
           email: form.email,
@@ -176,7 +183,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
         </button>
 
         <p className="sr-only" role="status" aria-live="polite">
-          {submittedLeadId ? 'Survey request complete.' : `Step ${step} of 3`}
+          {submittedLeadId ? 'Survey request complete.' : `Step ${step} of ${TOTAL_STEPS}`}
         </p>
 
         {submittedLeadId ? (
@@ -190,7 +197,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
               Thank you, <strong className="text-foreground">{form.name}</strong>. Our senior landscape engineer will review your project goal ({goal}){priorityArea ? ` in ${priorityArea}` : ''} and contact you at {form.phone} within 24 hours.
             </p>
             <div className="mt-6 rounded border border-border bg-muted/40 p-4 text-xs text-muted-foreground">
-              ⚡ Guaranteed fixed-price quote with zero sales pressure & 12-month proposal validity.
+              ⚡ Free written estimate based on your materials and labour — zero sales pressure, valid 12 months.
             </div>
             <button onClick={close} className="button-clay mx-auto mt-8">
               Close Window <ArrowRight size={16} />
@@ -198,12 +205,12 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
           </div>
         ) : (
           <>
-            <p className="eyebrow text-accent">Fixed-Price Site Survey · Step {step} of 3</p>
+            <p className="eyebrow text-accent">Free Site Survey &amp; Estimate · Step {step} of {TOTAL_STEPS}</p>
             <h2 id="survey-title" className="mt-2 font-serif text-3xl leading-tight text-primary sm:text-4xl">
               Let&apos;s engineer your garden.
             </h2>
             <div className="mt-6 flex gap-2">
-              {[1, 2, 3].map((n) => (
+              {[1, 2, 3, 4].map((n) => (
                 <div key={n} className={`h-1 flex-1 transition-all ${n <= step ? 'bg-accent' : 'bg-border'}`} />
               ))}
             </div>
@@ -237,6 +244,42 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
 
               {step === 2 && (
                 <div>
+                  <label className="text-base font-semibold text-foreground sm:text-lg" htmlFor="size-slider">
+                    Roughly how big is the area?
+                  </label>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    We don&apos;t quote fixed prices upfront — this gives you a ballpark based on typical materials and labour costs. Your exact number is confirmed after a free site survey.
+                  </p>
+                  <div className="mt-4 flex items-center justify-between text-sm font-bold text-primary">
+                    <span>Estimated area</span>
+                    <span className="rounded bg-primary px-3 py-1 text-xs text-primary-foreground">{sizeM2} m²</span>
+                  </div>
+                  <input
+                    id="size-slider"
+                    type="range"
+                    min="10"
+                    max="150"
+                    step="5"
+                    value={sizeM2}
+                    onChange={(e) => setSizeM2(Number(e.target.value))}
+                    className="mt-3 w-full accent-accent cursor-pointer"
+                  />
+                  {estimate && (
+                    <div className="mt-5 border border-accent/30 bg-accent/5 p-4">
+                      <p className="text-xs font-bold uppercase tracking-wide text-accent">Indicative Estimate</p>
+                      <p className="mt-1 font-serif text-2xl font-bold text-primary">
+                        £{estimate.low.toLocaleString()} – £{estimate.high.toLocaleString()}
+                      </p>
+                      <p className="mt-1 text-xs text-muted-foreground">
+                        Based on typical {estimate.label} material &amp; labour costs for {sizeM2}m². Not a fixed quote.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {step === 3 && (
+                <div>
                   <label className="text-base font-semibold text-foreground sm:text-lg" htmlFor="postcode">
                     What is your property postcode?
                   </label>
@@ -261,7 +304,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
                 </div>
               )}
 
-              {step === 3 && (
+              {step === 4 && (
                 <div>
                   <p className="text-base font-semibold text-foreground sm:text-lg">
                     Where should we send your survey confirmation?
@@ -299,7 +342,7 @@ export function SurveyDialog({ open, onClose }: { open: boolean; onClose: () => 
                 {step > 1 ? 'Back' : 'Cancel'}
               </button>
               <button onClick={advance} disabled={loading} className="button-clay">
-                {loading ? 'Submitting...' : step === 3 ? 'Request Fixed-Price Survey' : 'Continue'} <ArrowRight size={16} />
+                {loading ? 'Submitting...' : step === TOTAL_STEPS ? 'Request My Estimate' : 'Continue'} <ArrowRight size={16} />
               </button>
             </div>
           </>

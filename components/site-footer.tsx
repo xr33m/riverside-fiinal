@@ -1,7 +1,7 @@
 'use client'
 
 import { trackEvent } from '@/lib/analytics'
-import { BRAND } from '@/lib/brand'
+import { BRAND } from '@/lib/content'
 
 export function SiteFooter() {
   return (
@@ -27,6 +27,7 @@ export function SiteFooter() {
           <a href="/landscaping-services" className="hover:text-accent font-mono">/landscaping-services/</a>
           <a href="/locations" className="hover:text-accent font-mono">/locations/</a>
           <a href="/knowledge-base" className="hover:text-accent font-mono">/knowledge-base/</a>
+          <a href="/ayrshire" className="hover:text-accent font-mono">/ayrshire/</a>
         </div>
       </div>
     </footer>

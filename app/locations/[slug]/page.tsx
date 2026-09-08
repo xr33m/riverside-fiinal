@@ -155,7 +155,7 @@ export default async function LocationDetailPage({ params }: PageProps) {
         {/* Winter CTA Trigger */}
         <CtaBanner
           heading={`Book Your ${suburb.name} Site Survey`}
-          body="Get a fixed-price written quote with laser level falls calculation and 10-year structural warranty."
+          body="Get a written estimate based on your materials and labour, with laser level falls calculation and 10-year structural warranty."
           ctaLabel="Request Site Survey"
           source={`location-detail-${suburb.slug}`}
         />

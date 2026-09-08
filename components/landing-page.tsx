@@ -66,7 +66,7 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
         </p>
         <div className="hero-actions">
           <button onClick={() => onSurvey('hero')} className="button-clay">
-            Get your free fixed-price site survey <ArrowRight size={17} />
+            Get your free site survey &amp; estimate <ArrowRight size={17} />
           </button>
           <a href="#proof" className="button-outline">
             See the proof <ChevronDown size={17} />
@@ -799,7 +799,7 @@ export default function LandingPage() {
           >
             <span>
               <b>Ready to eliminate waterlogged lawns?</b>
-              <small>Fixed-price survey, valid 12 months, zero pressure.</small>
+              <small>Free estimate, valid 12 months, zero pressure.</small>
             </span>
             <button onClick={() => openSurvey('sticky')} className="button-clay">
               Get Started <ArrowRight size={16} />

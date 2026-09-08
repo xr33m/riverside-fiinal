@@ -7,7 +7,7 @@ const UK_POSTCODE_REGEX = /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i
 export async function POST(req: Request) {
   try {
     const body = await req.json()
-    const { goal, postcode, name, email, phone } = body
+    const { goal, postcode, name, email, phone, sizeM2 } = body
 
     // Server-side validation
     const errors: Record<string, string> = {}
@@ -26,6 +26,7 @@ export async function POST(req: Request) {
     const lead = {
       id: `LEAD-${Date.now()}-${Math.random().toString(36).substring(2, 7).toUpperCase()}`,
       goal,
+      sizeM2: typeof sizeM2 === 'number' ? sizeM2 : null,
       postcode: postcode.trim().toUpperCase(),
       name: name.trim(),
       email: email.trim().toLowerCase(),

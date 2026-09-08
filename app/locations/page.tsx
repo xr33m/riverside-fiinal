@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { SUBURBS, generateGraphSchema } from '@/lib/content'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 export const metadata = {
   title: 'BEST Glasgow Landscaping Location Hub - Bearsden, Newton Mearns, West End & Clarkston',
@@ -22,21 +23,23 @@ export default function LocationsHubPage() {
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Locations' }]} />
 
         {/* Heading Hierarchy: H1 */}
-        <div className="max-w-3xl space-y-4">
+        <Reveal className="max-w-3xl space-y-4">
           <Eyebrow icon={MapPin}>Greater Glasgow GEO Coverage</Eyebrow>
           <h1>Greater Glasgow Suburb Coverage &amp; GEO Landscaping Hub</h1>
           <p className="text-lg leading-relaxed text-muted-foreground">
             Discover localized hardscaping, heavy clay drainage mitigation, and porcelain patio installations engineered for your exact suburb soil profile and planning regulations.
           </p>
-        </div>
+        </Reveal>
 
         {/* 3-Second Direct Summary */}
-        <DirectAnswer label="AEO Local Coverage Summary">
-          Riverside Landscaping provides local hardscaping teams operating across Bearsden, Newton Mearns, West End Glasgow, Clarkston, Giffnock, and Milngavie, delivering custom BS7533 sub-base drainage tailored to local ground conditions.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer label="AEO Local Coverage Summary">
+            Riverside Landscaping provides local hardscaping teams operating across Bearsden, Newton Mearns, West End Glasgow, Clarkston, Giffnock, and Milngavie, delivering custom BS7533 sub-base drainage tailored to local ground conditions.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Suburb Location Cards Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <RevealGrid className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {SUBURBS.map((suburb) => (
             <article
               key={suburb.slug}
@@ -71,7 +74,7 @@ export default function LocationsHubPage() {
               </div>
             </article>
           ))}
-        </div>
+        </RevealGrid>
       </div>
     </>
   )

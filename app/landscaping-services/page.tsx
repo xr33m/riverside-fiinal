@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { SERVICES, generateGraphSchema } from '@/lib/content'
 import { ShieldCheck, ArrowRight, Layers, Droplets, Car, Compass } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, CtaBanner } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 export const metadata = {
   title: 'BEST Landscaping Services Glasgow - Porcelain Paving, Driveways & Clay Drainage',
@@ -22,21 +23,23 @@ export default function LandscapingServicesHubPage() {
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Landscaping Services' }]} />
 
         {/* Heading Tag Rule: H1 */}
-        <div className="max-w-3xl space-y-4">
+        <Reveal className="max-w-3xl space-y-4">
           <Eyebrow icon={ShieldCheck}>BS7533 Compliant Pavement Engineering</Eyebrow>
           <h1>Landscaping Services &amp; Hardscaping Engineering in Glasgow</h1>
           <p className="text-lg leading-relaxed text-muted-foreground">
             Explore our core category hubs for luxury vitrified porcelain paving, load-certified driveway installations, sub-surface clay soil drainage systems, and architectural composite decking built for Scottish weather.
           </p>
-        </div>
+        </Reveal>
 
         {/* 3-Second Direct Answer Section */}
-        <DirectAnswer label="AEO Direct Summary">
-          Riverside Landscaping provides BS7533-compliant hardscaping services across Greater Glasgow, specializing in 150mm–200mm MOT Type 1 sub-base compaction, heavy clay drainage mitigation, Italian porcelain paving, and weather-sheltered year-round installation.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer label="AEO Direct Summary">
+            Riverside Landscaping provides BS7533-compliant hardscaping services across Greater Glasgow, specializing in 150mm–200mm MOT Type 1 sub-base compaction, heavy clay drainage mitigation, Italian porcelain paving, and weather-sheltered year-round installation.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Category Hub Services Grid (Parent-to-Child Linking Rules) */}
-        <div className="grid grid-cols-1 gap-8 pt-4 md:grid-cols-2">
+        <RevealGrid className="grid grid-cols-1 gap-8 pt-4 md:grid-cols-2">
           {SERVICES.map((service) => (
             <article
               key={service.slug}
@@ -81,15 +84,17 @@ export default function LandscapingServicesHubPage() {
               </div>
             </article>
           ))}
-        </div>
+        </RevealGrid>
 
         {/* Winter Incentive Callout */}
-        <CtaBanner
-          heading="Planning a Hardscaping Project in Glasgow?"
-          body="Beat the 12-week spring waitlist with weather-sheltered winter mortar installation and 10-year guaranteed excavation."
-          ctaLabel="Request Free Consultation"
-          source="services-hub-banner"
-        />
+        <Reveal>
+          <CtaBanner
+            heading="Planning a Hardscaping Project in Glasgow?"
+            body="Beat the 12-week spring waitlist with weather-sheltered winter mortar installation and 10-year guaranteed excavation."
+            ctaLabel="Request Free Consultation"
+            source="services-hub-banner"
+          />
+        </Reveal>
       </div>
     </>
   )

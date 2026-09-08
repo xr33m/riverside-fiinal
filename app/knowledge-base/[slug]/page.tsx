@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
 import { BookOpen, ArrowRight, Clock } from 'lucide-react'
 import { Breadcrumbs, DirectAnswer, SectionCard } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -53,25 +54,29 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
         />
 
         {/* Article Header */}
-        <header className="space-y-4">
-          <div className="flex items-center gap-4 text-xs text-accent">
-            <span className="rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-bold">
-              {article.category}
-            </span>
-            <span className="flex items-center gap-1 text-muted-foreground">
-              <Clock className="h-3.5 w-3.5" />
-              {article.readingTime}
-            </span>
-          </div>
-          <h1>{article.title}</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">{article.summary}</p>
-        </header>
+        <Reveal>
+          <header className="space-y-4">
+            <div className="flex items-center gap-4 text-xs text-accent">
+              <span className="rounded-full border border-accent/20 bg-accent/10 px-3 py-1 font-bold">
+                {article.category}
+              </span>
+              <span className="flex items-center gap-1 text-muted-foreground">
+                <Clock className="h-3.5 w-3.5" />
+                {article.readingTime}
+              </span>
+            </div>
+            <h1>{article.title}</h1>
+            <p className="text-lg leading-relaxed text-muted-foreground">{article.summary}</p>
+          </header>
+        </Reveal>
 
         {/* 3-Second Direct Answer Rule */}
-        <DirectAnswer>{article.directAnswer3Sec}</DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer>{article.directAnswer3Sec}</DirectAnswer>
+        </Reveal>
 
         {/* Article Body Sections */}
-        <div className="space-y-8">
+        <RevealGrid className="space-y-8">
           {article.sections.map((section, idx) => (
             <SectionCard key={idx}>
               <h2 className="font-serif text-2xl font-bold text-primary">{section.h2}</h2>
@@ -83,10 +88,10 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
               <p className="text-sm leading-relaxed text-muted-foreground">{section.content}</p>
             </SectionCard>
           ))}
-        </div>
+        </RevealGrid>
 
         {/* Connect Informational Article back to Main Transactional Service Page using Exact Match Anchor Text */}
-        <div className="flex items-center justify-between gap-4 border border-accent/30 bg-accent/5 p-6">
+        <Reveal className="flex items-center justify-between gap-4 border border-accent/30 bg-accent/5 p-6">
           <div className="flex items-center gap-3">
             <BookOpen className="h-5 w-5 shrink-0 text-accent" />
             <div className="space-y-1">
@@ -103,7 +108,7 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
             <span>{article.relatedServiceAnchor}</span>
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
-        </div>
+        </Reveal>
       </div>
     </>
   )

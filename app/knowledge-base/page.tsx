@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
 import { BookOpen, ArrowRight, Clock } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 export const metadata = {
   title: 'Glasgow Landscaping Knowledge Base & Cost Guides 2026 - Riverside Landscaping',
@@ -22,21 +23,23 @@ export default function KnowledgeBaseHubPage() {
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Knowledge Base' }]} />
 
         {/* Heading Tag Rule: H1 */}
-        <div className="max-w-3xl space-y-4">
+        <Reveal className="max-w-3xl space-y-4">
           <Eyebrow icon={BookOpen}>Topical Authority &amp; Cost Guides</Eyebrow>
           <h1>Glasgow Landscaping &amp; Hardscaping Knowledge Base</h1>
           <p className="text-lg leading-relaxed text-muted-foreground">
             In-depth technical guides, 2026 pricing breakdowns, and Scottish weather engineering advice for Glasgow homeowners.
           </p>
-        </div>
+        </Reveal>
 
         {/* 3-Second Direct Summary */}
-        <DirectAnswer label="Topical Summary">
-          Our knowledge base provides transparent pricing standards (£120–£180/m² for vitrified porcelain), BS7533 engineering specifications, and localized guidance for managing heavy Glasgow clay soil.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer label="Topical Summary">
+            Our knowledge base provides transparent pricing standards (£120–£180/m² for vitrified porcelain), BS7533 engineering specifications, and localized guidance for managing heavy Glasgow clay soil.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Article Cards Grid */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <RevealGrid className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {KNOWLEDGE_ARTICLES.map((article) => (
             <article
               key={article.slug}
@@ -71,7 +74,7 @@ export default function KnowledgeBaseHubPage() {
               </div>
             </article>
           ))}
-        </div>
+        </RevealGrid>
       </div>
     </>
   )

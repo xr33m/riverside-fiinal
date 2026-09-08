@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { SERVICES, SUBURBS, generateGraphSchema } from '@/lib/content'
 import { ShieldCheck, CheckCircle2, ArrowRight, HelpCircle, MapPin } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -56,20 +57,25 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         />
 
         {/* Heading Tag Rule: H1 */}
-        <header className="max-w-3xl space-y-4">
-          <Eyebrow icon={ShieldCheck}>BS7533 Structural Specification</Eyebrow>
-          <h1>{service.h1Title}</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Engineered specifically for heavy Scottish clay soil, high annual rainfall, and severe freeze-thaw cycles across Greater Glasgow.
-          </p>
-        </header>
+        <Reveal>
+          <header className="max-w-3xl space-y-4">
+            <Eyebrow icon={ShieldCheck}>BS7533 Structural Specification</Eyebrow>
+            <h1>{service.h1Title}</h1>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Engineered specifically for heavy Scottish clay soil, high annual rainfall, and severe freeze-thaw cycles across Greater Glasgow.
+            </p>
+          </header>
+        </Reveal>
 
         {/* 3-Second Direct Answer Banner (SEO/GEO Rule) */}
-        <DirectAnswer>{service.directAnswer3Sec}</DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer>{service.directAnswer3Sec}</DirectAnswer>
+        </Reveal>
 
         {/* Core Content & Heading Hierarchy: H2s & H3s */}
         <div className="space-y-10">
           {/* H2: Secondary Category 1 */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary1}</h2>
             {/* Direct Answer Paragraph under H2 */}
@@ -88,8 +94,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </SubCard>
             </div>
           </SectionCard>
+          </Reveal>
 
           {/* H2: Secondary Category 2 */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary2}</h2>
             <p className="border-l-2 border-accent/40 pl-3 text-base leading-relaxed text-foreground">
@@ -97,8 +105,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </p>
             <p className="text-sm leading-relaxed text-muted-foreground">{service.bsStandard}</p>
           </SectionCard>
+          </Reveal>
 
           {/* Features Checklist */}
+          <Reveal>
           <SectionCard>
             <h3 className="font-serif text-xl font-bold text-primary">Technical Specification &amp; Build Guarantee</h3>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -110,8 +120,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               ))}
             </div>
           </SectionCard>
+          </Reveal>
 
           {/* FAQ Section with 3-Second Direct Answers */}
+          <Reveal>
           <SectionCard className="space-y-6">
             <div className="flex items-center gap-3">
               <HelpCircle className="h-6 w-6 text-accent" />
@@ -130,9 +142,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               ))}
             </div>
           </SectionCard>
+          </Reveal>
 
           {/* Suburb Linking Grid (Cross-Silo Linking Rule: Geo to Service) */}
-          <div className="space-y-4 pt-4">
+          <Reveal className="space-y-4 pt-4">
             <h3 className="flex items-center gap-2 font-serif text-lg font-bold text-primary">
               <MapPin className="h-5 w-5 text-accent" />
               <span>Local Installation Areas Across Greater Glasgow</span>
@@ -149,16 +162,18 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 </Link>
               ))}
             </div>
-          </div>
+          </Reveal>
         </div>
 
         {/* Winter CTA Trigger */}
-        <CtaBanner
-          heading="Ready for a BS7533 Structural Handover?"
-          body="Book your site survey today to receive a written estimate based on your materials and labour, backed by a 10-year structural guarantee."
-          ctaLabel="Book Site Survey"
-          source={`service-detail-${service.slug}`}
-        />
+        <Reveal>
+          <CtaBanner
+            heading="Ready for a BS7533 Structural Handover?"
+            body="Book your site survey today to receive a written estimate based on your materials and labour, backed by a 10-year structural guarantee."
+            ctaLabel="Book Site Survey"
+            source={`service-detail-${service.slug}`}
+          />
+        </Reveal>
       </div>
     </>
   )

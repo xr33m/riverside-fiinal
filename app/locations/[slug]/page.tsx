@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { SUBURBS, SERVICES, generateGraphSchema } from '@/lib/content'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
+import { Reveal } from '@/components/reveal'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -53,21 +54,25 @@ export default async function LocationDetailPage({ params }: PageProps) {
         />
 
         {/* H1 Heading Tag Formula: [Primary Category] in [Area] */}
-        <header className="max-w-3xl space-y-4">
-          <Eyebrow icon={MapPin}>{suburb.name} ({suburb.postcodePrefix}) Specification</Eyebrow>
-          <h1>Porcelain Paving &amp; Landscaping in {suburb.name}</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Custom hardscaping engineered specifically for {suburb.name}&apos;s {suburb.soilProfile.toLowerCase()} and local planning standards.
-          </p>
-        </header>
+        <Reveal>
+          <header className="max-w-3xl space-y-4">
+            <Eyebrow icon={MapPin}>{suburb.name} ({suburb.postcodePrefix}) Specification</Eyebrow>
+            <h1>Porcelain Paving &amp; Landscaping in {suburb.name}</h1>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Custom hardscaping engineered specifically for {suburb.name}&apos;s {suburb.soilProfile.toLowerCase()} and local planning standards.
+            </p>
+          </header>
+        </Reveal>
 
         {/* 3-Second Direct Answer Rule */}
-        <DirectAnswer>
-          Landscaping and porcelain patio installations in {suburb.name} take 5 to 7 working days, utilizing a 150mm–200mm MOT Type 1 sub-base to counteract local {suburb.soilProfile.toLowerCase()} retention.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer>
+            Landscaping and porcelain patio installations in {suburb.name} take 5 to 7 working days, utilizing a 150mm–200mm MOT Type 1 sub-base to counteract local {suburb.soilProfile.toLowerCase()} retention.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Local Map & Service Radius */}
-        <section className="grid grid-cols-1 gap-4 md:grid-cols-5">
+        <Reveal className="grid grid-cols-1 gap-4 md:grid-cols-5">
           <div className="overflow-hidden border border-border md:col-span-3">
             <iframe
               title={`Map of ${suburb.name}, Glasgow`}
@@ -96,11 +101,12 @@ export default async function LocationDetailPage({ params }: PageProps) {
               </span>
             </div>
           </div>
-        </section>
+        </Reveal>
 
         {/* Heading Tag Hierarchy: H2s & H3s */}
         <div className="space-y-10">
           {/* H2: Secondary Category 1 */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-2xl font-bold text-primary">
               Driveway Installers &amp; Hardscaping Near Me in {suburb.name}
@@ -116,8 +122,10 @@ export default async function LocationDetailPage({ params }: PageProps) {
               <SubCard title="Recommended Installation Method">{suburb.highlightInstall}</SubCard>
             </div>
           </SectionCard>
+          </Reveal>
 
           {/* H2: Secondary Category 2 */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-2xl font-bold text-primary">
               Garden Drainage Solutions for Clay Soil &amp; Wet Glasgow Weather in {suburb.name}
@@ -126,8 +134,10 @@ export default async function LocationDetailPage({ params }: PageProps) {
               Heavy clay deposits in {suburb.name} require deep sub-base excavation (250mm–300mm) combined with non-woven geotextile separation membranes and high-flow ACO slot channels to ensure lifetime water drainage.
             </p>
           </SectionCard>
+          </Reveal>
 
           {/* Cross-Silo Linking Rule: Location to Service Links ONLY with Exact Contextual Anchor Text */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-xl font-bold text-primary">
               Related Hardscaping Services Available in {suburb.name}
@@ -150,15 +160,18 @@ export default async function LocationDetailPage({ params }: PageProps) {
               ))}
             </div>
           </SectionCard>
+          </Reveal>
         </div>
 
         {/* Winter CTA Trigger */}
-        <CtaBanner
-          heading={`Book Your ${suburb.name} Site Survey`}
-          body="Get a written estimate based on your materials and labour, with laser level falls calculation and 10-year structural warranty."
-          ctaLabel="Request Site Survey"
-          source={`location-detail-${suburb.slug}`}
-        />
+        <Reveal>
+          <CtaBanner
+            heading={`Book Your ${suburb.name} Site Survey`}
+            body="Get a written estimate based on your materials and labour, with laser level falls calculation and 10-year structural warranty."
+            ctaLabel="Request Site Survey"
+            source={`location-detail-${suburb.slug}`}
+          />
+        </Reveal>
       </div>
     </>
   )

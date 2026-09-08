@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { AYRSHIRE_TOWNS, generateAyrshireGraphSchema } from '@/lib/content'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 
 export const metadata = {
   title: 'Landscaping & Patio Installers in Ayrshire - Riverside Landscaping',
@@ -22,21 +23,23 @@ export default function AyrshireHubPage() {
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Ayrshire' }]} />
 
         {/* Heading Hierarchy: H1 */}
-        <div className="max-w-3xl space-y-4">
+        <Reveal className="max-w-3xl space-y-4">
           <Eyebrow icon={MapPin}>Now Covering Coastal Ayrshire</Eyebrow>
           <h1>Landscaping &amp; Hardscaping Across Ayrshire</h1>
           <p className="text-lg leading-relaxed text-muted-foreground">
             The same BS7533-engineered porcelain paving, driveways, and drainage work we build across Greater Glasgow, now reaching coastal Ayrshire — from Troon&apos;s links sand to Ayr&apos;s riverside gardens.
           </p>
-        </div>
+        </Reveal>
 
         {/* 3-Second Direct Summary */}
-        <DirectAnswer label="Ayrshire Coverage Summary">
-          Riverside Landscaping now serves Troon, Prestwick, Ayr &amp; Alloway, and West Kilbride, adapting our BS7533 sub-base engineering to Ayrshire&apos;s coastal links sand and exposed, windswept plots rather than Glasgow&apos;s heavy boulder clay.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer label="Ayrshire Coverage Summary">
+            Riverside Landscaping now serves Troon, Prestwick, Ayr &amp; Alloway, and West Kilbride, adapting our BS7533 sub-base engineering to Ayrshire&apos;s coastal links sand and exposed, windswept plots rather than Glasgow&apos;s heavy boulder clay.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Town Cards Grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <RevealGrid className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {AYRSHIRE_TOWNS.map((town) => (
             <article
               key={town.slug}
@@ -71,7 +74,7 @@ export default function AyrshireHubPage() {
               </div>
             </article>
           ))}
-        </div>
+        </RevealGrid>
       </div>
     </>
   )

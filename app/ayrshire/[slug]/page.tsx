@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { AYRSHIRE_TOWNS, SERVICES, generateAyrshireGraphSchema } from '@/lib/content'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
+import { Reveal } from '@/components/reveal'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -53,34 +54,41 @@ export default async function AyrshireTownDetailPage({ params }: PageProps) {
         />
 
         {/* H1 Heading Tag Formula: [Primary Category] in [Area] */}
-        <header className="max-w-3xl space-y-4">
-          <Eyebrow icon={MapPin}>{town.name} ({town.postcodePrefix}) Coverage</Eyebrow>
-          <h1>Landscaping &amp; Patio Installation in {town.name}</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Hardscaping engineered for {town.name}&apos;s {town.soilProfile.toLowerCase()}, adapted from the same BS7533 methods we use across Greater Glasgow.
-          </p>
-        </header>
+        <Reveal>
+          <header className="max-w-3xl space-y-4">
+            <Eyebrow icon={MapPin}>{town.name} ({town.postcodePrefix}) Coverage</Eyebrow>
+            <h1>Landscaping &amp; Patio Installation in {town.name}</h1>
+            <p className="text-lg leading-relaxed text-muted-foreground">
+              Hardscaping engineered for {town.name}&apos;s {town.soilProfile.toLowerCase()}, adapted from the same BS7533 methods we use across Greater Glasgow.
+            </p>
+          </header>
+        </Reveal>
 
         {/* 3-Second Direct Answer Rule */}
-        <DirectAnswer>
-          Riverside Landscaping installs porcelain paving, driveways, and drainage in {town.name} using foundations suited to {town.soilProfile.toLowerCase()}, rather than the boulder-clay approach used further inland in Glasgow.
-        </DirectAnswer>
+        <Reveal delay={0.1}>
+          <DirectAnswer>
+            Riverside Landscaping installs porcelain paving, driveways, and drainage in {town.name} using foundations suited to {town.soilProfile.toLowerCase()}, rather than the boulder-clay approach used further inland in Glasgow.
+          </DirectAnswer>
+        </Reveal>
 
         {/* Local Map */}
-        <section className="overflow-hidden border border-border">
-          <iframe
-            title={`Map of ${town.name}, Ayrshire`}
-            src={`https://www.google.com/maps?q=${encodeURIComponent(`${town.name}, Ayrshire, UK`)}&output=embed`}
-            width="100%"
-            height="320"
-            style={{ border: 0 }}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </section>
+        <Reveal>
+          <section className="overflow-hidden border border-border">
+            <iframe
+              title={`Map of ${town.name}, Ayrshire`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(`${town.name}, Ayrshire, UK`)}&output=embed`}
+              width="100%"
+              height="320"
+              style={{ border: 0 }}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </section>
+        </Reveal>
 
         {/* Heading Tag Hierarchy: H2s & H3s */}
         <div className="space-y-10">
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-2xl font-bold text-primary">
               Local Ground Conditions in {town.name}
@@ -94,8 +102,10 @@ export default async function AyrshireTownDetailPage({ params }: PageProps) {
               <SubCard title="Recommended Installation Method">{town.highlightInstall}</SubCard>
             </div>
           </SectionCard>
+          </Reveal>
 
           {/* Cross-Silo Linking Rule: Ayrshire to Service Links with Exact Contextual Anchor Text */}
+          <Reveal>
           <SectionCard>
             <h2 className="font-serif text-xl font-bold text-primary">
               Related Hardscaping Services Available in {town.name}
@@ -118,15 +128,18 @@ export default async function AyrshireTownDetailPage({ params }: PageProps) {
               ))}
             </div>
           </SectionCard>
+          </Reveal>
         </div>
 
         {/* CTA Trigger */}
-        <CtaBanner
-          heading={`Get a ${town.name} Site Survey`}
-          body="Ayrshire coverage is new — tell us your postcode and we'll confirm availability along with a written estimate based on your materials and labour."
-          ctaLabel="Request Site Survey"
-          source={`ayrshire-detail-${town.slug}`}
-        />
+        <Reveal>
+          <CtaBanner
+            heading={`Get a ${town.name} Site Survey`}
+            body="Ayrshire coverage is new — tell us your postcode and we'll confirm availability along with a written estimate based on your materials and labour."
+            ctaLabel="Request Site Survey"
+            source={`ayrshire-detail-${town.slug}`}
+          />
+        </Reveal>
       </div>
     </>
   )

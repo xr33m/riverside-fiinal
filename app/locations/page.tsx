@@ -9,7 +9,7 @@ export const metadata = {
 }
 
 export default function LocationsHubPage() {
-  const schema = generateGraphSchema('https://ardenworks.co.uk/locations')
+  const schema = generateGraphSchema('https://riverside-landscaping.co.uk/locations')
 
   return (
     <>
@@ -51,7 +51,7 @@ export default function LocationsHubPage() {
           <div className="bg-slate-900/80 backdrop-blur-md border border-slate-800 p-6 rounded-2xl space-y-3">
             <h2 className="text-xs font-mono text-emerald-400 uppercase tracking-wider">AEO Local Coverage Summary</h2>
             <p className="text-slate-200 text-base leading-relaxed font-medium">
-              Apex Landscaping provides local hardscaping teams operating across Bearsden, Newton Mearns, West End Glasgow, Clarkston, Giffnock, and Milngavie, delivering custom BS7533 sub-base drainage tailored to local ground conditions.
+              Riverside Landscaping provides local hardscaping teams operating across Bearsden, Newton Mearns, West End Glasgow, Clarkston, Giffnock, Milngavie, Bothwell, and Kilmacolm, delivering custom BS7533 sub-base drainage tailored to local ground conditions.
             </p>
           </div>
 

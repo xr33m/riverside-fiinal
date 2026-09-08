@@ -5,19 +5,45 @@ import { faqs } from '@/lib/content'
 // accreditation, pricing) before enabling in production.
 const localBusinessLd = {
   '@context': 'https://schema.org',
-  '@type': 'HomeAndConstructionBusiness',
-  name: 'Arden Works',
+  '@type': 'LandscapingBusiness',
+  name: 'Riverside Landscaping',
+  url: 'https://riverside-landscaping.co.uk',
+  telephone: '+447507604713',
+  priceRange: '££-£££',
   description:
-    'Bespoke patios and engineered landscaping with BS7533-compliant deep sub-base drainage across Greater Glasgow.',
-  areaServed: ['Bearsden', 'Newton Mearns', 'Clarkston', 'Giffnock', 'Greater Glasgow'].map(
-    (name) => ({ '@type': 'City', name }),
-  ),
+    'Bespoke porcelain patios, driveways, and engineered landscaping with BS7533-compliant deep sub-base drainage across Greater Glasgow & Ayrshire.',
+  areaServed: [
+    'Bearsden',
+    'Newton Mearns',
+    'West End Glasgow',
+    'Clarkston',
+    'Giffnock',
+    'Milngavie',
+    'Bothwell',
+    'Kilmacolm',
+    'Greater Glasgow',
+  ].map((name) => ({ '@type': 'Place', name })),
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Central Depot, Mains Road',
     addressLocality: 'Glasgow',
-    addressRegion: 'Scotland',
+    postalCode: 'G1 1AA',
     addressCountry: 'GB',
   },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: 55.8642,
+    longitude: -4.2518,
+  },
+  knowsAbout: [
+    'Porcelain Paving',
+    'Driveway Installation',
+    'Resin Bound Driveways',
+    'Sub-Surface Garden Drainage',
+    'Scottish Whinstone Retaining Walls',
+    'Composite Decking',
+    'Artificial Grass Lawns',
+  ],
 }
 
 const faqLd = {

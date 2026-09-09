@@ -730,26 +730,12 @@ h1 {
   padding: 0 40px 24px 0;
 }
 
-/* Footer & Sticky CTA */
-footer {
-  align-items: flex-start;
-  background: #f2f4f0;
-  border-top: 1px solid var(--border);
-  display: flex;
-  gap: 80px;
-  justify-content: space-between;
-  padding: 60px max(24px, calc((100vw - 1180px) / 2)) 100px;
-}
-
-footer p {
-  color: var(--muted-foreground);
-  font-size: 12px;
-  line-height: 1.7;
-}
-
-footer a {
-  color: var(--primary);
-  font-size: 13px;
+/* Site Footer — layout lives in Tailwind classes on the component itself;
+   this just matches the header/topbar's edge padding so columns line up
+   with the rest of the page at every width. */
+.site-footer-inner {
+  padding-left: max(24px, calc((100vw - 1180px) / 2));
+  padding-right: max(24px, calc((100vw - 1180px) / 2));
 }
 
 .sticky-cta {
@@ -868,12 +854,6 @@ footer a {
     align-items: flex-start;
     flex-direction: column;
     padding: 50px 20px;
-  }
-
-  footer {
-    flex-direction: column;
-    gap: 30px;
-    padding: 40px 20px 110px;
   }
 
   .faq-section {

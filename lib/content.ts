@@ -127,6 +127,15 @@ export const BRAND = {
   },
 }
 
+// PLACEHOLDER handles — not sourced from a real, confirmed Riverside Landscaping
+// account yet. Swap for the real Facebook/LinkedIn/Instagram URLs before launch;
+// until then these are best-guess handles based on the business name.
+export const SOCIAL_LINKS = {
+  facebook: 'https://www.facebook.com/riversidelandscapingglasgow',
+  linkedin: 'https://www.linkedin.com/company/riverside-landscaping',
+  instagram: 'https://www.instagram.com/riversidelandscaping',
+}
+
 // Ayrshire is a real, separate service area but does not have its own Google Business
 // Profile, address, or phone number yet. Reuses the main contact channel for now -
 // swap phoneDisplay/phoneHref/gbpAddress here once a dedicated Ayrshire GBP exists,

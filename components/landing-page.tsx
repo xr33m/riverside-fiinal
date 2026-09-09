@@ -768,8 +768,8 @@ export default function LandingPage() {
 
   return (
     <>
-      <SiteHeader onSurvey={openSurvey} />
-      <main>
+      <SiteHeader onSurvey={openSurvey} overlay />
+      <main className="home-main">
         <Hero onSurvey={openSurvey} />
         <Proof />
         <AboutSection />

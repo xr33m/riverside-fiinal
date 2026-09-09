@@ -119,6 +119,20 @@ em {
   backdrop-filter: blur(16px);
 }
 
+/* Homepage-only variant: fully transparent overlay on the hero media until
+   the page scrolls, at which point it converts to the glassmorphic style
+   above (.site-header-scrolled always wins once scrolling starts). */
+.site-header-transparent {
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom-color: transparent;
+  color: #fff;
+}
+
+.site-header-transparent .wordmark {
+  color: #fff;
+}
+
 .site-header nav {
   font-size: 13px;
   font-weight: 700;
@@ -137,6 +151,7 @@ em {
   gap: 10px;
   letter-spacing: -0.04em;
   line-height: 0.85;
+  transition: color 0.3s ease;
 }
 
 .wordmark-mark {
@@ -160,9 +175,19 @@ em {
 }
 
 /* Full-Bleed Parallax Hero */
+/* Establishes a block formatting context so the hero's negative top
+   margin doesn't collapse through <main> and shift the topbar/header
+   above it — the hero still overflows upward, visually, to sit under
+   the transparent header, it just isn't clipped like overflow:hidden
+   would do. */
+.home-main {
+  display: flow-root;
+}
+
 .hero-full {
   align-items: flex-end;
   display: flex;
+  margin-top: -76px;
   min-height: 100vh;
   overflow: hidden;
   position: relative;

@@ -106,7 +106,13 @@ function MobileDropdown({ label, links }: { label: string; links: NavLink[] }) {
   )
 }
 
-export function SiteHeader({ onSurvey }: { onSurvey: (source: string) => void }) {
+export function SiteHeader({
+  onSurvey,
+  overlay = false,
+}: {
+  onSurvey: (source: string) => void
+  overlay?: boolean
+}) {
   const [menu, setMenu] = useState(false)
   const [scrolled, setScrolled] = useState(false)
 
@@ -135,7 +141,11 @@ export function SiteHeader({ onSurvey }: { onSurvey: (source: string) => void })
         </a>
       </div>
 
-      <header className={`site-header transition-all duration-300 ${scrolled ? 'site-header-scrolled' : ''}`}>
+      <header
+        className={`site-header transition-all duration-300 ${scrolled ? 'site-header-scrolled' : ''} ${
+          overlay && !scrolled ? 'site-header-transparent' : ''
+        }`}
+      >
         <a href="/#top" className="wordmark">
           <span className="wordmark-mark">R</span>
           <span>

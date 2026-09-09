@@ -9,13 +9,18 @@ import { trackEvent } from '@/lib/analytics'
 const PREFILLED_MESSAGE = "Hi, I'm looking for a landscaping/drainage quote in Glasgow."
 
 /**
- * Fixed floating WhatsApp launcher. `position: fixed` keeps it out of
+ * Fixed floating WhatsApp launcher, rendered once in app/layout.tsx so it
+ * floats site-wide at bottom-6 left-6. `position: fixed` keeps it out of
  * document flow entirely, so it never contributes to layout shift.
  *
- * Lifts itself above SiteChrome's `.sticky-cta` bar (bottom, full-width,
- * z-index 30) once that bar is showing, using the same scroll threshold —
- * kept local rather than shared state since this widget is meant to drop
- * into any page independently of that chrome.
+ * Both SiteChrome (inner pages) and LandingPage (homepage) render their own
+ * `.sticky-cta` bar — bottom, full-width, z-index 30 — using the same
+ * `scrollY > innerHeight * 0.75` threshold. This widget mirrors that
+ * threshold locally (rather than importing shared state, since it lives
+ * outside both trees in the root layout) to lift itself above that bar
+ * once it's showing, keeping the two bottom-fixed elements from overlapping
+ * on mobile. z-40 keeps it above the sticky-cta (z-30) and below the survey
+ * modal (z-50) so opening the modal covers it as expected.
  */
 export function WhatsappWidget() {
   const [clearsStickyBar, setClearsStickyBar] = useState(false)
@@ -36,8 +41,8 @@ export function WhatsappWidget() {
       rel="noopener noreferrer"
       aria-label="Chat with Riverside Landscaping on WhatsApp"
       onClick={() => trackEvent('cta_click', { source: 'whatsapp-widget' })}
-      className={`group fixed left-4 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] sm:left-6 sm:h-16 sm:w-16 ${
-        clearsStickyBar ? 'bottom-24 sm:bottom-28' : 'bottom-6 sm:bottom-8'
+      className={`group fixed left-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#25D366] ${
+        clearsStickyBar ? 'bottom-24' : 'bottom-6'
       }`}
     >
       {!reduceMotion && (

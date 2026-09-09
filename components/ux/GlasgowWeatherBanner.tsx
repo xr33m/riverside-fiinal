@@ -16,13 +16,7 @@ interface WeatherState {
   isSnowy: boolean
 }
 
-/**
- * Live Glasgow conditions via Open-Meteo (no API key required — a fixed
- * lat/lng lookup, not user data, so a keyless public endpoint is fine here).
- * Reserves the same box size across loading / loaded / error states so
- * nothing shifts once the fetch resolves.
- */
-export function GlasgowWeatherBanner() {
+function useGlasgowWeather() {
   const [weather, setWeather] = useState<WeatherState | null>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
 
@@ -58,7 +52,48 @@ export function GlasgowWeatherBanner() {
     return () => controller.abort()
   }, [])
 
+  return { weather, status }
+}
+
+function weatherMessage(weather: WeatherState) {
+  return weather.isWetOrCold ? (
+    <>
+      Glasgow Weather: {Math.round(weather.tempC)}°C &amp; Wet — Our Winter Hardscaping Rigs Are Fully Operational.
+    </>
+  ) : (
+    <>Glasgow Weather: {Math.round(weather.tempC)}°C &amp; Dry — Ideal conditions for a site survey this week.</>
+  )
+}
+
+const ERROR_MESSAGE =
+  "Glasgow's weather changes fast — but our crews don't stop for it. We install year-round, rain or shine."
+
+/**
+ * Live Glasgow conditions via Open-Meteo (no API key required — a fixed
+ * lat/lng lookup, not user data, so a keyless public endpoint is fine here).
+ *
+ * `variant="card"` (default) is a bordered content block for dropping into a
+ * page body. `variant="ticker"` is a slim full-bleed status bar meant to sit
+ * above the site header/topbar, matching that chrome's edge-to-edge layout.
+ * Both reserve the same box size across loading/ready/error states so
+ * nothing shifts once the fetch resolves.
+ */
+export function GlasgowWeatherBanner({ variant = 'card' }: { variant?: 'card' | 'ticker' }) {
+  const { weather, status } = useGlasgowWeather()
   const Icon = status === 'ready' && weather ? (weather.isSnowy ? Snowflake : weather.isWetOrCold ? CloudRain : Sun) : ShieldCheck
+
+  if (variant === 'ticker') {
+    return (
+      <div role="status" aria-live="polite" className="weather-ticker">
+        <Icon aria-hidden="true" size={13} className="shrink-0" />
+        {status === 'loading' && (
+          <span className="h-3 w-56 max-w-full animate-pulse rounded bg-white/25" aria-hidden="true" />
+        )}
+        {status === 'ready' && weather && <span>{weatherMessage(weather)}</span>}
+        {status === 'error' && <span>{ERROR_MESSAGE}</span>}
+      </div>
+    )
+  }
 
   return (
     <Reveal>
@@ -74,27 +109,10 @@ export function GlasgowWeatherBanner() {
         )}
 
         {status === 'ready' && weather && (
-          <p className="text-sm font-medium leading-relaxed text-foreground">
-            {weather.isWetOrCold ? (
-              <>
-                Glasgow Weather: {Math.round(weather.tempC)}°C &amp; Wet — Our Winter Hardscaping Rigs Are Fully
-                Operational.
-              </>
-            ) : (
-              <>
-                Glasgow Weather: {Math.round(weather.tempC)}°C &amp; Dry — Ideal conditions for a site survey this
-                week.
-              </>
-            )}
-          </p>
+          <p className="text-sm font-medium leading-relaxed text-foreground">{weatherMessage(weather)}</p>
         )}
 
-        {status === 'error' && (
-          <p className="text-sm font-medium leading-relaxed text-foreground">
-            Glasgow&apos;s weather changes fast — but our crews don&apos;t stop for it. We install year-round, rain
-            or shine.
-          </p>
-        )}
+        {status === 'error' && <p className="text-sm font-medium leading-relaxed text-foreground">{ERROR_MESSAGE}</p>}
       </div>
     </Reveal>
   )

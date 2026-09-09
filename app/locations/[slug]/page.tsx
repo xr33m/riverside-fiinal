@@ -5,6 +5,7 @@ import { SUBURBS, SERVICES, generateGraphSchema } from '@/lib/content'
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
 import { Reveal } from '@/components/reveal'
+import { LocalProjectMap } from '@/components/ux/LocalProjectMap'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -162,6 +163,8 @@ export default async function LocationDetailPage({ params }: PageProps) {
           </SectionCard>
           </Reveal>
         </div>
+
+        <LocalProjectMap highlightId={suburb.slug} />
 
         {/* Winter CTA Trigger */}
         <Reveal>

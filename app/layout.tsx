@@ -1,6 +1,7 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { WhatsappWidget } from '@/components/ux/WhatsappWidget'
 
 export const metadata: Metadata = {
   title: 'Riverside Landscaping | Bespoke Patios, Driveways & Drainage Glasgow & Ayrshire',
@@ -42,6 +43,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         {children}
+        <WhatsappWidget />
         {process.env.NODE_ENV === 'production' && process.env.VERCEL && <Analytics />}
       </body>
     </html>

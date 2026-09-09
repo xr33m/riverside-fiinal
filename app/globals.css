@@ -96,6 +96,21 @@ em {
   gap: 24px;
 }
 
+/* Live-status ticker (GlasgowWeatherBanner variant="ticker"), sits above the
+   contact bar — same horizontal rhythm as .site-topbar, slimmer and quieter. */
+.weather-ticker {
+  align-items: center;
+  background: var(--primary);
+  color: rgba(255, 255, 255, 0.85);
+  display: flex;
+  font-size: 11px;
+  font-weight: 600;
+  gap: 8px;
+  justify-content: center;
+  letter-spacing: 0.01em;
+  padding: 6px max(24px, calc((100vw - 1180px) / 2));
+}
+
 /* Glassmorphic Sticky Navigation */
 .site-header {
   align-items: center;

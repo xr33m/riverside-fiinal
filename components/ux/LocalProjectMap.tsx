@@ -1,8 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { MapPin } from 'lucide-react'
+import { ArrowRight, MapPin } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
+import { OpenSurveyButton } from '@/components/open-survey-button'
 
 interface ProjectPin {
   id: string
@@ -19,6 +20,8 @@ interface ProjectPin {
 // Materials copy is pulled from the published project/coverage copy in
 // lib/content.ts (PORTFOLIO_ITEMS specs, SUBURBS highlightInstall) rather
 // than invented here, so it stays consistent with the rest of the site.
+// ids match SUBURBS[].slug in lib/content.ts so callers on location pages
+// can pass `highlightId={suburb.slug}` directly.
 const PROJECT_PINS: ProjectPin[] = [
   {
     id: 'bearsden',
@@ -39,7 +42,7 @@ const PROJECT_PINS: ProjectPin[] = [
     lng: -4.3383,
   },
   {
-    id: 'west-end',
+    id: 'west-end-glasgow',
     area: 'West End Glasgow',
     postcode: 'G12',
     title: 'Tenement Rear Garden Transformation',
@@ -128,11 +131,18 @@ type Status = 'loading' | 'ready' | 'fallback'
  * pages) when NEXT_PUBLIC_GOOGLE_MAPS_API_KEY isn't set or the script fails
  * to load, so the section never renders broken. The wrapper's fixed height
  * is identical across loading/ready/fallback so nothing shifts.
+ *
+ * `highlightId` (matching a PROJECT_PINS id / SUBURBS slug) opens that pin's
+ * info window as soon as the map is ready and highlights its card in the
+ * text-alternative list — used to drop this same block onto location pages
+ * (e.g. `<LocalProjectMap highlightId={suburb.slug} />` on /locations/[slug])
+ * without needing a different component per suburb.
  */
-export function LocalProjectMap() {
+export function LocalProjectMap({ highlightId }: { highlightId?: string }) {
   const mapRef = useRef<HTMLDivElement>(null)
   const [status, setStatus] = useState<Status>('loading')
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+  const highlightedPin = PROJECT_PINS.find((pin) => pin.id === highlightId)
 
   useEffect(() => {
     if (!apiKey) {
@@ -160,6 +170,24 @@ export function LocalProjectMap() {
         const infoWindow = new maps.InfoWindow({})
         const bounds = new maps.LatLngBounds()
 
+        // Info window content is built from the static PROJECT_PINS data above
+        // (developer-authored, not user input), so innerHTML here is safe.
+        const openInfoFor = (pin: ProjectPin, marker: GMarker) => {
+          const content = document.createElement('div')
+          content.className = 'max-w-[220px] p-1 font-sans'
+          content.innerHTML = `
+            <p class="text-xs font-bold uppercase tracking-wide text-[#01642d]">${pin.area} · ${pin.postcode}</p>
+            <p class="mt-1 text-sm font-bold text-[#1939bc]">${pin.title}</p>
+            <ul class="mt-2 space-y-1 text-xs text-[#5b6167] list-disc pl-4">
+              ${pin.materials.map((m) => `<li>${m}</li>`).join('')}
+            </ul>
+          `
+          infoWindow.setContent(content)
+          infoWindow.open({ map, anchor: marker })
+        }
+
+        let highlightMarker: GMarker | null = null
+
         for (const pin of PROJECT_PINS) {
           const position = { lat: pin.lat, lng: pin.lng }
           bounds.extend(position)
@@ -175,26 +203,14 @@ export function LocalProjectMap() {
             },
           })
 
-          // Info window content is built from the static PROJECT_PINS data above
-          // (developer-authored, not user input), so innerHTML here is safe.
-          marker.addListener('click', () => {
-            const content = document.createElement('div')
-            content.className = 'max-w-[220px] p-1 font-sans'
-            content.innerHTML = `
-              <p class="text-xs font-bold uppercase tracking-wide text-[#01642d]">${pin.area} · ${pin.postcode}</p>
-              <p class="mt-1 text-sm font-bold text-[#1939bc]">${pin.title}</p>
-              <ul class="mt-2 space-y-1 text-xs text-[#5b6167] list-disc pl-4">
-                ${pin.materials.map((m) => `<li>${m}</li>`).join('')}
-              </ul>
-            `
-            infoWindow.setContent(content)
-            infoWindow.open({ map, anchor: marker })
-          })
+          marker.addListener('click', () => openInfoFor(pin, marker))
+          if (pin.id === highlightId) highlightMarker = marker
 
           markers.push(marker)
         }
 
         map.fitBounds(bounds, 60)
+        if (highlightedPin && highlightMarker) openInfoFor(highlightedPin, highlightMarker)
         if (!cancelled) setStatus('ready')
       })
       .catch(() => {
@@ -205,18 +221,19 @@ export function LocalProjectMap() {
       cancelled = true
       markers.forEach((m) => m.setMap(null))
     }
-  }, [apiKey])
+  }, [apiKey, highlightId, highlightedPin])
 
   return (
     <Reveal>
       <section aria-labelledby="local-project-map-heading" className="border border-border bg-background p-6 sm:p-8">
         <p className="eyebrow text-accent">Where We&apos;ve Been Building</p>
         <h2 id="local-project-map-heading" className="font-serif text-2xl font-bold text-primary sm:text-3xl">
-          Recent projects across Greater Glasgow
+          {highlightedPin ? `Recent projects near ${highlightedPin.area}` : 'Recent projects across Greater Glasgow'}
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          A sample of completed installs in Bearsden, Newton Mearns, and the West End — select a pin for the
-          materials used on that job.
+          {highlightedPin
+            ? `A sample of completed installs in ${highlightedPin.area} and across our wider Greater Glasgow coverage — select a pin for the materials used on that job.`
+            : 'A sample of completed installs in Bearsden, Newton Mearns, and the West End — select a pin for the materials used on that job.'}
         </p>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-12">
@@ -247,23 +264,34 @@ export function LocalProjectMap() {
             />
           </div>
 
-          {/* Text alternative to the map's pins/info-windows, always visible —
-              keeps the same content reachable without relying on map interaction. */}
-          <ul className="grid gap-3 lg:col-span-4">
-            {PROJECT_PINS.map((pin) => (
-              <li key={pin.id} className="border border-border bg-secondary/40 p-4">
-                <p className="text-xs font-bold uppercase tracking-wide text-accent">
-                  {pin.area} · {pin.postcode}
-                </p>
-                <p className="mt-1 text-sm font-bold text-primary">{pin.title}</p>
-                <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground">
-                  {pin.materials.map((material) => (
-                    <li key={material}>{material}</li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
+          <div className="grid gap-4 lg:col-span-4">
+            {/* Text alternative to the map's pins/info-windows, always visible —
+                keeps the same content reachable without relying on map interaction. */}
+            <ul className="grid gap-3">
+              {PROJECT_PINS.map((pin) => (
+                <li
+                  key={pin.id}
+                  className={`border p-4 transition-colors ${
+                    pin.id === highlightId ? 'border-accent bg-accent/5' : 'border-border bg-secondary/40'
+                  }`}
+                >
+                  <p className="text-xs font-bold uppercase tracking-wide text-accent">
+                    {pin.area} · {pin.postcode}
+                  </p>
+                  <p className="mt-1 text-sm font-bold text-primary">{pin.title}</p>
+                  <ul className="mt-2 list-disc space-y-1 pl-4 text-xs leading-relaxed text-muted-foreground">
+                    {pin.materials.map((material) => (
+                      <li key={material}>{material}</li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ul>
+
+            <OpenSurveyButton source="local-project-map" className="button-clay w-full">
+              Book Site Survey Near Me <ArrowRight size={16} />
+            </OpenSurveyButton>
+          </div>
         </div>
       </section>
     </Reveal>

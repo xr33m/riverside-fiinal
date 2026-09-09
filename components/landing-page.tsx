@@ -669,10 +669,6 @@ export default function LandingPage() {
         <Hero onSurvey={openSurvey} />
         <Proof />
 
-        <div className="section border-t border-border">
-          <LocalProjectMap />
-        </div>
-
         <AboutSection />
 
         <section className="offseason">
@@ -698,6 +694,10 @@ export default function LandingPage() {
 
         <div className="section border-t border-border">
           <CostEstimator />
+        </div>
+
+        <div className="section border-t border-border">
+          <LocalProjectMap />
         </div>
 
         <FAQ />

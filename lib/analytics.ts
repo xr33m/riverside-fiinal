@@ -7,7 +7,7 @@
  * in this phase.
  *
  * Reserved event names — keep these stable so downstream dashboards don't break:
- *  - cta_click              { source: 'header' | 'hero' | 'banner' | 'sticky' | 'mobile-menu' }
+ *  - cta_click              { source: 'header' | 'hero' | 'banner' | 'sticky' | 'mobile-menu' | 'whatsapp-widget' }
  *  - call_click             { source: 'header' | 'footer' }
  *  - survey_open            { source?: string }
  *  - survey_step_view       { step: number }

@@ -118,7 +118,7 @@ em {
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
   display: flex;
-  height: 76px;
+  height: 100px;
   justify-content: space-between;
   padding: 0 max(24px, calc((100vw - 1180px) / 2));
   position: sticky;
@@ -128,7 +128,7 @@ em {
 }
 
 .site-header-scrolled {
-  height: 64px;
+  height: 80px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
@@ -181,6 +181,20 @@ em {
   width: 36px;
 }
 
+.wordmark-logo {
+  height: 78px;
+  width: auto;
+  transition: height 0.3s ease;
+}
+
+.site-header-scrolled .wordmark-logo {
+  height: 60px;
+}
+
+.wordmark-logo-lg {
+  height: 128px;
+}
+
 .wordmark small {
   display: block;
   font-size: 7px;
@@ -202,7 +216,7 @@ em {
 .hero-full {
   align-items: flex-end;
   display: flex;
-  margin-top: -76px;
+  margin-top: -100px;
   min-height: 100vh;
   overflow: hidden;
   position: relative;
@@ -858,6 +872,16 @@ h1 {
 
   .faq-section {
     gap: 35px;
+  }
+}
+
+/* Slow hero background zoom — used on service detail pages */
+@keyframes kenburns {
+  from {
+    transform: scale(1.05);
+  }
+  to {
+    transform: scale(1.15);
   }
 }
 

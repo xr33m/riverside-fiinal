@@ -38,11 +38,8 @@ export function SiteFooter() {
         {/* Brand */}
         <div>
           <Link href="/#top" className="wordmark">
-            <span className="wordmark-mark">R</span>
-            <span>
-              Riverside<span className="text-accent"> / </span>Landscaping
-              <small>GLASGOW LANDSCAPING</small>
-            </span>
+            <img src="/images/riverside-logo.png" alt="Riverside Landscaping" className="wordmark-logo wordmark-logo-lg" />
+            <small>GLASGOW LANDSCAPING</small>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Riverside Landscaping specialises in bespoke porcelain patios, driveways, and BS7533-engineered garden

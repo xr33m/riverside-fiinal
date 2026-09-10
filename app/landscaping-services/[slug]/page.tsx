@@ -25,10 +25,11 @@ import {
   generateGraphSchema,
 } from '@/lib/content'
 import { SERVICE_ICONS } from '@/lib/service-icons'
-import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard } from '@/components/silo-ui'
+import { Breadcrumbs, Eyebrow, DirectAnswer, SubCard } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
 import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 import { TestimonialCarousel } from '@/components/testimonial-carousel'
+import { FaqAccordion } from '@/components/faq-accordion'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -40,6 +41,12 @@ const CREDENTIALS = [
   { icon: FileCheck, label: '10-Year Guarantee' },
   { icon: Users, label: 'Family-Run & Local' },
 ]
+
+// Soft blurred colour blobs used to break up flat white/tinted bands —
+// purely decorative, brand-colour, low-opacity.
+function DecorBlob({ className = '' }: { className?: string }) {
+  return <div aria-hidden="true" className={`pointer-events-none absolute rounded-full blur-3xl ${className}`} />
+}
 
 export async function generateStaticParams() {
   return SERVICES.map((service) => ({
@@ -122,10 +129,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           <img
             src="/images/garden-after.png"
             alt={`Riverside Landscaping ${service.primaryCategory.toLowerCase()} project in Glasgow`}
-            className="absolute inset-0 h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/10" />
-          <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end px-4 pb-10 sm:px-6 lg:px-8">
+          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-transparent to-transparent" />
+          <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end px-4 pb-16 sm:px-6 lg:px-8">
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
               <Icon className="h-3.5 w-3.5" /> Service Detail
             </span>
@@ -134,111 +142,138 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </section>
       </Reveal>
 
-      <div className="mx-auto max-w-6xl space-y-16 px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:px-8">
-        {/* Intro / pain point + trust row */}
-        <Reveal className="max-w-3xl space-y-5">
-          <h2 className="font-serif text-3xl font-bold text-primary sm:text-4xl">{service.h2PainPoint}</h2>
-          <p className="text-lg leading-relaxed text-muted-foreground">{service.directAnswer3Sec}</p>
-
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-border pt-5">
-            <span className="flex items-center gap-1.5 text-sm font-bold text-primary">
-              <Star className="h-4 w-4 fill-current text-accent" />
-              {AVG_GOOGLE_RATING}★ from {GOOGLE_REVIEW_COUNT}+ reviews
-            </span>
-            {CREDENTIALS.map((c) => (
-              <span key={c.label} className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wide text-muted-foreground">
-                <c.icon className="h-3.5 w-3.5 text-accent" />
-                {c.label}
-              </span>
+      {/* Floating trust stat card, overlapping the hero/content seam */}
+      <div className="relative z-10 mx-auto -mt-8 max-w-5xl px-4 sm:-mt-10 sm:px-6 lg:px-8">
+        <Reveal delay={0.1}>
+          <div className="grid grid-cols-2 gap-4 border border-border bg-background p-6 shadow-xl sm:grid-cols-4">
+            <div className="text-center">
+              <p className="flex items-center justify-center gap-1 font-serif text-2xl font-bold text-primary">
+                <Star className="h-5 w-5 fill-current text-accent" /> {AVG_GOOGLE_RATING}
+              </p>
+              <p className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">
+                {GOOGLE_REVIEW_COUNT}+ Reviews
+              </p>
+            </div>
+            {CREDENTIALS.slice(0, 3).map((c) => (
+              <div key={c.label} className="text-center">
+                <c.icon className="mx-auto h-6 w-6 text-accent" />
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-wide text-muted-foreground">{c.label}</p>
+              </div>
             ))}
           </div>
         </Reveal>
+      </div>
 
-        <Reveal delay={0.1}>
-          <DirectAnswer>{service.bsStandard}</DirectAnswer>
-        </Reveal>
-
-        {/* Technical subtopics */}
-        <div className="space-y-10">
-          <Reveal>
-            <SectionCard>
-              <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary1}</h2>
-              <p className="text-sm leading-relaxed text-muted-foreground">{service.soilContext}</p>
-              <div className="grid grid-cols-1 gap-4 pt-4 md:grid-cols-2">
-                <SubCard title="Geotextile Membrane & MOT Type 1 Sub-Base Prep">
-                  Prevents heavy boulder clay from migrating into aggregate layers during heavy winter rainfall.
-                </SubCard>
-                <SubCard title="Scottish Whinstone & Frost-Proof Materials">
-                  High-density basalt edging and frost-proof bonding for maximum durability in Scottish weather.
-                </SubCard>
-              </div>
-            </SectionCard>
+      {/* Intro / pain point */}
+      <section className="relative overflow-hidden bg-background pb-16 pt-14 sm:pt-16">
+        <DecorBlob className="-right-24 -top-24 h-64 w-64 bg-accent/10" />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="max-w-3xl space-y-5">
+            <h2 className="font-serif text-3xl font-bold text-primary sm:text-4xl">{service.h2PainPoint}</h2>
+            <p className="text-lg leading-relaxed text-muted-foreground">{service.directAnswer3Sec}</p>
           </Reveal>
-
-          <Reveal>
-            <SectionCard>
-              <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary2}</h2>
-              <p className="text-sm leading-relaxed text-muted-foreground">{service.bsStandard}</p>
-            </SectionCard>
+          <Reveal delay={0.1} className="mt-8 max-w-3xl">
+            <DirectAnswer>{service.bsStandard}</DirectAnswer>
           </Reveal>
         </div>
+      </section>
 
-        {/* Process */}
-        <div className="space-y-10">
+      {/* Technical subtopics — tinted band */}
+      <section className="relative overflow-hidden bg-secondary/40 py-16">
+        <DecorBlob className="-left-32 top-1/2 h-72 w-72 -translate-y-1/2 bg-primary/5" />
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <Reveal className="space-y-4 border-t-4 border-accent bg-background p-7 shadow-md">
+            <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary1}</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">{service.soilContext}</p>
+            <div className="grid grid-cols-1 gap-4 pt-2">
+              <SubCard title="Geotextile Membrane & MOT Type 1 Sub-Base Prep">
+                Prevents heavy boulder clay from migrating into aggregate layers during heavy winter rainfall.
+              </SubCard>
+              <SubCard title="Scottish Whinstone & Frost-Proof Materials">
+                High-density basalt edging and frost-proof bonding for maximum durability in Scottish weather.
+              </SubCard>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1} className="space-y-4 border-t-4 border-primary bg-background p-7 shadow-md">
+            <h2 className="font-serif text-2xl font-bold text-primary">{service.h2Secondary2}</h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">{service.bsStandard}</p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Process — dark full-bleed band with connecting timeline */}
+      <section className="relative overflow-hidden bg-primary py-20 text-white">
+        <DecorBlob className="-right-20 top-0 h-72 w-72 bg-accent/20" />
+        <DecorBlob className="-left-24 bottom-0 h-64 w-64 bg-white/5" />
+        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <Reveal className="mx-auto max-w-2xl space-y-3 text-center">
-            <Eyebrow icon={ClipboardList}>Our Process</Eyebrow>
-            <h2 className="font-serif text-3xl font-bold text-primary sm:text-4xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white backdrop-blur-sm">
+              <ClipboardList className="h-3.5 w-3.5" /> Our Process
+            </span>
+            <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
               How We Build Your {service.primaryCategory}
             </h2>
           </Reveal>
 
-          <div className="space-y-12">
+          <div className="relative mt-16 space-y-14">
+            <div className="absolute left-1/2 top-2 hidden h-[calc(100%-2rem)] w-px -translate-x-1/2 bg-white/15 lg:block" />
             {processSteps.map((step, i) => (
               <Reveal key={step.n} delay={i * 0.08}>
                 <div
-                  className={`grid grid-cols-1 items-center gap-8 lg:grid-cols-2 ${
+                  className={`relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 ${
                     step.image && i % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''
                   }`}
                 >
                   {step.image ? (
-                    <div className="h-56 overflow-hidden border border-border sm:h-72">
+                    <div className="h-56 overflow-hidden border border-white/15 shadow-lg sm:h-72">
                       <img src={step.image} alt={step.alt} className="h-full w-full object-cover" />
                     </div>
                   ) : (
-                    <div className="flex h-56 items-center justify-center border border-dashed border-accent/40 bg-accent/5 sm:h-72">
-                      <ClipboardList className="h-12 w-12 text-accent/50" />
+                    <div className="flex h-56 items-center justify-center border border-dashed border-white/25 bg-white/5 sm:h-72">
+                      <ClipboardList className="h-12 w-12 text-white/40" />
                     </div>
                   )}
                   <div>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-sm font-bold text-white">
+                    <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-base font-bold text-white ring-4 ring-primary">
                       {step.n}
                     </span>
-                    <h3 className="mt-4 font-serif text-xl font-bold text-primary">{step.title}</h3>
-                    <p className="mt-2 leading-relaxed text-muted-foreground">{step.body}</p>
+                    <h3 className="mt-4 font-serif text-xl font-bold text-white">{step.title}</h3>
+                    <p className="mt-2 leading-relaxed text-white/75">{step.body}</p>
                   </div>
                 </div>
               </Reveal>
             ))}
           </div>
         </div>
+      </section>
 
+      <div className="mx-auto max-w-6xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
         {/* Technical Specification checklist */}
-        <Reveal>
-          <SectionCard>
-            <h3 className="font-serif text-xl font-bold text-primary">Technical Specification &amp; Build Guarantee</h3>
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              {service.features.map((feat, i) => (
-                <div key={i} className="flex items-center gap-3 border border-border bg-secondary/40 p-3">
-                  <CheckCircle2 className="h-5 w-5 shrink-0 text-accent" />
-                  <span className="text-sm text-foreground">{feat}</span>
-                </div>
-              ))}
-            </div>
-          </SectionCard>
-        </Reveal>
-
-        {/* Real proof: matching portfolio case studies, or a link out to the hub */}
         <div className="space-y-6">
+          <Reveal>
+            <h3 className="font-serif text-xl font-bold text-primary">Technical Specification &amp; Build Guarantee</h3>
+          </Reveal>
+          <RevealGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.06}>
+            {service.features.map((feat, i) => (
+              <div
+                key={i}
+                className="group flex items-center gap-4 border-t-2 border-accent/40 bg-background p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+              >
+                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
+                  <CheckCircle2 className="h-5 w-5" />
+                </span>
+                <span className="text-sm font-medium text-foreground">{feat}</span>
+              </div>
+            ))}
+          </RevealGrid>
+        </div>
+      </div>
+
+      {/* Real proof — tinted band */}
+      <section className="relative overflow-hidden bg-accent/5 py-16">
+        <DecorBlob className="right-0 top-0 h-56 w-56 bg-accent/10" />
+        <div className="relative mx-auto max-w-6xl space-y-6 px-4 sm:px-6 lg:px-8">
           <Reveal className="space-y-2">
             <Eyebrow icon={ShieldCheck}>Proof, Not Promises</Eyebrow>
             <h2 className="font-serif text-2xl font-bold text-primary sm:text-3xl">
@@ -252,7 +287,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <Link
                   key={item.id}
                   href={`/portfolio/${item.slug}`}
-                  className="group block border border-border bg-background transition-colors duration-300 hover:border-accent"
+                  className="group block overflow-hidden border border-border bg-background shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl"
                 >
                   <div className="relative h-56 overflow-hidden">
                     <img
@@ -281,7 +316,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <Reveal>
               <Link
                 href="/portfolio"
-                className="group flex items-center justify-between border border-border bg-secondary/40 p-6 transition-colors hover:border-accent"
+                className="group flex items-center justify-between border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
               >
                 <span className="text-sm font-bold text-primary">
                   Browse our full portfolio of completed Riverside Landscaping projects across Greater Glasgow.
@@ -291,40 +326,39 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             </Reveal>
           )}
         </div>
+      </section>
 
-        {/* Real reviews */}
-        <Reveal className="space-y-6">
-          <div className="mx-auto max-w-2xl text-center">
-            <Eyebrow icon={Star}>Client Reviews</Eyebrow>
-            <h2 className="mt-3 font-serif text-2xl font-bold text-primary sm:text-3xl">
-              What Glasgow Homeowners Say
-            </h2>
-          </div>
-          <TestimonialCarousel />
-        </Reveal>
-
-        {/* FAQs */}
-        <Reveal>
-          <SectionCard className="space-y-6">
-            <div className="flex items-center gap-3">
-              <HelpCircle className="h-6 w-6 text-accent" />
-              <h2 className="font-serif text-2xl font-bold text-primary">
-                Frequently Asked Questions About {service.primaryCategory} in Glasgow
+      {/* Real reviews */}
+      <section className="bg-background py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="space-y-6">
+            <div className="mx-auto max-w-2xl text-center">
+              <Eyebrow icon={Star}>Client Reviews</Eyebrow>
+              <h2 className="mt-3 font-serif text-2xl font-bold text-primary sm:text-3xl">
+                What Glasgow Homeowners Say
               </h2>
             </div>
-            <div className="space-y-4">
-              {service.faqs.map((faq, i) => (
-                <div key={i} className="space-y-2 border border-border bg-secondary/40 p-5">
-                  <h3 className="text-base font-semibold text-primary">{faq.question}</h3>
-                  <p className="border-l-2 border-accent/50 py-0.5 pl-3 text-sm text-muted-foreground">
-                    {faq.answer}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </SectionCard>
-        </Reveal>
+            <TestimonialCarousel />
+          </Reveal>
+        </div>
+      </section>
 
+      {/* FAQs — tinted band, real accordion */}
+      <section className="bg-secondary/40 py-16">
+        <div className="mx-auto max-w-4xl space-y-6 px-4 sm:px-6 lg:px-8">
+          <Reveal className="flex items-center gap-3">
+            <HelpCircle className="h-6 w-6 text-accent" />
+            <h2 className="font-serif text-2xl font-bold text-primary">
+              Frequently Asked Questions About {service.primaryCategory} in Glasgow
+            </h2>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <FaqAccordion items={service.faqs} />
+          </Reveal>
+        </div>
+      </section>
+
+      <div className="mx-auto max-w-6xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
         {/* Related guides */}
         <div className="space-y-6">
           <Reveal className="space-y-2">
@@ -340,7 +374,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <Link
                   key={article.slug}
                   href={`/knowledge-base/${article.slug}`}
-                  className="group block border border-border bg-background p-5 transition-colors hover:border-accent"
+                  className="group block border border-border bg-background p-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
                 >
                   <span className="text-xs font-bold uppercase tracking-wide text-accent">{article.category}</span>
                   <h3 className="mt-1 font-serif text-base font-bold text-primary transition-colors group-hover:text-accent">
@@ -354,7 +388,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             <Reveal>
               <Link
                 href="/knowledge-base"
-                className="group flex items-center justify-between border border-border bg-secondary/40 p-6 transition-colors hover:border-accent"
+                className="group flex items-center justify-between border border-border bg-background p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
               >
                 <span className="text-sm font-bold text-primary">
                   Explore our full knowledge base of cost guides, technical guides, and maintenance advice.
@@ -376,9 +410,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   <Link
                     key={related.slug}
                     href={`/landscaping-services/${related.slug}`}
-                    className="group flex items-center gap-3 border border-border bg-background p-4 transition-colors hover:border-accent"
+                    className="group flex items-center gap-3 border border-border bg-background p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
                   >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-accent/10 text-accent">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
                       <RelatedIcon className="h-5 w-5" />
                     </span>
                     <span className="min-w-0 flex-1 text-sm font-bold text-primary">{related.primaryCategory}</span>
@@ -401,7 +435,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               <Link
                 key={suburb.slug}
                 href={`/locations/${suburb.slug}`}
-                className="flex items-center justify-between border border-border bg-background p-3 text-xs text-muted-foreground transition-colors hover:border-accent hover:text-accent"
+                className="flex items-center justify-between border border-border bg-background p-3 text-xs text-muted-foreground shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:text-accent hover:shadow-md"
               >
                 <span>{suburb.name} ({suburb.postcodePrefix})</span>
                 <ArrowRight className="h-3.5 w-3.5" />

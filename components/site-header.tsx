@@ -147,11 +147,8 @@ export function SiteHeader({
         }`}
       >
         <a href="/#top" className="wordmark">
-          <span className="wordmark-mark">R</span>
-          <span>
-            Riverside<span className="text-accent"> / </span>Landscaping
-            <small>GLASGOW LANDSCAPING</small>
-          </span>
+          <img src="/images/riverside-logo.png" alt="Riverside Landscaping" className="wordmark-logo" />
+          <small>GLASGOW LANDSCAPING</small>
         </a>
 
         <nav className="hidden items-center gap-5 md:flex text-sm">

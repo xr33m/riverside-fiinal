@@ -27,8 +27,7 @@ const nextConfig = {
       { source: '/driveways-giffnock', destination: '/locations/giffnock', permanent: true },
 
       // General Page Anchor Redirects
-      { source: '/contact.html', destination: '/#contact', permanent: true },
-      { source: '/contact', destination: '/#contact', permanent: true },
+      { source: '/contact.html', destination: '/contact', permanent: true },
       { source: '/gallery.html', destination: '/#portfolio', permanent: true },
       { source: '/portfolio', destination: '/#portfolio', permanent: true },
       { source: '/reviews', destination: '/#testimonials', permanent: true },

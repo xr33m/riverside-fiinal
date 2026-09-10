@@ -161,6 +161,7 @@ export function SiteHeader({
           <a href="/knowledge-base" className="hover:text-accent font-medium">Guides</a>
           <a href="/#portfolio" className="hover:text-accent">Portfolio</a>
           <a href="/#faq" className="hover:text-accent">FAQs</a>
+          <a href="/contact" className="hover:text-accent font-medium">Contact</a>
         </nav>
 
         <div className="hidden md:block">
@@ -181,6 +182,7 @@ export function SiteHeader({
             <a href="/knowledge-base" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">Guides</a>
             <a href="/#portfolio" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">Portfolio</a>
             <a href="/#faq" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">FAQs</a>
+            <a href="/contact" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">Contact</a>
             <a href={BRAND.phoneHref} className="flex items-center gap-2 py-2 font-bold text-primary">
               <Phone size={15} /> {BRAND.phoneDisplay}
             </a>

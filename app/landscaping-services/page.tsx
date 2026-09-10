@@ -1,8 +1,47 @@
 import Link from 'next/link'
+import type { LucideIcon } from 'lucide-react'
+import {
+  ShieldCheck,
+  ArrowRight,
+  Layers,
+  Droplets,
+  Car,
+  PanelsTopLeft,
+  Fence,
+  Sparkles,
+  Blocks,
+  Leaf,
+  Trees,
+  Home,
+  Cuboid,
+} from 'lucide-react'
 import { SERVICES, generateGraphSchema } from '@/lib/content'
-import { ShieldCheck, ArrowRight, Layers, Droplets, Car, Compass } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, CtaBanner } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
+
+const SERVICE_ICONS: Record<string, LucideIcon> = {
+  'porcelain-paving-glasgow': Layers,
+  'driveway-installers-glasgow': Car,
+  'garden-drainage-solutions-glasgow': Droplets,
+  'composite-decking-glasgow': PanelsTopLeft,
+  'garden-fencing-glasgow': Fence,
+  'resin-bound-driveways-glasgow': Sparkles,
+  'retaining-walls-glasgow': Blocks,
+  'artificial-grass-glasgow': Leaf,
+  'garden-landscaping-glasgow': Trees,
+  'garden-rooms-glasgow': Home,
+  '3d-garden-design-glasgow': Cuboid,
+}
+
+// Rotating brand-colour gradients for services without a real project photo
+// yet (see ServiceDetail.heroImage) — keeps the grid visually varied without
+// repeating the same 2-3 stock photos across 11 tiles.
+const TILE_GRADIENTS = [
+  'from-primary to-[#0c1c63]',
+  'from-accent to-[#013d1c]',
+  'from-[#1f2937] to-[#0b0f19]',
+  'from-[#1939bc] to-[#01642d]',
+]
 
 export const metadata = {
   title: 'BEST Landscaping Services Glasgow - Porcelain Paving, Driveways & Clay Drainage',
@@ -39,51 +78,44 @@ export default function LandscapingServicesHubPage() {
         </Reveal>
 
         {/* Category Hub Services Grid (Parent-to-Child Linking Rules) */}
-        <RevealGrid className="grid grid-cols-1 gap-8 pt-4 md:grid-cols-2">
-          {SERVICES.map((service) => (
-            <article
-              key={service.slug}
-              className="group flex flex-col justify-between border border-border bg-background p-8 transition-colors duration-300 hover:border-accent"
-            >
-              <div className="space-y-4">
-                <div className="flex h-12 w-12 items-center justify-center border border-accent/30 bg-accent/10 text-accent">
-                  {service.slug.includes('porcelain') && <Layers className="h-6 w-6" />}
-                  {service.slug.includes('driveway') && <Car className="h-6 w-6" />}
-                  {service.slug.includes('drainage') && <Droplets className="h-6 w-6" />}
-                  {service.slug.includes('decking') && <Compass className="h-6 w-6" />}
+        <RevealGrid className="grid grid-cols-2 gap-4 pt-4 sm:grid-cols-3 lg:grid-cols-4">
+          {SERVICES.map((service, i) => {
+            const Icon = SERVICE_ICONS[service.slug] ?? Layers
+            return (
+              <Link
+                key={service.slug}
+                href={`/landscaping-services/${service.slug}`}
+                aria-label={`Read complete ${service.primaryCategory.toLowerCase()} specification`}
+                className="group relative block aspect-[4/3] overflow-hidden"
+              >
+                {service.heroImage ? (
+                  <img
+                    src={service.heroImage}
+                    alt={`${service.primaryCategory} by Riverside Landscaping in Glasgow`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 group-hover:scale-110 ${
+                      TILE_GRADIENTS[i % TILE_GRADIENTS.length]
+                    }`}
+                  />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+
+                <div className="absolute inset-0 flex flex-col items-start justify-end p-4 sm:p-5">
+                  <Icon className="mb-2 h-6 w-6 text-white/90 sm:h-7 sm:w-7" />
+                  <h2 className="font-serif text-base font-bold leading-tight text-white sm:text-lg">
+                    {service.primaryCategory}
+                  </h2>
+                  <span className="mt-1 flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide text-white/0 transition-all group-hover:text-white/85">
+                    Explore <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-1" />
+                  </span>
                 </div>
-
-                <h2 className="font-serif text-2xl font-bold text-primary transition-colors group-hover:text-accent">
-                  {service.name}
-                </h2>
-
-                {/* 3-Second Direct Answer Block */}
-                <p className="border-l-2 border-accent/50 py-1 pl-3 text-sm leading-relaxed text-muted-foreground">
-                  {service.directAnswer3Sec}
-                </p>
-
-                <ul className="space-y-2 pt-2 text-xs text-muted-foreground">
-                  {service.features.slice(0, 3).map((feat, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="pt-8">
-                {/* Contextual Anchor Text */}
-                <Link
-                  href={`/landscaping-services/${service.slug}`}
-                  className="button-outline flex w-full items-center justify-between text-sm"
-                >
-                  <span>Read complete {service.primaryCategory.toLowerCase()} specification</span>
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </article>
-          ))}
+              </Link>
+            )
+          })}
         </RevealGrid>
 
         {/* Winter Incentive Callout */}

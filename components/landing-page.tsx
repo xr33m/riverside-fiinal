@@ -22,6 +22,7 @@ import {
   PROCESS_STEPS,
   SUBURBS,
   TESTIMONIALS,
+  AVG_GOOGLE_RATING,
   MaterialSwatch,
   PortfolioItem,
 } from '@/lib/content'
@@ -40,7 +41,7 @@ import { LocalProjectMap } from '@/components/ux/LocalProjectMap'
 function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
   const reduceMotion = useReducedMotion()
   const heroRef = useRef<HTMLDivElement>(null)
-  const avgRating = (TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length).toFixed(1)
+  const avgRating = AVG_GOOGLE_RATING
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -107,7 +108,7 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
  * About Section (Trust & Credibility, sits directly under the Hero)
  * ------------------------------------------------------------------ */
 function AboutSection() {
-  const avgRating = (TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length).toFixed(1)
+  const avgRating = AVG_GOOGLE_RATING
 
   return (
     <section id="about" className="section about-section border-t border-border">

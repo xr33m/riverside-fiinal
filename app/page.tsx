@@ -1,5 +1,5 @@
 import LandingPage from '@/components/landing-page'
-import { faqs, BRAND } from '@/lib/content'
+import { faqs, BRAND, AVG_GOOGLE_RATING, GOOGLE_REVIEW_COUNT } from '@/lib/content'
 
 const localBusinessLd = {
   '@context': 'https://schema.org',
@@ -36,8 +36,8 @@ const localBusinessLd = {
   },
   aggregateRating: {
     '@type': 'AggregateRating',
-    ratingValue: '4.9',
-    reviewCount: '11',
+    ratingValue: String(AVG_GOOGLE_RATING),
+    reviewCount: String(GOOGLE_REVIEW_COUNT),
   },
   knowsAbout: [
     'Porcelain Paving',

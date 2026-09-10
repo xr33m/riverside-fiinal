@@ -87,6 +87,10 @@ export interface ServiceDetail {
   features: string[]
   faqs: { question: string; answer: string }[]
   titleTag: string
+  // Optional real project photo for the services hub tile — until one exists
+  // for a service, the hub renders a brand-colour/icon tile instead of a
+  // fabricated or repeated stock photo.
+  heroImage?: string
 }
 
 export interface KnowledgeArticle {
@@ -436,22 +440,22 @@ export const SERVICES: ServiceDetail[] = [
     titleTag: "BEST Garden Drainage Solutions Glasgow - If you're looking for land drains near me or patio drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
-    slug: 'decking-fencing-glasgow',
-    name: 'Composite Decking & Architectural Fencing',
+    slug: 'composite-decking-glasgow',
+    name: 'Composite Decking Installation',
     category: 'Landscaping Services',
-    primaryCategory: 'Decking & Fencing',
-    h1Title: 'Composite Decking & Architectural Slatted Fencing in Glasgow',
+    primaryCategory: 'Composite Decking',
+    h1Title: 'Composite Decking Installation in Glasgow',
     h2Secondary1: 'Porcelain Paving & Terraced Hardscaping Near Me',
-    h2Secondary2: 'Weatherproof Composite Framing & Privacy Screens',
-    h2PainPoint: 'Rot-Proof Outdoor Living Built for Damp Scottish Climates',
-    directAnswer3Sec: 'Composite decking and cedar-style slatted fencing by Riverside Landscaping take 3 to 5 days, utilizing sub-frame aluminum substructures that resist rot in damp Scottish climates.',
-    soilContext: 'High atmospheric moisture in Glasgow rots traditional timber posts. We set structural posts in 600mm deep concrete footings with sub-surface drainage sleeves.',
-    bsStandard: 'Built using structural grade C24 treated timber or rot-proof aluminum joists anchored with stainless steel fixings.',
+    h2Secondary2: 'Rot-Proof Sub-Frame Engineering for Damp Scottish Climates',
+    h2PainPoint: "Low-Maintenance Outdoor Living That Won't Rot, Warp, or Splinter",
+    directAnswer3Sec: "Composite decking installations by Riverside Landscaping take 3 to 5 days, built on rot-proof aluminium or C24 treated sub-frames set in 600mm deep concrete footings to handle Glasgow's damp climate.",
+    soilContext: 'High atmospheric moisture in Glasgow rots traditional timber joists fast. We set structural posts in concrete footings below frost line with sub-surface drainage sleeves so the frame never sits in standing water.',
+    bsStandard: 'Sub-frames built using structural grade C24 treated timber or rot-proof aluminium joists anchored with stainless steel fixings.',
     features: [
       'Ultra-Low Maintenance Composite Deck Boards',
-      'Rot-Proof Aluminum & C24 Sub-Frame Framing',
-      'Contemporary Cedar Slatted Privacy Fencing',
-      'Integrated Under-Deck Drainage Systems',
+      'Rot-Proof Aluminium & C24 Sub-Frame Options',
+      'Concrete Footings Set Below Frost Line',
+      'Hidden Fixings & Anti-Slip Woodgrain Finish',
       '15-Year Manufacturer & 10-Year Workmanship Warranty',
     ],
     faqs: [
@@ -459,8 +463,43 @@ export const SERVICES: ServiceDetail[] = [
         question: 'Does composite decking get slippery in Glasgow winters?',
         answer: 'Quality composite decking features anti-slip woodgrain texturing and non-porous capping, preventing algae build-up and remaining safe to walk on year-round.',
       },
+      {
+        question: 'How long does composite decking last compared to timber?',
+        answer: "Composite boards typically carry a 15-year manufacturer warranty and don't rot, warp, or need annual staining the way timber decking does in Scotland's wet climate.",
+      },
     ],
-    titleTag: "BEST Composite Decking Glasgow - If you're looking for fence builders near me or timber decking near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    titleTag: "BEST Composite Decking Glasgow - If you're looking for timber decking near me or garden decking installers near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'garden-fencing-glasgow',
+    name: 'Architectural Fencing & Privacy Screens',
+    category: 'Landscaping Services',
+    primaryCategory: 'Garden Fencing',
+    h1Title: 'Architectural Fencing & Privacy Screens in Glasgow',
+    h2Secondary1: 'Composite Decking & Terraced Hardscaping Near Me',
+    h2Secondary2: 'Wind-Rated Foundations for Exposed Scottish Gardens',
+    h2PainPoint: 'Fencing That Survives Scottish Storms Without Leaning or Rotting',
+    directAnswer3Sec: 'Architectural slatted fencing by Riverside Landscaping takes 2 to 4 days to install, using concrete-set posts and wind-rated panel spacing engineered for exposed Scottish gardens.',
+    soilContext: "Waterlogged clay soil is the main cause of leaning fence posts in Glasgow. We set every post in a 450mm-600mm deep concrete footing with a gravel base to stop water pooling around the post foot.",
+    bsStandard: 'Posts and panels fixed with stainless steel hardware to structural grade treated timber, rated for exposed and coastal wind loads.',
+    features: [
+      'Contemporary Cedar & Composite Slatted Panels',
+      'Concrete-Set Posts Below Frost Line',
+      'Wind-Rated Panel Spacing for Exposed Plots',
+      'Pressure-Treated & Rot-Resistant Timber Options',
+      '10-Year Workmanship Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'Why do fence posts lean after a couple of years in Glasgow?',
+        answer: "Most leaning fences come from posts set in soil rather than concrete. We set every post in a concrete footing below the frost line so waterlogged clay can't shift it.",
+      },
+      {
+        question: 'Can you match fencing to an existing garden design?',
+        answer: 'Yes — slatted panel spacing, height, and stain colour are all specified to match existing decking, cladding, or garden room finishes on the same job.',
+      },
+    ],
+    titleTag: "BEST Garden Fencing Glasgow - If you're looking for fence installers near me or privacy screening near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
   {
     slug: 'resin-bound-driveways-glasgow',
@@ -495,10 +534,10 @@ export const SERVICES: ServiceDetail[] = [
   },
   {
     slug: 'retaining-walls-glasgow',
-    name: 'Retaining Walls & Scottish Stone Masonry',
+    name: 'Retaining Walls & Bricklaying',
     category: 'Landscaping Services',
-    primaryCategory: 'Retaining Walls',
-    h1Title: 'Structural Retaining Wall Builders in Glasgow',
+    primaryCategory: 'Walls & Bricklaying',
+    h1Title: 'Retaining Walls & Garden Bricklaying in Glasgow',
     h2Secondary1: 'Porcelain Terracing & Tiered Garden Landscaping',
     h2Secondary2: 'Sub-Surface Weep Hole Drainage & Foundation Engineering',
     h2PainPoint: 'Preventing Soil Movement & Landslip on Sloped Glasgow Gardens',
@@ -508,6 +547,7 @@ export const SERVICES: ServiceDetail[] = [
     features: [
       'Engineered Concrete Strip Footings below Frost Line',
       'Scottish Whinstone & Vitrified Porcelain Facing Option',
+      'Boundary & Garden Brick Walls to Match Existing Property',
       'Continuous Geotextile Backfill & Filter Sock Drainage',
       'Integrated Weep-Holes to Prevent Hydrostatic Bulging',
       '10-Year Structural Wall Guarantee',
@@ -546,6 +586,99 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Artificial Grass Glasgow - If you're looking for astro turf near me or mud free lawn near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'garden-landscaping-glasgow',
+    name: 'Garden Landscaping & Design',
+    category: 'Landscaping Services',
+    primaryCategory: 'Garden Landscaping',
+    h1Title: 'Garden Landscaping & Design in Glasgow',
+    h2Secondary1: 'Porcelain Paving & Patio Installers Near Me',
+    h2Secondary2: 'Garden Drainage Solutions for Clay Soil & Wet Weather',
+    h2PainPoint: 'A Full Garden Redesign, Planned Around Scottish Clay & Rainfall',
+    directAnswer3Sec: 'A full garden landscaping project with Riverside Landscaping typically takes 1 to 3 weeks depending on scope, covering groundworks, planting, turfing, and hardscaping under one sequenced build.',
+    soilContext: 'Most Glasgow gardens need groundworks before anything else — levelling, drainage, and topsoil correction on heavy clay — so planting and lawns actually establish instead of waterlogging.',
+    bsStandard: 'Groundworks and any structural elements (steps, walls, drainage) are built to the same BS7533 / BS8002 standards used across every Riverside Landscaping service.',
+    features: [
+      'Full Garden Design & Sequenced Build Planning',
+      'Groundworks, Levelling & Topsoil Correction',
+      'Planting, Turfing & Border Design',
+      'Coordinated Hardscaping, Drainage & Lighting',
+      '10-Year Structural Guarantee on Hard Landscaping',
+    ],
+    faqs: [
+      {
+        question: 'Do you handle the whole garden or just hardscaping?',
+        answer: "We plan and sequence the whole project — groundworks, drainage, hardscaping, planting, and turfing — so nothing gets built in the wrong order or has to be dug up again.",
+      },
+      {
+        question: 'How long does a full garden landscaping project take?',
+        answer: "Most full redesigns take 1 to 3 weeks depending on garden size and how much groundwork, planting, and hardscaping is involved. You'll get a project timeline as part of your written estimate.",
+      },
+    ],
+    titleTag: "BEST Garden Landscaping Glasgow - If you're looking for garden designers near me or landscape gardeners near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: 'garden-rooms-glasgow',
+    name: 'Garden Rooms & Outdoor Buildings',
+    category: 'Landscaping Services',
+    primaryCategory: 'Garden Rooms',
+    h1Title: 'Garden Rooms & Outdoor Buildings in Glasgow',
+    h2Secondary1: 'Composite Decking & Patio Access Platforms Near Me',
+    h2Secondary2: 'Insulated, Damp-Proof Foundations for Scottish Weather',
+    h2PainPoint: 'A Year-Round Garden Room That Stays Warm & Dry in Scottish Winters',
+    directAnswer3Sec: 'Garden room installations by Riverside Landscaping take 2 to 4 weeks, built on insulated concrete or screw-pile foundations designed to stay level and damp-free on Glasgow clay.',
+    soilContext: 'Clay soil movement is the main cause of garden room doors and windows sticking over time. We use screw-pile or reinforced concrete raft foundations rated for clay heave, keeping the structure level year-round.',
+    bsStandard: 'Built with insulated wall and roof panels to current Building Standards for habitable outbuildings, with damp-proof membranes throughout the foundation.',
+    features: [
+      'Insulated Walls, Roof & Double-Glazed Units',
+      'Screw-Pile or Reinforced Concrete Raft Foundations',
+      'Electrics, Lighting & Heating First-Fix Included',
+      'Matched External Cladding & Decking Thresholds',
+      '10-Year Structural Guarantee',
+    ],
+    faqs: [
+      {
+        question: 'Do I need planning permission for a garden room in Glasgow?',
+        answer: "Most garden rooms fall under permitted development if they're under 2.5m eaves height and within a certain footprint of your garden, but we check your specific plot and council rules before quoting.",
+      },
+      {
+        question: 'Can a garden room be used year-round as an office or gym?',
+        answer: "Yes, provided it's insulated and has heating — which is how we build every garden room by default, not as an optional extra.",
+      },
+    ],
+    titleTag: "BEST Garden Rooms Glasgow - If you're looking for garden offices near me or outdoor buildings near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+  },
+  {
+    slug: '3d-garden-design-glasgow',
+    name: '3D Garden Design & Visualisation',
+    category: 'Landscaping Services',
+    primaryCategory: '3D Garden Design',
+    h1Title: '3D Garden Design & Visualisation in Glasgow',
+    h2Secondary1: 'Garden Landscaping & Full Redesign Projects Near Me',
+    h2Secondary2: 'Planning Drainage & Levels Before Groundworks Begin',
+    h2PainPoint: 'See Your Garden Before We Dig — No Surprises Mid-Build',
+    directAnswer3Sec: 'Riverside Landscaping produces a full 3D design and material plan within 5 to 10 working days of your site survey, so you can see layout, materials, and levels before any groundworks start.',
+    soilContext: "Every 3D design is built around your garden's actual survey data — levels, drainage falls, and access — so the design that gets modelled is one that can actually be built on your clay soil.",
+    bsStandard: 'Design output includes a materials and levels plan used directly by our installation crews, keeping the built result matched to the design.',
+    features: [
+      'Full 3D Render From Your Site Survey Measurements',
+      'Material, Planting & Lighting Visualisation',
+      'Levels & Drainage Fall Planning Built Into the Design',
+      'Revisions Before Any Groundworks Are Booked',
+      'Design Handed Directly to Your Installation Crew',
+    ],
+    faqs: [
+      {
+        question: 'Do you charge separately for a 3D garden design?',
+        answer: "An initial concept comes from your free site survey — detailed material and planting revisions for larger projects are scoped and agreed with you individually.",
+      },
+      {
+        question: 'How long does a 3D garden design take?',
+        answer: 'Most designs are ready within 5 to 10 working days of your site survey, depending on garden size and how many revisions are needed.',
+      },
+    ],
+    titleTag: "BEST 3D Garden Design Glasgow - If you're looking for garden designers near me or landscape visualisation near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
   },
 ]
 
@@ -798,6 +931,15 @@ export const TESTIMONIALS: Testimonial[] = [
   },
 ]
 
+// Derived from TESTIMONIALS — rounds the true average to a whole star for
+// display (matches how the rating badge is shown everywhere on the site),
+// and keeps the review count in sync with the actual testimonial list
+// instead of a separately hardcoded number.
+export const AVG_GOOGLE_RATING = Math.round(
+  TESTIMONIALS.reduce((sum, t) => sum + t.rating, 0) / TESTIMONIALS.length,
+)
+export const GOOGLE_REVIEW_COUNT = TESTIMONIALS.length
+
 // Material Swatches
 export const MATERIALS: MaterialSwatch[] = [
   {
@@ -901,8 +1043,8 @@ export function generateGraphSchema(pageUrl: string, faqItems: { question: strin
         },
         'aggregateRating': {
           '@type': 'AggregateRating',
-          'ratingValue': '4.9',
-          'reviewCount': '11',
+          'ratingValue': String(AVG_GOOGLE_RATING),
+          'reviewCount': String(GOOGLE_REVIEW_COUNT),
         },
         'areaServed': SUBURBS.map((s) => ({
           '@type': 'Place',

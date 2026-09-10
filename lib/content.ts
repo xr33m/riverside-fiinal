@@ -847,6 +847,41 @@ export const PORTFOLIO_CATEGORY_LABELS: Record<PortfolioItem['category'], string
   pergola: 'Pergola & Landscaping',
 }
 
+// Completed PORTFOLIO_ITEMS whose category maps to this service slug — real
+// case-study proof for a service detail page, when one exists yet.
+export function getPortfolioForService(slug: string): PortfolioItem[] {
+  return PORTFOLIO_ITEMS.filter((item) => PORTFOLIO_CATEGORY_TO_SERVICE_SLUG[item.category] === slug)
+}
+
+// KNOWLEDGE_ARTICLES tagged as relating to this service slug — real guide
+// cross-links for a service detail page, when one exists yet.
+export function getArticlesForService(slug: string): KnowledgeArticle[] {
+  return KNOWLEDGE_ARTICLES.filter((article) => article.relatedServiceSlug === slug)
+}
+
+// Two genuinely related services to cross-link from each service detail page —
+// curated by hand (not derived from heading text, which is often about the
+// *same* service's own subtopics rather than a sibling service) for accurate
+// internal linking / topical clustering.
+export const RELATED_SERVICES: Record<string, [string, string]> = {
+  'porcelain-paving-glasgow': ['driveway-installers-glasgow', 'garden-drainage-solutions-glasgow'],
+  'driveway-installers-glasgow': ['porcelain-paving-glasgow', 'retaining-walls-glasgow'],
+  'garden-drainage-solutions-glasgow': ['porcelain-paving-glasgow', 'garden-landscaping-glasgow'],
+  'composite-decking-glasgow': ['garden-fencing-glasgow', 'garden-rooms-glasgow'],
+  'garden-fencing-glasgow': ['composite-decking-glasgow', 'garden-landscaping-glasgow'],
+  'resin-bound-driveways-glasgow': ['driveway-installers-glasgow', 'garden-drainage-solutions-glasgow'],
+  'retaining-walls-glasgow': ['garden-drainage-solutions-glasgow', 'garden-landscaping-glasgow'],
+  'artificial-grass-glasgow': ['garden-landscaping-glasgow', 'garden-drainage-solutions-glasgow'],
+  'garden-landscaping-glasgow': ['3d-garden-design-glasgow', 'porcelain-paving-glasgow'],
+  'garden-rooms-glasgow': ['composite-decking-glasgow', 'garden-landscaping-glasgow'],
+  '3d-garden-design-glasgow': ['garden-landscaping-glasgow', 'garden-rooms-glasgow'],
+}
+
+export function getRelatedServices(slug: string): ServiceDetail[] {
+  const slugs = RELATED_SERVICES[slug] ?? []
+  return slugs.map((s) => SERVICES.find((service) => service.slug === s)).filter((s): s is ServiceDetail => Boolean(s))
+}
+
 // Customer Testimonials
 // Real Google Business Profile reviews for Riverside Landscaping.
 // No per-customer suburb is available from GBP, so location stays at city level

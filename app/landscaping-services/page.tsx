@@ -1,37 +1,9 @@
 import Link from 'next/link'
-import type { LucideIcon } from 'lucide-react'
-import {
-  ShieldCheck,
-  ArrowRight,
-  Layers,
-  Droplets,
-  Car,
-  PanelsTopLeft,
-  Fence,
-  Sparkles,
-  Blocks,
-  Leaf,
-  Trees,
-  Home,
-  Cuboid,
-} from 'lucide-react'
+import { ShieldCheck, ArrowRight, Layers } from 'lucide-react'
 import { SERVICES, generateGraphSchema } from '@/lib/content'
+import { SERVICE_ICONS } from '@/lib/service-icons'
 import { Breadcrumbs, Eyebrow, DirectAnswer, CtaBanner } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
-
-const SERVICE_ICONS: Record<string, LucideIcon> = {
-  'porcelain-paving-glasgow': Layers,
-  'driveway-installers-glasgow': Car,
-  'garden-drainage-solutions-glasgow': Droplets,
-  'composite-decking-glasgow': PanelsTopLeft,
-  'garden-fencing-glasgow': Fence,
-  'resin-bound-driveways-glasgow': Sparkles,
-  'retaining-walls-glasgow': Blocks,
-  'artificial-grass-glasgow': Leaf,
-  'garden-landscaping-glasgow': Trees,
-  'garden-rooms-glasgow': Home,
-  '3d-garden-design-glasgow': Cuboid,
-}
 
 // Rotating brand-colour gradients for services without a real project photo
 // yet (see ServiceDetail.heroImage) — keeps the grid visually varied without

@@ -155,7 +155,7 @@ export function SiteHeader({
         </a>
 
         <nav className="hidden items-center gap-5 md:flex text-sm">
-          <a href="/#about" className="hover:text-accent font-medium">About</a>
+          <a href="/about" className="hover:text-accent font-medium">About</a>
           <Dropdown label="Services" links={serviceLinks} />
           <Dropdown label="Areas" links={areaLinks} wide />
           <a href="/knowledge-base" className="hover:text-accent font-medium">Guides</a>
@@ -176,7 +176,7 @@ export function SiteHeader({
 
         {menu && (
           <div className="absolute left-0 right-0 top-full grid gap-2 border-b border-border bg-background p-6 shadow-xl md:hidden">
-            <a href="/#about" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">About</a>
+            <a href="/about" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">About</a>
             <MobileDropdown label="Services" links={serviceLinks} />
             <MobileDropdown label="Areas" links={areaLinks} />
             <a href="/knowledge-base" onClick={() => setMenu(false)} className="py-2 font-bold text-foreground">Guides</a>

@@ -8,7 +8,7 @@ import { FacebookIcon, LinkedinIcon, InstagramIcon } from '@/components/icons/so
 
 const QUICK_LINKS = [
   { label: 'Home', href: '/#top' },
-  { label: 'About', href: '/#about' },
+  { label: 'About', href: '/about' },
   { label: 'Services', href: '/landscaping-services' },
   { label: 'Guides', href: '/knowledge-base' },
   { label: 'FAQs', href: '/#faq' },

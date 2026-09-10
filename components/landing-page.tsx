@@ -138,6 +138,9 @@ function AboutSection() {
               </span>
             ))}
           </div>
+          <Link href="/about" className="button-outline mt-6 inline-flex text-sm">
+            Read Our Full Story <ArrowRight size={16} />
+          </Link>
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-7">

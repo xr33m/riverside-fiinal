@@ -17,25 +17,27 @@ const reviews = TESTIMONIALS.map((t) => ({
 const firstRow = reviews.slice(0, Math.ceil(reviews.length / 2))
 const secondRow = reviews.slice(Math.ceil(reviews.length / 2))
 
-interface ReviewData {
+export interface ReviewData {
   name: string
   username: string
   body: string
   projectType: string
   date: string
   rating: number
+  className?: string
 }
 
-const ReviewCard = ({
+export const ReviewCard = ({
   name,
   username,
   body,
   projectType,
   date,
   rating,
+  className = 'w-72',
 }: ReviewData) => {
   return (
-    <Card className="relative h-full w-72 cursor-pointer overflow-hidden border-border bg-card p-4 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md">
+    <Card className={`relative h-full cursor-pointer overflow-hidden border-border bg-card p-4 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-md ${className}`}>
       <CardContent className="flex flex-col gap-3 p-0">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">

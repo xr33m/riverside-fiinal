@@ -1,10 +1,36 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Award, ArrowRight, Check, FileCheck, ShieldCheck, Star } from 'lucide-react'
+import type { LucideIcon } from 'lucide-react'
+import { Award, ArrowRight, Check, FileCheck, ShieldCheck, Star, Users } from 'lucide-react'
 import { BRAND, AVG_GOOGLE_RATING, GOOGLE_REVIEW_COUNT, generateGraphSchema } from '@/lib/content'
 import { Breadcrumbs, Eyebrow, CtaBanner } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
-import TestimonialMarquee from '@/components/ui/marquee-01'
+import { TestimonialCarousel } from '@/components/testimonial-carousel'
+
+// Decorative ribbon/flag accent behind the Values section photo — matches
+// the Figma reference's corner ribbons, in brand accent green instead of
+// its orange.
+function RibbonAccent({ className = '' }: { className?: string }) {
+  return (
+    <div
+      aria-hidden="true"
+      className={`absolute h-28 w-12 bg-accent ${className}`}
+      style={{ clipPath: 'polygon(0 0, 100% 0, 100% 82%, 50% 100%, 0 82%)' }}
+    />
+  )
+}
+
+interface Credential {
+  icon: LucideIcon
+  label: string
+}
+
+const CREDENTIALS: Credential[] = [
+  { icon: ShieldCheck, label: 'BS7533 Certified' },
+  { icon: Award, label: "Marshall's Approved Installer" },
+  { icon: FileCheck, label: '10-Year Guarantee' },
+  { icon: Users, label: 'Family-Run & Local' },
+]
 
 export const metadata: Metadata = {
   title: 'About Riverside Landscaping - Family-Run Glasgow Hardscaping Team',
@@ -84,19 +110,35 @@ export default function AboutPage() {
       <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:px-8">
         {/* Philosophy */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
+          {/* Only 2 real project photos exist (before/after) — shown 4x here
+              with different crops/framing rather than inventing more photos. */}
           <Reveal className="grid grid-cols-2 gap-4 lg:col-span-5">
-            <div className="h-56 overflow-hidden border border-border sm:h-72">
+            <div className="h-40 overflow-hidden border border-border sm:h-52">
               <img
                 src="/images/garden-before.png"
                 alt="A waterlogged clay garden before Riverside Landscaping drainage work"
-                className="h-full w-full object-cover"
+                className="h-full w-full object-cover object-left-top"
               />
             </div>
-            <div className="mt-8 h-56 overflow-hidden border border-border sm:h-72">
+            <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
               <img
                 src="/images/garden-after.png"
-                alt="The same garden after Riverside Landscaping's porcelain patio and drainage install"
-                className="h-full w-full object-cover"
+                alt="The finished patio after Riverside Landscaping's install"
+                className="h-full w-full object-cover object-right-top"
+              />
+            </div>
+            <div className="h-40 overflow-hidden border border-border sm:h-52">
+              <img
+                src="/images/garden-after.png"
+                alt="Detail of the finished patio's lighting and planting"
+                className="h-full w-full object-cover object-left-bottom"
+              />
+            </div>
+            <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
+              <img
+                src="/images/garden-before.png"
+                alt="Detail of the waterlogged lawn before drainage work"
+                className="h-full w-full object-cover object-right-bottom"
               />
             </div>
           </Reveal>
@@ -144,64 +186,97 @@ export default function AboutPage() {
 
       <div className="mx-auto max-w-6xl space-y-20 px-4 py-20 sm:px-6 lg:px-8">
         {/* Values */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-start">
-          <Reveal className="max-w-lg lg:col-span-5">
-            <Eyebrow icon={Award}>What We Stand For</Eyebrow>
-            <h2 className="mt-3 font-serif text-3xl font-bold text-primary sm:text-4xl">
+        <div className="space-y-12">
+          <Reveal className="mx-auto max-w-2xl space-y-3 text-center">
+            <Eyebrow icon={Award}>Our Values</Eyebrow>
+            <h2 className="font-serif text-3xl font-bold text-primary sm:text-4xl">
               Cultivating Trust, Guaranteeing the Result
             </h2>
-            <div className="mt-6 h-80 overflow-hidden border border-border">
-              <img
-                src="/images/garden-after.png"
-                alt="Completed Riverside Landscaping hardscaping project"
-                className="h-full w-full object-cover"
-              />
-            </div>
           </Reveal>
 
-          <RevealGrid className="grid grid-cols-1 gap-x-8 gap-y-8 sm:grid-cols-2 lg:col-span-7" stagger={0.06}>
-            {VALUES.map((value, i) => (
-              <article key={value.title} className="border-t border-primary/20 pt-5">
-                <span className="font-serif text-2xl font-bold text-accent">
-                  {String(i + 1).padStart(2, '0')}
-                </span>
-                <h3 className="mt-2 font-serif text-lg font-bold text-primary">{value.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
-              </article>
-            ))}
-          </RevealGrid>
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-3 lg:items-center lg:gap-8">
+            <RevealGrid className="grid gap-10 lg:order-1" stagger={0.06}>
+              {VALUES.slice(0, 3).map((value, i) => (
+                <article key={value.title}>
+                  <h3 className="font-serif text-lg font-bold text-primary">
+                    {i + 1}. {value.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
+                </article>
+              ))}
+            </RevealGrid>
+
+            <Reveal delay={0.1} className="relative order-first lg:order-2">
+              <RibbonAccent className="-left-4 -top-4 -rotate-[15deg]" />
+              <RibbonAccent className="-bottom-4 -right-4 rotate-[15deg]" />
+              <div className="relative h-80 overflow-hidden border border-border sm:h-[420px]">
+                <img
+                  src="/images/garden-after.png"
+                  alt="Completed Riverside Landscaping hardscaping project"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+            </Reveal>
+
+            <RevealGrid className="grid gap-10 lg:order-3" stagger={0.06}>
+              {VALUES.slice(3, 6).map((value, i) => (
+                <article key={value.title}>
+                  <h3 className="font-serif text-lg font-bold text-primary">
+                    {i + 4}. {value.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{value.body}</p>
+                </article>
+              ))}
+            </RevealGrid>
+          </div>
         </div>
 
         {/* Testimonials */}
         <Reveal className="space-y-6">
-          <div className="max-w-2xl">
+          <div className="mx-auto max-w-2xl text-center">
             <Eyebrow icon={Star}>Client Reviews</Eyebrow>
             <h2 className="mt-3 font-serif text-3xl font-bold text-primary sm:text-4xl">
               What Glasgow Homeowners Say
             </h2>
           </div>
-          <TestimonialMarquee />
+          <TestimonialCarousel />
         </Reveal>
       </div>
 
-      {/* Led by Leon */}
+      {/* Led by Leon — same dark full-bleed band + card-grid rhythm as a
+          "meet the team" section, but built from real credentials rather
+          than stock headshots standing in for staff we can't show. */}
       <Reveal>
         <section className="bg-[#0c1c63] py-16 text-white">
-          <div className="mx-auto max-w-4xl space-y-6 px-4 text-center sm:px-6 lg:px-8">
-            <Eyebrow icon={FileCheck}>Family-Run</Eyebrow>
-            <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
-              Led by Leon and a Small Crew of Dedicated Tradesmen
-            </h2>
-            <p className="mx-auto max-w-xl text-white/75">
-              No subcontracted labour and no rotating crews — the same team plans your survey, engineers the
-              sub-base, and hands the finished build back to you.
-            </p>
-            <Link
-              href="/portfolio"
-              className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#8fe3ae]"
-            >
-              See the results our crew has built <ArrowRight size={16} />
-            </Link>
+          <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-2xl space-y-4 text-center">
+              <Eyebrow icon={FileCheck}>Family-Run</Eyebrow>
+              <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
+                Led by Leon and a Small Crew of Dedicated Tradesmen
+              </h2>
+              <p className="mx-auto max-w-xl text-white/75">
+                No subcontracted labour and no rotating crews — the same team plans your survey, engineers the
+                sub-base, and hands the finished build back to you.
+              </p>
+            </div>
+
+            <RevealGrid className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4" stagger={0.06}>
+              {CREDENTIALS.map((c) => (
+                <div key={c.label} className="border border-white/15 bg-white/5 p-5 text-center">
+                  <c.icon className="mx-auto h-6 w-6 text-[#8fe3ae]" />
+                  <p className="mt-3 text-xs font-bold uppercase tracking-wide text-white">{c.label}</p>
+                </div>
+              ))}
+            </RevealGrid>
+
+            <div className="mt-8 text-center">
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-[#8fe3ae]"
+              >
+                See the results our crew has built <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </section>
       </Reveal>

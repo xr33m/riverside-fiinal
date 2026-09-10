@@ -15,3 +15,6 @@ node_modules
 .DS_Store
 .env
 *.tsbuildinfo
+
+# Local lead/message storage written by /api/survey and /api/contact
+/data/

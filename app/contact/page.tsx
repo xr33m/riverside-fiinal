@@ -1,86 +1,121 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, MapPin, Phone } from 'lucide-react'
-import { BRAND, SOCIAL_LINKS, SUBURBS, generateGraphSchema } from '@/lib/content'
-import { Breadcrumbs, Eyebrow, CtaBanner } from '@/components/silo-ui'
-import { Reveal } from '@/components/reveal'
+import { ArrowRight, Mail, MapPin, Phone } from 'lucide-react'
+import { BRAND, SUBURBS, generateGraphSchema } from '@/lib/content'
+import { Breadcrumbs, Eyebrow } from '@/components/silo-ui'
+import { Reveal, RevealGrid } from '@/components/reveal'
 import { OpenSurveyButton } from '@/components/open-survey-button'
-import { FacebookIcon, LinkedinIcon, InstagramIcon } from '@/components/icons/social-icons'
-import { ContactMethodCards } from '@/components/contact-method-cards'
+import { ContactForm } from '@/components/contact-form'
 
 export const metadata: Metadata = {
   title: 'Contact Riverside Landscaping - Glasgow Landscaping & Drainage Specialists',
-  description: 'Get in touch with Riverside Landscaping for a free site survey and written estimate. Call, email, or request a survey online — serving Greater Glasgow and Ayrshire.',
+  description: 'Get in touch with Riverside Landscaping for a free site survey and written estimate. Call, email, or send a message online — serving Greater Glasgow and Ayrshire.',
 }
 
-const SOCIALS = [
-  { label: 'Facebook', href: SOCIAL_LINKS.facebook, Icon: FacebookIcon },
-  { label: 'LinkedIn', href: SOCIAL_LINKS.linkedin, Icon: LinkedinIcon },
-  { label: 'Instagram', href: SOCIAL_LINKS.instagram, Icon: InstagramIcon },
-]
+// Decorative leaf outline for the closing CTA band — matches the Figma
+// reference's monstera-leaf accents, drawn in brand white/opacity instead
+// of imported artwork.
+function LeafAccent({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 200 200"
+      className={`pointer-events-none absolute text-white/10 ${className}`}
+      fill="none"
+    >
+      <path
+        d="M100 10C60 10 20 50 20 100c0 50 40 90 80 90s80-40 80-90c0-50-40-90-80-90Zm0 10c8 30 8 60 0 160M100 60c-25 8-45 25-55 45M100 60c25 8 45 25 55 45M100 110c-20 6-36 20-44 36M100 110c20 6 36 20 44 36"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+    </svg>
+  )
+}
 
 export default function ContactPage() {
   const schema = generateGraphSchema(`${BRAND.domain}/contact`)
   const mapQuery = encodeURIComponent(`${BRAND.gbpAddress.streetAddress}, ${BRAND.gbpAddress.addressLocality}, UK`)
 
+  const contactRows = [
+    { icon: Phone, value: BRAND.phoneDisplay, href: BRAND.phoneHref },
+    { icon: Mail, value: BRAND.emailDisplay, href: BRAND.emailHref },
+    {
+      icon: MapPin,
+      value: `${BRAND.gbpAddress.streetAddress}, ${BRAND.gbpAddress.addressLocality}`,
+      href: `https://www.google.com/maps?q=${mapQuery}`,
+      external: true,
+    },
+  ]
+
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
 
-      <div className="mx-auto max-w-6xl space-y-14 px-4 pb-20 pt-20 sm:px-6 sm:pt-24 lg:px-8">
+      <div className="mx-auto max-w-6xl px-4 pt-20 sm:px-6 sm:pt-24 lg:px-8">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Contact' }]} />
+      </div>
 
-        <Reveal className="max-w-2xl space-y-4">
-          <Eyebrow icon={Phone}>Get In Touch</Eyebrow>
-          <h1>Contact Riverside Landscaping</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">
-            Call, email, or request a free site survey below — our senior landscape engineer reviews every enquiry
-            personally and gets back to you within 24 hours.
-          </p>
-        </Reveal>
+      {/* Hero */}
+      <Reveal>
+        <section className="relative mt-8 h-[420px] w-full overflow-hidden sm:h-[480px]">
+          <img
+            src="/images/garden-after.png"
+            alt="A completed Riverside Landscaping porcelain patio installation"
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-black/10" />
+          <div className="relative mx-auto flex h-full max-w-6xl flex-col justify-end px-4 pb-10 sm:px-6 lg:px-8">
+            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-white/80">
+              <Phone className="h-3.5 w-3.5" /> Get In Touch
+            </span>
+            <h1 className="mt-3 text-white">Fill the Form to Get a Free Consultation</h1>
+          </div>
+        </section>
+      </Reveal>
 
-        <div className="grid gap-6 lg:grid-cols-12">
-          {/* Contact methods */}
-          <div className="lg:col-span-5">
-            <Reveal>
-              <ContactMethodCards />
-            </Reveal>
+      {/* Form + contact info */}
+      <section className="bg-secondary/40 py-16">
+        <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+          <Reveal className="lg:col-span-7">
+            <ContactForm />
+          </Reveal>
 
-            <Reveal delay={0.15} className="mt-6 border border-primary/20 bg-primary p-6 text-primary-foreground">
-              <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-primary-foreground/80">
-                <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#8fe3ae] opacity-75" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-[#8fe3ae]" />
-                </span>
-                Currently taking on new projects
-              </span>
-              <p className="mt-3 text-sm leading-relaxed text-primary-foreground/85">
-                Tell us about your garden and we&apos;ll confirm a survey slot with no obligation to proceed.
-              </p>
-              <OpenSurveyButton source="contact-page" className="button-clay mt-5 w-full">
-                Request Your Free Site Survey <ArrowRight size={16} />
-              </OpenSurveyButton>
-            </Reveal>
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <Eyebrow icon={Phone}>Contact Us</Eyebrow>
+            <h2 className="mt-3 font-serif text-3xl font-bold text-primary sm:text-4xl">
+              Prefer to Reach Us Directly?
+            </h2>
+            <p className="mt-4 leading-relaxed text-muted-foreground">
+              Complete the form for a free landscaping consultation, or call, email, or message us directly below.
+              Our senior landscape engineer reviews every enquiry personally and gets back to you within 24 hours.
+            </p>
 
-            <Reveal delay={0.2} className="mt-6 flex items-center gap-2.5">
-              {SOCIALS.map(({ label, href, Icon }) => (
+            <RevealGrid className="mt-8 space-y-4" stagger={0.06}>
+              {contactRows.map((row) => (
                 <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Riverside Landscaping on ${label}`}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-white transition-colors hover:bg-accent"
+                  key={row.value}
+                  href={row.href}
+                  target={row.external ? '_blank' : undefined}
+                  rel={row.external ? 'noopener noreferrer' : undefined}
+                  className="group flex items-center gap-4"
                 >
-                  <Icon className="h-4 w-4" />
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent text-white transition-colors group-hover:bg-primary">
+                    <row.icon size={18} />
+                  </span>
+                  <span className="text-sm font-bold text-primary">{row.value}</span>
                 </a>
               ))}
-            </Reveal>
-          </div>
+            </RevealGrid>
+          </Reveal>
+        </div>
+      </section>
 
-          {/* Map */}
-          <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="h-[420px] w-full overflow-hidden border border-border lg:h-full lg:min-h-[420px]">
+      {/* Map */}
+      <Reveal>
+        <section className="py-16">
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <h2 className="text-center font-serif text-2xl font-bold text-primary sm:text-3xl">Maps Location</h2>
+            <div className="mt-8 h-[420px] w-full overflow-hidden border border-border sm:h-[480px]">
               <iframe
                 title={`Map of Riverside Landscaping, ${BRAND.gbpAddress.streetAddress}, ${BRAND.gbpAddress.addressLocality}`}
                 src={`https://www.google.com/maps?q=${mapQuery}&output=embed`}
@@ -91,10 +126,12 @@ export default function ContactPage() {
                 referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </section>
+      </Reveal>
 
-        {/* Coverage */}
+      {/* Areas we cover */}
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
         <Reveal className="space-y-4">
           <h2 className="flex items-center gap-2 font-serif text-xl font-bold text-primary">
             <MapPin className="h-5 w-5 text-accent" />
@@ -120,16 +157,32 @@ export default function ContactPage() {
             </Link>
           </div>
         </Reveal>
-
-        <Reveal>
-          <CtaBanner
-            heading="Ready to start your project?"
-            body="Get a written estimate based on your materials and labour, confirmed after a free, no-obligation site survey."
-            ctaLabel="Request Site Survey"
-            source="contact-page-banner"
-          />
-        </Reveal>
       </div>
+
+      {/* Closing CTA — full-bleed dark green band with leaf accents,
+          matching the Figma reference's decorative rhythm in brand green. */}
+      <Reveal>
+        <section className="relative overflow-hidden bg-gradient-to-br from-accent to-[#013d1c] py-16 text-white">
+          <LeafAccent className="-left-6 -top-6 h-40 w-40 -rotate-12" />
+          <LeafAccent className="-bottom-8 -right-6 h-48 w-48 rotate-12" />
+          <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+            <h2 className="font-serif text-3xl font-bold sm:text-4xl">
+              Is Your Garden Craving Some Care and Attention? Reach Out to Us Today!
+            </h2>
+            <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <OpenSurveyButton source="contact-page-banner" className="button-light whitespace-nowrap">
+                Get Started <ArrowRight size={16} />
+              </OpenSurveyButton>
+              <Link
+                href="/landscaping-services"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap border border-white/40 px-[22px] py-[15px] text-xs font-extrabold uppercase tracking-wide text-white transition-colors hover:border-white hover:bg-white/10"
+              >
+                Our Services
+              </Link>
+            </div>
+          </div>
+        </section>
+      </Reveal>
     </>
   )
 }

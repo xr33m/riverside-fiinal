@@ -25,6 +25,7 @@ export type AnalyticsEvent =
   | 'survey_submit'
   | 'survey_complete'
   | 'calculator_change'
+  | 'contact_form_submit'
 
 export function trackEvent(
   name: AnalyticsEvent,

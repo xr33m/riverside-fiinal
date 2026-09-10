@@ -116,7 +116,7 @@ export function SiteFooter() {
             {RECENT_WORK.map((photo) => (
               <a
                 key={photo.src}
-                href="/#portfolio"
+                href="/portfolio"
                 className="block aspect-square overflow-hidden bg-muted"
               >
                 <img
@@ -128,7 +128,7 @@ export function SiteFooter() {
               </a>
             ))}
             <Link
-              href="/#portfolio"
+              href="/portfolio"
               className="flex aspect-square flex-col items-center justify-center gap-1 bg-primary text-center text-white transition-colors hover:bg-accent"
             >
               <ArrowRight size={16} />

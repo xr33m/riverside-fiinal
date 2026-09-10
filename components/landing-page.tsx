@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'framer-motion'
 import {
@@ -350,6 +351,12 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
           </ParallaxCard>
         ))}
       </div>
+
+      <Reveal className="flex justify-center">
+        <Link href="/portfolio" className="button-outline text-sm">
+          View Full Portfolio <ArrowRight size={16} />
+        </Link>
+      </Reveal>
 
       {/* Lightbox Modal */}
       {selectedItem && (

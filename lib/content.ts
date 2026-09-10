@@ -7,6 +7,7 @@
 
 export interface PortfolioItem {
   id: string
+  slug: string
   title: string
   area: string
   postcode: string
@@ -781,17 +782,20 @@ export const faqs: [string, string][] = [
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: 'proj-1',
+    slug: 'bearsden-outdoor-lounge-heated-pergola',
     title: 'Architectural Outdoor Lounge & Heated Pergola',
     area: 'Bearsden',
     postcode: 'G61',
     category: 'porcelain',
     description: 'Transformation of a waterlogged clay rear garden into a multi-tiered luxury outdoor dining space with integrated perimeter slot drainage and ambient LED step lighting.',
     specs: ['60m² 20mm Italian Porcelain', 'Sub-Surface Slot Drainage', 'Heated Pergola Footings', 'BS7533 Sub-Base'],
+    imageBefore: '/images/garden-before.png',
     imageAfter: '/images/garden-after.png',
     metric: '100% Sub-Surface Water Mitigation',
   },
   {
     id: 'proj-2',
+    slug: 'newton-mearns-clay-drainage-raised-terrace',
     title: 'Deep Clay Drainage & Raised Terrace',
     area: 'Newton Mearns',
     postcode: 'G77',
@@ -803,6 +807,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'proj-3',
+    slug: 'giffnock-sun-terrace-sunken-seating',
     title: 'Contemporary Sun Terrace & Sunken Seating',
     area: 'Giffnock',
     postcode: 'G46',
@@ -814,6 +819,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'proj-4',
+    slug: 'clarkston-driveway-retaining-wall',
     title: 'Permeable Driveway & Retaining Wall Complex',
     area: 'Clarkston',
     postcode: 'G76',
@@ -824,6 +830,22 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     metric: 'Vehicle Load Certified',
   },
 ]
+
+// Cross-silo link from a portfolio category to its matching /landscaping-services/
+// slug, for "read the full spec" links on each case study page.
+export const PORTFOLIO_CATEGORY_TO_SERVICE_SLUG: Record<PortfolioItem['category'], string> = {
+  porcelain: 'porcelain-paving-glasgow',
+  drainage: 'garden-drainage-solutions-glasgow',
+  driveway: 'driveway-installers-glasgow',
+  pergola: 'garden-landscaping-glasgow',
+}
+
+export const PORTFOLIO_CATEGORY_LABELS: Record<PortfolioItem['category'], string> = {
+  porcelain: 'Porcelain Patio',
+  drainage: 'Garden Drainage',
+  driveway: 'Driveway',
+  pergola: 'Pergola & Landscaping',
+}
 
 // Customer Testimonials
 // Real Google Business Profile reviews for Riverside Landscaping.

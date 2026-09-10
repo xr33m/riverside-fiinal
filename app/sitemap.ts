@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next'
-import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES, AYRSHIRE_TOWNS, BRAND } from '@/lib/content'
+import { SUBURBS, SERVICES, KNOWLEDGE_ARTICLES, AYRSHIRE_TOWNS, PORTFOLIO_ITEMS, BRAND } from '@/lib/content'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = BRAND.domain
@@ -29,6 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/ayrshire/${t.slug}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
+    priority: 0.6,
+  }))
+
+  const portfolioUrls = PORTFOLIO_ITEMS.map((p) => ({
+    url: `${baseUrl}/portfolio/${p.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
     priority: 0.6,
   }))
 
@@ -70,6 +77,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/portfolio`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
+    },
+    {
       url: `${baseUrl}/terms`,
       lastModified: new Date(),
       changeFrequency: 'yearly' as const,
@@ -85,5 +98,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...locationUrls,
     ...knowledgeUrls,
     ...ayrshireUrls,
+    ...portfolioUrls,
   ]
 }

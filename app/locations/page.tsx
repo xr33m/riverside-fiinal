@@ -6,7 +6,7 @@ import { Reveal, RevealGrid } from '@/components/reveal'
 
 export const metadata = {
   title: 'BEST Glasgow Landscaping Location Hub - Bearsden, Newton Mearns, West End & Clarkston',
-  description: 'GEO Location Silo hub mapping high-end residential landscaping, porcelain patio installations, and heavy clay soil drainage engineering across Greater Glasgow suburbs.',
+  description: 'Local landscaping coverage across Greater Glasgow suburbs, including high-end residential porcelain patio installations and heavy clay soil drainage engineering.',
 }
 
 export default function LocationsHubPage() {
@@ -24,16 +24,15 @@ export default function LocationsHubPage() {
 
         {/* Heading Hierarchy: H1 */}
         <Reveal className="max-w-3xl space-y-4">
-          <Eyebrow icon={MapPin}>Greater Glasgow GEO Coverage</Eyebrow>
-          <h1>Greater Glasgow Suburb Coverage &amp; GEO Landscaping Hub</h1>
+          <Eyebrow icon={MapPin}>Greater Glasgow Coverage</Eyebrow>
+          <h1>Landscaping Services Across Greater Glasgow</h1>
           <p className="text-lg leading-relaxed text-muted-foreground">
             Discover localized hardscaping, heavy clay drainage mitigation, and porcelain patio installations engineered for your exact suburb soil profile and planning regulations.
           </p>
         </Reveal>
 
-        {/* 3-Second Direct Summary */}
         <Reveal delay={0.1}>
-          <DirectAnswer label="AEO Local Coverage Summary">
+          <DirectAnswer>
             Riverside Landscaping provides local hardscaping teams operating across Bearsden, Newton Mearns, West End Glasgow, Clarkston, Giffnock, and Milngavie, delivering custom BS7533 sub-base drainage tailored to local ground conditions.
           </DirectAnswer>
         </Reveal>

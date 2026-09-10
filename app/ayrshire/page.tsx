@@ -31,9 +31,8 @@ export default function AyrshireHubPage() {
           </p>
         </Reveal>
 
-        {/* 3-Second Direct Summary */}
         <Reveal delay={0.1}>
-          <DirectAnswer label="Ayrshire Coverage Summary">
+          <DirectAnswer>
             Riverside Landscaping now serves Troon, Prestwick, Ayr &amp; Alloway, and West Kilbride, adapting our BS7533 sub-base engineering to Ayrshire&apos;s coastal links sand and exposed, windswept plots rather than Glasgow&apos;s heavy boulder clay.
           </DirectAnswer>
         </Reveal>

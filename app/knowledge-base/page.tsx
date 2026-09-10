@@ -31,9 +31,8 @@ export default function KnowledgeBaseHubPage() {
           </p>
         </Reveal>
 
-        {/* 3-Second Direct Summary */}
         <Reveal delay={0.1}>
-          <DirectAnswer label="Topical Summary">
+          <DirectAnswer>
             Our knowledge base provides transparent pricing standards (£120–£180/m² for vitrified porcelain), BS7533 engineering specifications, and localized guidance for managing heavy Glasgow clay soil.
           </DirectAnswer>
         </Reveal>

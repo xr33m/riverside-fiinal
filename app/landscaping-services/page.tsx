@@ -70,9 +70,8 @@ export default function LandscapingServicesHubPage() {
           </p>
         </Reveal>
 
-        {/* 3-Second Direct Answer Section */}
         <Reveal delay={0.1}>
-          <DirectAnswer label="AEO Direct Summary">
+          <DirectAnswer>
             Riverside Landscaping provides BS7533-compliant hardscaping services across Greater Glasgow, specializing in 150mm–200mm MOT Type 1 sub-base compaction, heavy clay drainage mitigation, Italian porcelain paving, and weather-sheltered year-round installation.
           </DirectAnswer>
         </Reveal>

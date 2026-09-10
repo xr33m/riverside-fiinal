@@ -31,17 +31,16 @@ export function Eyebrow({ icon: Icon, children }: { icon: LucideIcon; children: 
   )
 }
 
-export function DirectAnswer({
-  label = '3-Second Direct Answer',
-  children,
-}: {
-  label?: string
-  children: React.ReactNode
-}) {
+/**
+ * A confident, front-loaded lead paragraph — no "3-Second Direct Answer" /
+ * "AEO" caption. The concise, question-answering copy this wraps still does
+ * the same job for search/AI answer boxes; it just reads as good writing
+ * to a visitor instead of announcing the tactic.
+ */
+export function DirectAnswer({ children }: { children: React.ReactNode }) {
   return (
     <section className="border-y border-r border-l-4 border-border border-l-accent bg-secondary/60 p-6">
-      <span className="eyebrow text-accent">{label}</span>
-      <p className="mt-2 text-base font-medium leading-relaxed text-foreground">{children}</p>
+      <p className="text-base font-medium leading-relaxed text-foreground">{children}</p>
     </section>
   )
 }

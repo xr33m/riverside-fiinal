@@ -5,6 +5,7 @@ import { AYRSHIRE_TOWNS, SERVICES, generateAyrshireGraphSchema } from '@/lib/con
 import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
 import { Reveal } from '@/components/reveal'
+import { LocalAreaPanel } from '@/components/local-area-panel'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -102,6 +103,19 @@ export default async function AyrshireTownDetailPage({ params }: PageProps) {
               <SubCard title="Recommended Installation Method">{town.highlightInstall}</SubCard>
             </div>
           </SectionCard>
+          </Reveal>
+
+          {/* Local relevance: real neighbourhoods, landmarks, and main roads —
+              already authored per town in lib/content.ts. No dedicated
+              Ayrshire depot/GBP listing yet, so directions fall back to a
+              computed Google Maps link rather than invented turn-by-turn text. */}
+          <Reveal>
+            <LocalAreaPanel
+              areaName={town.name}
+              neighbourhoods={town.neighbourhoods}
+              keyLandmarks={town.keyLandmarks}
+              mainRoads={town.mainRoads}
+            />
           </Reveal>
 
           {/* Cross-Silo Linking Rule: Ayrshire to Service Links with Exact Contextual Anchor Text */}

@@ -6,6 +6,7 @@ import { MapPin, ArrowRight } from 'lucide-react'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SectionCard, SubCard, CtaBanner } from '@/components/silo-ui'
 import { Reveal } from '@/components/reveal'
 import { LocalProjectMap } from '@/components/ux/LocalProjectMap'
+import { LocalAreaPanel } from '@/components/local-area-panel'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -135,6 +136,19 @@ export default async function LocationDetailPage({ params }: PageProps) {
               Heavy clay deposits in {suburb.name} require deep sub-base excavation (250mm–300mm) combined with non-woven geotextile separation membranes and high-flow ACO slot channels to ensure lifetime water drainage.
             </p>
           </SectionCard>
+          </Reveal>
+
+          {/* Local relevance: real neighbourhoods, landmarks, main roads, and
+              driving directions back to the depot — already authored per
+              suburb in lib/content.ts, just not rendered until now. */}
+          <Reveal>
+            <LocalAreaPanel
+              areaName={suburb.name}
+              neighbourhoods={suburb.neighbourhoods}
+              keyLandmarks={suburb.keyLandmarks}
+              mainRoads={suburb.mainRoads}
+              drivingDirections={suburb.gbpDrivingDirections}
+            />
           </Reveal>
 
           {/* Cross-Silo Linking Rule: Location to Service Links ONLY with Exact Contextual Anchor Text */}

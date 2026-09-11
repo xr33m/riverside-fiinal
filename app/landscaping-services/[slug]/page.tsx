@@ -22,7 +22,6 @@ import {
   GOOGLE_REVIEW_COUNT,
   getPortfolioForService,
   getArticlesForService,
-  getRelatedServices,
   generateGraphSchema,
   type PortfolioItem,
 } from '@/lib/content'
@@ -32,6 +31,7 @@ import { Reveal, RevealGrid } from '@/components/reveal'
 import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 import { TestimonialCarousel } from '@/components/testimonial-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
+import { ServicesShowcase } from '@/components/services-showcase'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -109,7 +109,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const Icon = SERVICE_ICONS[service.slug] ?? ShieldCheck
   const portfolioMatches = getPortfolioForService(service.slug)
   const articleMatches = getArticlesForService(service.slug)
-  const relatedServices = getRelatedServices(service.slug)
   const galleryImages = buildGalleryImages(portfolioMatches)
   const whyUsPhotoA = portfolioMatches[0]?.imageAfter ?? '/images/garden-after.png'
   const whyUsPhotoB = portfolioMatches[0]?.imageBefore ?? '/images/garden-before.png'
@@ -472,31 +471,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           )}
         </div>
 
-        {/* Related services */}
-        {relatedServices.length > 0 && (
-          <Reveal className="space-y-4">
-            <h2 className="font-serif text-xl font-bold text-primary">Other Services You Might Need</h2>
-            <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {relatedServices.map((related) => {
-                const RelatedIcon = SERVICE_ICONS[related.slug] ?? ShieldCheck
-                return (
-                  <Link
-                    key={related.slug}
-                    href={`/landscaping-services/${related.slug}`}
-                    className="group flex items-center gap-3 border border-border bg-background p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
-                  >
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
-                      <RelatedIcon className="h-5 w-5" />
-                    </span>
-                    <span className="min-w-0 flex-1 text-sm font-bold text-primary">{related.primaryCategory}</span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-accent" />
-                  </Link>
-                )
-              })}
-            </div>
-          </Reveal>
-        )}
-
         {/* Local areas */}
         <Reveal className="space-y-4">
           <h3 className="flex items-center gap-2 font-serif text-lg font-bold text-primary">
@@ -517,6 +491,18 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </div>
         </Reveal>
       </div>
+
+      <ServicesShowcase
+        excludeSlug={service.slug}
+        heading={
+          <>
+            Other Services
+            <br />
+            You Might Need
+          </>
+        }
+        description={`Beyond ${service.primaryCategory.toLowerCase()}, we handle every stage of your garden — explore our other BS7533-engineered services.`}
+      />
 
       <Reveal>
         <LeafCtaBanner

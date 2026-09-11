@@ -35,6 +35,7 @@ import TestimonialMarquee from '@/components/ui/marquee-01'
 import { GlasgowWeatherBanner } from '@/components/ux/GlasgowWeatherBanner'
 import { CostEstimator } from '@/components/ux/CostEstimator'
 import { LocalProjectMap } from '@/components/ux/LocalProjectMap'
+import { ServicesShowcase } from '@/components/services-showcase'
 
 /* ------------------------------------------------------------------ *
  * Hero Section — full-bleed parallax video, minimal overlaid content
@@ -681,6 +682,8 @@ export default function LandingPage() {
         <Proof />
 
         <AboutSection />
+
+        <ServicesShowcase />
 
         <section className="offseason">
           <ParallaxCard strength={16}>

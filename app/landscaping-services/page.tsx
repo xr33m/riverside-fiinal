@@ -2,20 +2,11 @@ import Link from 'next/link'
 import { ShieldCheck, ArrowRight, Layers, Star } from 'lucide-react'
 import { SERVICES, generateGraphSchema } from '@/lib/content'
 import { SERVICE_ICONS } from '@/lib/service-icons'
+import { TILE_GRADIENTS } from '@/lib/tile-gradients'
 import { Breadcrumbs, Eyebrow } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
 import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 import { TestimonialCarousel } from '@/components/testimonial-carousel'
-
-// Rotating brand-colour gradients for services without a real project photo
-// yet (see ServiceDetail.heroImage) — keeps the grid visually varied without
-// repeating the same 2-3 stock photos across 11 tiles.
-const TILE_GRADIENTS = [
-  'from-primary to-[#0c1c63]',
-  'from-accent to-[#013d1c]',
-  'from-[#1f2937] to-[#0b0f19]',
-  'from-[#1939bc] to-[#01642d]',
-]
 
 export const metadata = {
   title: 'BEST Landscaping Services Glasgow - Porcelain Paving, Driveways & Clay Drainage',

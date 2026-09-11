@@ -148,7 +148,6 @@ export function SiteHeader({
       >
         <a href="/#top" className="wordmark">
           <img src="/images/riverside-logo.png" alt="Riverside Landscaping" className="wordmark-logo" />
-          <small>GLASGOW LANDSCAPING</small>
         </a>
 
         <nav className="hidden items-center gap-5 md:flex text-sm">

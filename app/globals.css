@@ -244,8 +244,6 @@ em {
 
 .hero-full-content {
   color: #fff;
-  margin: 0 auto;
-  max-width: 1180px;
   padding: 160px max(24px, calc((100vw - 1180px) / 2)) 90px;
   position: relative;
   width: 100%;

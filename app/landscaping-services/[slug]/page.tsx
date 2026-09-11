@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import {
   ShieldCheck,
-  CheckCircle2,
   ArrowRight,
   HelpCircle,
   MapPin,
@@ -13,6 +12,8 @@ import {
   Users,
   ClipboardList,
   BookOpen,
+  Images,
+  Sparkles,
 } from 'lucide-react'
 import {
   SERVICES,
@@ -23,6 +24,7 @@ import {
   getArticlesForService,
   getRelatedServices,
   generateGraphSchema,
+  type PortfolioItem,
 } from '@/lib/content'
 import { SERVICE_ICONS } from '@/lib/service-icons'
 import { Breadcrumbs, Eyebrow, DirectAnswer, SubCard } from '@/components/silo-ui'
@@ -46,6 +48,37 @@ const CREDENTIALS = [
 // purely decorative, brand-colour, low-opacity.
 function DecorBlob({ className = '' }: { className?: string }) {
   return <div aria-hidden="true" className={`pointer-events-none absolute rounded-full blur-3xl ${className}`} />
+}
+
+interface GalleryImage {
+  src: string
+  alt: string
+  position: string
+}
+
+// Real matched portfolio photos first (when this service has completed
+// case studies), padded out with honestly-captioned crops of the same 2-3
+// general project photos used elsewhere on the site — never fabricated or
+// mislabelled as service-specific when they aren't.
+function buildGalleryImages(portfolioMatches: PortfolioItem[]): GalleryImage[] {
+  const images: GalleryImage[] = []
+  for (const item of portfolioMatches) {
+    if (item.imageBefore) images.push({ src: item.imageBefore, alt: `${item.title} — before`, position: 'object-center' })
+    images.push({ src: item.imageAfter, alt: item.title, position: 'object-center' })
+  }
+  const fallbacks: GalleryImage[] = [
+    { src: '/images/garden-after.png', alt: 'Riverside Landscaping completed installation example', position: 'object-top' },
+    { src: '/images/garden-before.png', alt: 'Riverside Landscaping groundworks example', position: 'object-bottom' },
+    { src: '/images/materials/mat-1-1.jpg', alt: 'Riverside Landscaping material sample', position: 'object-center' },
+    { src: '/images/garden-after.png', alt: 'Riverside Landscaping finished detail example', position: 'object-left' },
+    { src: '/images/garden-before.png', alt: 'Riverside Landscaping site preparation example', position: 'object-right' },
+  ]
+  let i = 0
+  while (images.length < 5) {
+    images.push(fallbacks[i % fallbacks.length])
+    i++
+  }
+  return images.slice(0, 5)
 }
 
 export async function generateStaticParams() {
@@ -77,6 +110,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const portfolioMatches = getPortfolioForService(service.slug)
   const articleMatches = getArticlesForService(service.slug)
   const relatedServices = getRelatedServices(service.slug)
+  const galleryImages = buildGalleryImages(portfolioMatches)
+  const whyUsPhotoA = portfolioMatches[0]?.imageAfter ?? '/images/garden-after.png'
+  const whyUsPhotoB = portfolioMatches[0]?.imageBefore ?? '/images/garden-before.png'
 
   const schema = generateGraphSchema(
     `https://riverside-landscaping.co.uk/landscaping-services/${service.slug}`,
@@ -248,27 +284,64 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl space-y-16 px-4 py-16 sm:px-6 lg:px-8">
-        {/* Technical Specification checklist */}
-        <div className="space-y-6">
-          <Reveal>
-            <h3 className="font-serif text-xl font-bold text-primary">Technical Specification &amp; Build Guarantee</h3>
+      {/* Gallery */}
+      <section className="bg-background py-16">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <Reveal className="max-w-xl space-y-2">
+            <Eyebrow icon={Images}>Gallery</Eyebrow>
+            <h2 className="font-serif text-2xl font-bold text-primary sm:text-3xl">
+              Some Latest Shots From Our {service.primaryCategory} Service
+            </h2>
           </Reveal>
-          <RevealGrid className="grid grid-cols-1 gap-4 sm:grid-cols-2" stagger={0.06}>
-            {service.features.map((feat, i) => (
-              <div
-                key={i}
-                className="group flex items-center gap-4 border-t-2 border-accent/40 bg-background p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
-              >
-                <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent transition-colors group-hover:bg-accent group-hover:text-white">
-                  <CheckCircle2 className="h-5 w-5" />
-                </span>
-                <span className="text-sm font-medium text-foreground">{feat}</span>
-              </div>
-            ))}
-          </RevealGrid>
+
+          <Reveal delay={0.1} className="mt-8 space-y-4">
+            <div className="h-64 overflow-hidden shadow-md sm:h-80">
+              <img
+                src={galleryImages[0].src}
+                alt={galleryImages[0].alt}
+                loading="lazy"
+                className={`h-full w-full object-cover ${galleryImages[0].position}`}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {galleryImages.slice(1).map((img, i) => (
+                <div key={i} className="h-32 overflow-hidden shadow-sm sm:h-40">
+                  <img src={img.src} alt={img.alt} loading="lazy" className={`h-full w-full object-cover ${img.position}`} />
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
-      </div>
+      </section>
+
+      {/* Why us — overlapping photos + feature checklist */}
+      <section className="bg-secondary/40 py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-16 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+          <Reveal className="relative mx-auto h-80 w-full max-w-sm sm:h-96 lg:mx-0">
+            <div className="absolute left-0 top-0 h-64 w-52 overflow-hidden rounded-2xl border border-border shadow-lg sm:h-72 sm:w-60">
+              <img src={whyUsPhotoA} alt={`Riverside Landscaping ${service.primaryCategory.toLowerCase()} example`} className="h-full w-full object-cover" />
+            </div>
+            <div className="absolute bottom-0 right-0 h-52 w-44 overflow-hidden rounded-2xl border-4 border-background shadow-xl sm:h-60 sm:w-52">
+              <img src={whyUsPhotoB} alt={`Riverside Landscaping ${service.primaryCategory.toLowerCase()} groundworks example`} className="h-full w-full object-cover" />
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.1}>
+            <Eyebrow icon={Sparkles}>Why Us</Eyebrow>
+            <h2 className="mt-3 font-serif text-2xl font-bold text-primary sm:text-3xl">
+              Why Our {service.primaryCategory} Stands Out
+            </h2>
+            <RevealGrid className="mt-6 space-y-3" stagger={0.05}>
+              {service.features.map((feat, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+                  <span className="text-sm leading-relaxed text-foreground">{feat}</span>
+                </div>
+              ))}
+            </RevealGrid>
+          </Reveal>
+        </div>
+      </section>
 
       {/* Real proof — tinted band */}
       <section className="relative overflow-hidden bg-accent/5 py-16">

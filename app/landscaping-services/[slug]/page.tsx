@@ -11,6 +11,7 @@ import {
   FileCheck,
   Users,
   ClipboardList,
+  Wrench,
   BookOpen,
   Images,
   Sparkles,
@@ -32,6 +33,7 @@ import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 import { TestimonialCarousel } from '@/components/testimonial-carousel'
 import { FaqAccordion } from '@/components/faq-accordion'
 import { ServicesShowcase } from '@/components/services-showcase'
+import { ProcessShowcase, type ProcessStep } from '@/components/process-showcase'
 
 interface PageProps {
   params: Promise<{ slug: string }>
@@ -118,26 +120,21 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     service.faqs
   )
 
-  const processSteps = [
+  const processSteps: [ProcessStep, ProcessStep, ProcessStep] = [
     {
-      n: 1,
+      icon: ClipboardList,
       title: 'Free Site Survey & Written Estimate',
       body: `Every ${service.primaryCategory.toLowerCase()} project starts with a senior engineer visiting site to measure levels, access, and drainage falls — you get a written estimate based on your materials and labour before anything is booked, not a rough guess.`,
-      image: null,
     },
     {
-      n: 2,
+      icon: Wrench,
       title: 'Groundworks Engineered for Your Site',
       body: service.soilContext,
-      image: '/images/garden-before.png',
-      alt: 'Example of Riverside Landscaping groundworks and sub-base excavation ahead of installation',
     },
     {
-      n: 3,
+      icon: ShieldCheck,
       title: 'Installation & Structural Handover',
       body: `${service.bsStandard} Every build is handed over with a signed structural guarantee, not a verbal promise.`,
-      image: '/images/garden-after.png',
-      alt: 'Example of a completed, handed-over Riverside Landscaping installation',
     },
   ]
 
@@ -237,51 +234,19 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
-      {/* Process — dark full-bleed band with connecting timeline */}
-      <section className="relative overflow-hidden bg-primary py-20 text-white">
-        <DecorBlob className="-right-20 top-0 h-72 w-72 bg-accent/20" />
-        <DecorBlob className="-left-24 bottom-0 h-64 w-64 bg-white/5" />
-        <div className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
-          <Reveal className="mx-auto max-w-2xl space-y-3 text-center">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white backdrop-blur-sm">
-              <ClipboardList className="h-3.5 w-3.5" /> Our Process
-            </span>
-            <h2 className="font-serif text-3xl font-bold text-white sm:text-4xl">
-              How We Build Your {service.primaryCategory}
-            </h2>
-          </Reveal>
-
-          <div className="relative mt-16 space-y-14">
-            <div className="absolute left-1/2 top-2 hidden h-[calc(100%-2rem)] w-px -translate-x-1/2 bg-white/15 lg:block" />
-            {processSteps.map((step, i) => (
-              <Reveal key={step.n} delay={i * 0.08}>
-                <div
-                  className={`relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2 ${
-                    step.image && i % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''
-                  }`}
-                >
-                  {step.image ? (
-                    <div className="h-56 overflow-hidden border border-white/15 shadow-lg sm:h-72">
-                      <img src={step.image} alt={step.alt} className="h-full w-full object-cover" />
-                    </div>
-                  ) : (
-                    <div className="flex h-56 items-center justify-center border border-dashed border-white/25 bg-white/5 sm:h-72">
-                      <ClipboardList className="h-12 w-12 text-white/40" />
-                    </div>
-                  )}
-                  <div>
-                    <span className="relative z-10 flex h-11 w-11 items-center justify-center rounded-full bg-accent text-base font-bold text-white ring-4 ring-primary">
-                      {step.n}
-                    </span>
-                    <h3 className="mt-4 font-serif text-xl font-bold text-white">{step.title}</h3>
-                    <p className="mt-2 leading-relaxed text-white/75">{step.body}</p>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Process */}
+      <ProcessShowcase
+        eyebrow="Our Process"
+        heading={
+          <>
+            How We Build Your <em>{service.primaryCategory}</em>
+          </>
+        }
+        description={`No complicated process, no surprises. Here's exactly what happens when you contact us about ${service.primaryCategory.toLowerCase()}.`}
+        ctaLabel="Book Free Survey"
+        ctaSource={`process-section-${service.slug}`}
+        steps={processSteps}
+      />
 
       {/* Gallery */}
       <section className="bg-background py-16">

@@ -9,9 +9,12 @@ import {
   Check,
   ChevronDown,
   ChevronRight,
+  ClipboardList,
   Droplets,
   MapPin,
+  ShieldCheck,
   Star,
+  Wrench,
   X,
   Zap,
 } from 'lucide-react'
@@ -20,7 +23,6 @@ import {
   faqs,
   MATERIALS,
   PORTFOLIO_ITEMS,
-  PROCESS_STEPS,
   SUBURBS,
   TESTIMONIALS,
   AVG_GOOGLE_RATING,
@@ -36,6 +38,7 @@ import { GlasgowWeatherBanner } from '@/components/ux/GlasgowWeatherBanner'
 import { CostEstimator } from '@/components/ux/CostEstimator'
 import { LocalProjectMap } from '@/components/ux/LocalProjectMap'
 import { ServicesShowcase } from '@/components/services-showcase'
+import { ProcessShowcase } from '@/components/process-showcase'
 
 /* ------------------------------------------------------------------ *
  * Hero Section — full-bleed parallax video, minimal overlaid content
@@ -410,36 +413,34 @@ function PortfolioShowcase({ onSurvey }: { onSurvey: (source: string) => void })
  * ------------------------------------------------------------------ */
 function Process() {
   return (
-    <section id="process" className="section process-section">
-      <Reveal className="section-intro">
-        <p className="eyebrow">The Riverside Method</p>
-        <h2>
-          Built like a small<br />
-          <em>piece of architecture.</em>
-        </h2>
-        <p className="mt-3">
-          Casual contractors lay paving over raw clay. We engineer sub-surface drainage systems certified to BS7533 standards.
-        </p>
-      </Reveal>
-
-      <RevealGrid className="process-grid mt-10">
-        {PROCESS_STEPS.map((step) => (
-          <article key={step.step} className="border-t border-primary/20 pt-6">
-            <span className="process-number font-serif font-bold text-accent text-2xl">{step.step}</span>
-            <h3 className="mt-3 font-serif text-xl text-primary">{step.title}</h3>
-            <p className="mt-1 text-xs font-bold text-accent uppercase tracking-wider">{step.subtitle}</p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
-            <ul className="mt-4 grid gap-1.5 text-xs text-muted-foreground">
-              {step.details.map((d) => (
-                <li key={d} className="flex items-center gap-2">
-                  <Check size={13} className="text-accent" /> {d}
-                </li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </RevealGrid>
-    </section>
+    <ProcessShowcase
+      eyebrow="The Riverside Method"
+      heading={
+        <>
+          Our Simple <em>3-Step</em> Process
+        </>
+      }
+      description="No complicated process, no surprises. Here's exactly what happens when you contact us."
+      ctaLabel="Book Free Survey"
+      ctaSource="process-section"
+      steps={[
+        {
+          icon: ClipboardList,
+          title: 'Free Site Survey & Estimate',
+          body: 'We visit your garden, laser-level the site, check drainage falls, and give you a written estimate based on your materials and labour — completely free.',
+        },
+        {
+          icon: Wrench,
+          title: 'Engineered Groundworks',
+          body: 'We excavate 250mm–300mm deep, isolate the clay with geotextile membrane, and build a compacted BS7533 MOT Type 1 sub-base with integrated slot drainage.',
+        },
+        {
+          icon: ShieldCheck,
+          title: 'Installation & 10-Year Handover',
+          body: 'Porcelain laid on full wet mortar beds, jointed with weatherproof resin grout, and handed over with a signed 10-year structural guarantee.',
+        },
+      ]}
+    />
   )
 }
 

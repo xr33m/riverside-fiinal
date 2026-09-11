@@ -586,22 +586,32 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
               </p>
               <p className="mt-1 text-xs text-muted-foreground">Soil Profile: {matched.soilProfile} · Council: {matched.council}</p>
               <p className="mt-2 text-xs text-foreground">Highlight Fix: {matched.highlightInstall}</p>
+              <Link
+                href={`/locations/${matched.slug}`}
+                className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-accent hover:text-primary"
+              >
+                View {matched.name} coverage details <ArrowRight size={13} />
+              </Link>
             </motion.div>
           )}
         </Reveal>
 
         <RevealGrid className="md:col-span-6 grid grid-cols-2 gap-3" stagger={0.04}>
           {SUBURBS.map((s) => (
-            <button
+            <Link
               key={s.slug}
-              onClick={() => setInput(s.postcodePrefix)}
-              className={`w-full border p-4 text-left transition-all ${
+              href={`/locations/${s.slug}`}
+              onMouseEnter={() => setInput(s.postcodePrefix)}
+              className={`group block w-full border p-4 text-left transition-all ${
                 input === s.postcodePrefix ? 'border-accent bg-accent/10' : 'border-border bg-background hover:border-primary'
               }`}
             >
               <p className="font-bold text-primary">{s.name}</p>
               <p className="text-xs text-muted-foreground">{s.postcodePrefix} · {s.council}</p>
-            </button>
+              <span className="mt-2 flex items-center gap-1 text-[11px] font-bold uppercase tracking-wide text-accent opacity-0 transition-opacity group-hover:opacity-100">
+                View area <ArrowRight size={11} className="transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
           ))}
         </RevealGrid>
       </div>

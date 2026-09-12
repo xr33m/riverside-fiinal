@@ -859,6 +859,12 @@ export function getArticlesForService(slug: string): KnowledgeArticle[] {
   return KNOWLEDGE_ARTICLES.filter((article) => article.relatedServiceSlug === slug)
 }
 
+// Shared date display format for KNOWLEDGE_ARTICLES.publishDate wherever an
+// article byline is rendered (knowledge base hub/detail, home page teaser).
+export function formatArticleDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+}
+
 // Two genuinely related services to cross-link from each service detail page —
 // curated by hand (not derived from heading text, which is often about the
 // *same* service's own subtopics rather than a sibling service) for accurate

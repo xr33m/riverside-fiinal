@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
-import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
+import { KNOWLEDGE_ARTICLES, formatArticleDate, generateGraphSchema } from '@/lib/content'
 import { BookOpen, ArrowRight, Clock, User } from 'lucide-react'
 import { Breadcrumbs, DirectAnswer } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
@@ -14,10 +14,6 @@ interface PageProps {
 // Real photos are limited to 2 general project shots — cycle through them
 // with distinct framing per article rather than fabricating stock photography.
 const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export async function generateStaticParams() {
   return KNOWLEDGE_ARTICLES.map((article) => ({
@@ -96,7 +92,7 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
             <span className="flex items-center gap-1.5">
               <User className="h-3.5 w-3.5" /> By Riverside Landscaping Team
             </span>
-            <span>{formatDate(article.publishDate)}</span>
+            <span>{formatArticleDate(article.publishDate)}</span>
             <span className="flex items-center gap-1.5">
               <Clock className="h-3.5 w-3.5" /> {article.readingTime}
             </span>
@@ -184,7 +180,7 @@ export default async function KnowledgeArticleDetailPage({ params }: PageProps) 
                     </h3>
                     <p className="mt-2 text-sm leading-relaxed text-muted-foreground line-clamp-2">{other.summary}</p>
                     <p className="mt-4 text-xs text-muted-foreground">
-                      By Riverside Landscaping Team · {formatDate(other.publishDate)}
+                      By Riverside Landscaping Team · {formatArticleDate(other.publishDate)}
                     </p>
                   </div>
                 </Link>

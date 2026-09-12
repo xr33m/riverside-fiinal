@@ -6,14 +6,17 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import {
   ArrowRight,
   Award,
+  BookOpen,
   Check,
   ChevronDown,
   ChevronRight,
   ClipboardList,
+  Clock,
   Droplets,
   MapPin,
   ShieldCheck,
   Star,
+  User,
   Wrench,
   X,
   Zap,
@@ -21,12 +24,14 @@ import {
 import { trackEvent } from '@/lib/analytics'
 import {
   faqs,
+  KNOWLEDGE_ARTICLES,
   MATERIALS,
   PORTFOLIO_ITEMS,
   SUBURBS,
   TESTIMONIALS,
   AVG_GOOGLE_RATING,
   GOOGLE_REVIEW_COUNT,
+  formatArticleDate,
   MaterialSwatch,
   PortfolioItem,
 } from '@/lib/content'
@@ -633,6 +638,110 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
 }
 
 /* ------------------------------------------------------------------ *
+ * Blog / Knowledge Base Teaser — real photos are limited to 2 general
+ * project shots, cycled with distinct framing rather than fabricating
+ * stock photography; only 3 real guides exist so this shows all of them
+ * (1 featured + the rest) instead of Figma's fixed 1-featured-plus-4 grid.
+ * ------------------------------------------------------------------ */
+const HOME_ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
+
+function BlogTeaser() {
+  const sorted = [...KNOWLEDGE_ARTICLES].sort(
+    (a, b) => new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime()
+  )
+  const [featured, ...rest] = sorted
+
+  return (
+    <section className="section border-t border-border">
+      <Reveal className="section-intro">
+        <p className="eyebrow text-accent">Our Guides</p>
+        <h2>
+          Landscaping guides,<br />
+          <em>written by our crew.</em>
+        </h2>
+        <p>
+          Real pricing, drainage engineering, and seasonal care advice for Glasgow and Ayrshire gardens — no filler,
+          no stock copy.
+        </p>
+      </Reveal>
+
+      <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
+        <Reveal>
+          <Link
+            href={`/knowledge-base/${featured.slug}`}
+            className="group flex h-full flex-col overflow-hidden border border-border bg-background shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-accent hover:shadow-xl"
+          >
+            <div className="h-56 overflow-hidden sm:h-72">
+              <img
+                src={HOME_ARTICLE_PHOTOS[0]}
+                alt="Riverside Landscaping project example"
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="flex flex-1 flex-col p-6 sm:p-8">
+              <span className="w-fit rounded-full border border-accent/20 bg-accent/10 px-2.5 py-1 text-xs font-bold text-accent">
+                {featured.category}
+              </span>
+              <h3 className="mt-3 font-serif text-2xl font-bold text-primary transition-colors group-hover:text-accent">
+                {featured.title}
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{featured.summary}</p>
+              <div className="mt-4 flex flex-wrap items-center gap-4 text-xs text-muted-foreground">
+                <span className="flex items-center gap-1.5">
+                  <User className="h-3.5 w-3.5" /> By Riverside Landscaping Team
+                </span>
+                <span>{formatArticleDate(featured.publishDate)}</span>
+                <span className="flex items-center gap-1.5">
+                  <Clock className="h-3.5 w-3.5" /> {featured.readingTime}
+                </span>
+              </div>
+            </div>
+          </Link>
+        </Reveal>
+
+        <RevealGrid className="flex flex-col gap-6" stagger={0.08}>
+          {rest.map((article, i) => (
+            <Link
+              key={article.slug}
+              href={`/knowledge-base/${article.slug}`}
+              className="group flex flex-1 gap-4 border border-border bg-background p-4 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+            >
+              <div className="h-24 w-32 shrink-0 overflow-hidden sm:h-32 sm:w-40">
+                <img
+                  src={HOME_ARTICLE_PHOTOS[(i + 1) % HOME_ARTICLE_PHOTOS.length]}
+                  alt="Riverside Landscaping project example"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              <div className="min-w-0">
+                <span className="rounded-full border border-accent/20 bg-accent/10 px-2 py-0.5 text-[11px] font-bold text-accent">
+                  {article.category}
+                </span>
+                <h3 className="mt-1.5 font-serif text-base font-bold leading-tight text-primary transition-colors group-hover:text-accent">
+                  {article.title}
+                </h3>
+                <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-muted-foreground">{article.summary}</p>
+                <p className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground">
+                  <span>By Riverside Landscaping Team</span>
+                  <span>{formatArticleDate(article.publishDate)}</span>
+                </p>
+              </div>
+            </Link>
+          ))}
+        </RevealGrid>
+      </div>
+
+      <Reveal delay={0.15}>
+        <Link href="/knowledge-base" className="button-outline mx-auto mt-10 flex w-fit items-center gap-2 text-sm">
+          <BookOpen size={16} /> View All Guides
+        </Link>
+      </Reveal>
+    </section>
+  )
+}
+
+/* ------------------------------------------------------------------ *
  * FAQ Accordion Component
  * ------------------------------------------------------------------ */
 function FAQ() {
@@ -742,6 +851,8 @@ export default function LandingPage() {
         <div className="section border-t border-border">
           <LocalProjectMap />
         </div>
+
+        <BlogTeaser />
 
         <FAQ />
       </main>

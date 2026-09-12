@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { KNOWLEDGE_ARTICLES, generateGraphSchema } from '@/lib/content'
+import { KNOWLEDGE_ARTICLES, formatArticleDate, generateGraphSchema } from '@/lib/content'
 import { BookOpen, ArrowRight, Clock, User } from 'lucide-react'
 import { Breadcrumbs, Eyebrow } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
@@ -8,10 +8,6 @@ import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 // Real photos are limited to 2 general project shots — cycle through them
 // with distinct framing per article rather than fabricating stock photography.
 const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
-
-function formatDate(dateStr: string) {
-  return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
-}
 
 export const metadata = {
   title: 'Glasgow Landscaping Knowledge Base & Cost Guides 2026 - Riverside Landscaping',
@@ -103,7 +99,7 @@ export default function KnowledgeBaseHubPage() {
                     <span className="flex items-center gap-1.5">
                       <User className="h-3.5 w-3.5" /> By Riverside Landscaping Team
                     </span>
-                    <span>{formatDate(featured.publishDate)}</span>
+                    <span>{formatArticleDate(featured.publishDate)}</span>
                     <span className="flex items-center gap-1.5">
                       <Clock className="h-3.5 w-3.5" /> {featured.readingTime}
                     </span>
@@ -148,7 +144,7 @@ export default function KnowledgeBaseHubPage() {
                   </h3>
                   <p className="mt-2 flex items-center gap-3 text-[11px] text-muted-foreground">
                     <span>By Riverside Landscaping Team</span>
-                    <span>{formatDate(article.publishDate)}</span>
+                    <span>{formatArticleDate(article.publishDate)}</span>
                   </p>
                 </div>
               </Link>

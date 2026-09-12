@@ -11,9 +11,13 @@ interface PageProps {
   params: Promise<{ slug: string }>
 }
 
-// Real photos are limited to 2 general project shots — cycle through them
-// with distinct framing per article rather than fabricating stock photography.
-const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
+// Real project photos, cycled with distinct framing per article rather
+// than fabricating stock photography.
+const ARTICLE_PHOTOS = [
+  '/images/portfolio/patio-lawn-after.webp',
+  '/images/portfolio/garden-room-patio.webp',
+  '/images/portfolio/artificial-turf-1.webp',
+]
 
 export async function generateStaticParams() {
   return KNOWLEDGE_ARTICLES.map((article) => ({

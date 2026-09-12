@@ -638,12 +638,15 @@ function CoverageChecker({ onSurvey }: { onSurvey: (source: string) => void }) {
 }
 
 /* ------------------------------------------------------------------ *
- * Blog / Knowledge Base Teaser — real photos are limited to 2 general
- * project shots, cycled with distinct framing rather than fabricating
- * stock photography; only 3 real guides exist so this shows all of them
- * (1 featured + the rest) instead of Figma's fixed 1-featured-plus-4 grid.
+ * Blog / Knowledge Base Teaser — real project photos, cycled with
+ * distinct framing rather than fabricating stock photography; only 3
+ * real guides exist so this shows all of them (1 featured + the rest)
+ * instead of Figma's fixed 1-featured-plus-4 grid.
  * ------------------------------------------------------------------ */
-const HOME_ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
+const HOME_ARTICLE_PHOTOS = [
+  '/images/portfolio/decking-composite.webp',
+  '/images/portfolio/driveway-light-flags-1.webp',
+]
 
 function BlogTeaser() {
   const sorted = [...KNOWLEDGE_ARTICLES].sort(

@@ -30,7 +30,7 @@ export default function LocationsHubPage() {
       <Reveal>
         <section className="relative mt-8 h-[380px] w-full overflow-hidden sm:h-[440px]">
           <img
-            src="/images/garden-after.webp"
+            src="/images/portfolio/driveway-light-flags-2.webp"
             alt="Riverside Landscaping completed hardscaping project across Greater Glasgow"
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

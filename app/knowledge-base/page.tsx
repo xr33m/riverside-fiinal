@@ -5,9 +5,13 @@ import { Breadcrumbs, Eyebrow } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
 import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 
-// Real photos are limited to 2 general project shots — cycle through them
-// with distinct framing per article rather than fabricating stock photography.
-const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
+// Real project photos, cycled with distinct framing per article rather
+// than fabricating stock photography.
+const ARTICLE_PHOTOS = [
+  '/images/portfolio/patio-lawn-after.webp',
+  '/images/portfolio/garden-room-patio.webp',
+  '/images/portfolio/artificial-turf-1.webp',
+]
 
 export const metadata = {
   title: 'Glasgow Landscaping Knowledge Base & Cost Guides 2026 - Riverside Landscaping',
@@ -41,7 +45,7 @@ export default function KnowledgeBaseHubPage() {
       <Reveal>
         <section className="relative mt-8 h-[340px] w-full overflow-hidden sm:h-[400px]">
           <img
-            src="/images/garden-after.webp"
+            src="/images/portfolio/decking-composite.webp"
             alt="Riverside Landscaping completed project in Glasgow"
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

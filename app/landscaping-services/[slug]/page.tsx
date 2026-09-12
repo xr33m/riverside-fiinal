@@ -58,26 +58,74 @@ interface GalleryImage {
   position: string
 }
 
-// Real matched portfolio photos first (when this service has completed
-// case studies), padded out with honestly-captioned crops of the same 2-3
-// general project photos used elsewhere on the site — never fabricated or
-// mislabelled as service-specific when they aren't.
-function buildGalleryImages(portfolioMatches: PortfolioItem[]): GalleryImage[] {
-  const images: GalleryImage[] = []
+// Real photos from the client's own project archive, grouped by which
+// service they actually show — never paired with a service whose material
+// or work they don't depict (e.g. no block-paving shot on the resin-bound
+// driveways page just to fill a slot).
+const SERVICE_REAL_PHOTOS: Record<string, GalleryImage[]> = {
+  'porcelain-paving-glasgow': [
+    { src: '/images/portfolio/patio-dark-decking.webp', alt: 'Completed dark patio paving with adjoining deck', position: 'object-center' },
+    { src: '/images/portfolio/patio-lawn-after.webp', alt: 'Finished patio and lawn in a Glasgow back garden', position: 'object-center' },
+    { src: '/images/portfolio/patio-excavation-before.webp', alt: 'Site excavation before patio installation', position: 'object-center' },
+    { src: '/images/portfolio/patio-lawn-before.webp', alt: 'Garden before patio and lawn installation', position: 'object-center' },
+  ],
+  'driveway-installers-glasgow': [
+    { src: '/images/portfolio/driveway-light-flags-1.webp', alt: 'Completed light-toned flag paving driveway', position: 'object-center' },
+    { src: '/images/portfolio/driveway-light-flags-2.webp', alt: 'Finished driveway paving outside a Glasgow home', position: 'object-center' },
+    { src: '/images/portfolio/driveway-block-paving.webp', alt: 'Completed block paving driveway', position: 'object-center' },
+    { src: '/images/portfolio/driveway-block-wet.webp', alt: 'Block paving driveway after installation', position: 'object-center' },
+    { src: '/images/portfolio/driveway-construction.webp', alt: 'Driveway installation mid-build with edging in place', position: 'object-center' },
+  ],
+  'composite-decking-glasgow': [
+    { src: '/images/portfolio/decking-composite.webp', alt: 'Completed composite decking installation', position: 'object-center' },
+    { src: '/images/portfolio/patio-dark-decking.webp', alt: 'Composite deck adjoining a patio area', position: 'object-center' },
+  ],
+  'garden-fencing-glasgow': [
+    { src: '/images/portfolio/fencing-new-patio.webp', alt: 'New timber fencing alongside a finished patio', position: 'object-center' },
+  ],
+  'artificial-grass-glasgow': [
+    { src: '/images/portfolio/artificial-turf-1.webp', alt: 'Completed artificial grass lawn in a fenced garden', position: 'object-center' },
+    { src: '/images/portfolio/artificial-turf-2.webp', alt: 'Artificial grass installation with raised border', position: 'object-center' },
+    { src: '/images/portfolio/artificial-turf-oval.webp', alt: 'Artificial grass lawn with patio surround', position: 'object-center' },
+  ],
+  'garden-landscaping-glasgow': [
+    { src: '/images/portfolio/garden-room-patio.webp', alt: 'Full garden renovation with patio and garden room', position: 'object-center' },
+    { src: '/images/portfolio/patio-lawn-after.webp', alt: 'Finished garden with new patio and lawn', position: 'object-center' },
+    { src: '/images/portfolio/patio-lawn-before.webp', alt: 'Garden before landscaping work began', position: 'object-center' },
+    { src: '/images/portfolio/artificial-turf-oval.webp', alt: 'Landscaped garden with artificial lawn', position: 'object-center' },
+  ],
+  'garden-rooms-glasgow': [
+    { src: '/images/portfolio/garden-room-patio.webp', alt: 'Garden room and patio installation', position: 'object-center' },
+  ],
+}
+
+// Padded out with honestly-captioned crops of the same generic project
+// photos used elsewhere on the site for services with no matching real
+// photo above — never fabricated or mislabelled as service-specific.
+const GENERIC_FALLBACKS: GalleryImage[] = [
+  { src: '/images/garden-after.webp', alt: 'Riverside Landscaping completed installation example', position: 'object-top' },
+  { src: '/images/garden-before.webp', alt: 'Riverside Landscaping groundworks example', position: 'object-bottom' },
+  { src: '/images/materials/mat-1-1.jpg', alt: 'Riverside Landscaping material sample', position: 'object-center' },
+  { src: '/images/garden-after.webp', alt: 'Riverside Landscaping finished detail example', position: 'object-left' },
+  { src: '/images/garden-before.webp', alt: 'Riverside Landscaping site preparation example', position: 'object-right' },
+]
+
+// Real photos from this service's own project archive first — these are
+// genuinely photos of that service's work. Portfolio case-study photos
+// come next: those entries currently share a couple of generic before/after
+// shots across every case study rather than a photo unique to each project,
+// so they're a weaker source of truth than a directly-tagged service photo.
+// Padded out with generic fallbacks only if still short of 5.
+function buildGalleryImages(portfolioMatches: PortfolioItem[], serviceSlug: string): GalleryImage[] {
+  const images: GalleryImage[] = [...(SERVICE_REAL_PHOTOS[serviceSlug] ?? [])]
   for (const item of portfolioMatches) {
     if (item.imageBefore) images.push({ src: item.imageBefore, alt: `${item.title} — before`, position: 'object-center' })
     images.push({ src: item.imageAfter, alt: item.title, position: 'object-center' })
   }
-  const fallbacks: GalleryImage[] = [
-    { src: '/images/garden-after.webp', alt: 'Riverside Landscaping completed installation example', position: 'object-top' },
-    { src: '/images/garden-before.webp', alt: 'Riverside Landscaping groundworks example', position: 'object-bottom' },
-    { src: '/images/materials/mat-1-1.jpg', alt: 'Riverside Landscaping material sample', position: 'object-center' },
-    { src: '/images/garden-after.webp', alt: 'Riverside Landscaping finished detail example', position: 'object-left' },
-    { src: '/images/garden-before.webp', alt: 'Riverside Landscaping site preparation example', position: 'object-right' },
-  ]
+
   let i = 0
   while (images.length < 5) {
-    images.push(fallbacks[i % fallbacks.length])
+    images.push(GENERIC_FALLBACKS[i % GENERIC_FALLBACKS.length])
     i++
   }
   return images.slice(0, 5)
@@ -111,9 +159,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const Icon = SERVICE_ICONS[service.slug] ?? ShieldCheck
   const portfolioMatches = getPortfolioForService(service.slug)
   const articleMatches = getArticlesForService(service.slug)
-  const galleryImages = buildGalleryImages(portfolioMatches)
-  const whyUsPhotoA = portfolioMatches[0]?.imageAfter ?? '/images/garden-after.webp'
-  const whyUsPhotoB = portfolioMatches[0]?.imageBefore ?? '/images/garden-before.webp'
+  const galleryImages = buildGalleryImages(portfolioMatches, service.slug)
+  const realPhotos = SERVICE_REAL_PHOTOS[service.slug]
+  const whyUsPhotoA = realPhotos?.[0]?.src ?? portfolioMatches[0]?.imageAfter ?? '/images/garden-after.webp'
+  const whyUsPhotoB = realPhotos?.[1]?.src ?? portfolioMatches[0]?.imageBefore ?? '/images/garden-before.webp'
 
   const schema = generateGraphSchema(
     `https://riverside-landscaping.co.uk/landscaping-services/${service.slug}`,
@@ -159,7 +208,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <Reveal>
         <section className="relative mt-8 h-[380px] w-full overflow-hidden sm:h-[440px]">
           <img
-            src="/images/garden-after.webp"
+            src={service.heroImage || '/images/garden-after.webp'}
             alt={`Riverside Landscaping ${service.primaryCategory.toLowerCase()} project in Glasgow`}
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

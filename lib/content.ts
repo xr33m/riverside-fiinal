@@ -377,6 +377,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Porcelain Paving Glasgow - If you're looking for patio installers near me or garden drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/patio-dark-decking.webp',
   },
   {
     slug: 'driveway-installers-glasgow',
@@ -408,6 +409,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Driveway Installers Glasgow - If you're looking for block paving near me or resin driveways near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/driveway-light-flags-1.webp',
   },
   {
     slug: 'garden-drainage-solutions-glasgow',
@@ -470,6 +472,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Composite Decking Glasgow - If you're looking for timber decking near me or garden decking installers near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/decking-composite.webp',
   },
   {
     slug: 'garden-fencing-glasgow',
@@ -501,6 +504,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Garden Fencing Glasgow - If you're looking for fence installers near me or privacy screening near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/fencing-new-patio.webp',
   },
   {
     slug: 'resin-bound-driveways-glasgow',
@@ -587,6 +591,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Artificial Grass Glasgow - If you're looking for astro turf near me or mud free lawn near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/artificial-turf-1.webp',
   },
   {
     slug: 'garden-landscaping-glasgow',
@@ -649,6 +654,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Garden Rooms Glasgow - If you're looking for garden offices near me or outdoor buildings near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/garden-room-patio.webp',
   },
   {
     slug: '3d-garden-design-glasgow',

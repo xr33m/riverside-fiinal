@@ -31,7 +31,7 @@ const nextConfig = {
       { source: '/gallery.html', destination: '/portfolio', permanent: true },
       { source: '/gallery', destination: '/portfolio', permanent: true },
       { source: '/reviews', destination: '/#testimonials', permanent: true },
-      { source: '/faqs.html', destination: '/#faq', permanent: true },
+      { source: '/faqs.html', destination: '/faqs', permanent: true },
 
       // Live Old-Site URLs — sourced from the old site's own Yoast XML
       // sitemap (page-sitemap.xml), which lists the complete, authoritative

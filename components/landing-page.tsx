@@ -670,6 +670,11 @@ function FAQ() {
           </div>
         ))}
       </Reveal>
+      <Reveal delay={0.15}>
+        <Link href="/faqs" className="button-outline mx-auto mt-10 flex w-fit items-center gap-2 text-sm">
+          See All FAQs <ArrowRight size={16} />
+        </Link>
+      </Reveal>
     </section>
   )
 }

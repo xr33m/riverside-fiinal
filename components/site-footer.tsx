@@ -11,7 +11,7 @@ const QUICK_LINKS = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/landscaping-services' },
   { label: 'Guides', href: '/knowledge-base' },
-  { label: 'FAQs', href: '/#faq' },
+  { label: 'FAQs', href: '/faqs' },
 ]
 
 const SOCIALS = [

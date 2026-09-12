@@ -69,11 +69,11 @@ function buildGalleryImages(portfolioMatches: PortfolioItem[]): GalleryImage[] {
     images.push({ src: item.imageAfter, alt: item.title, position: 'object-center' })
   }
   const fallbacks: GalleryImage[] = [
-    { src: '/images/garden-after.png', alt: 'Riverside Landscaping completed installation example', position: 'object-top' },
-    { src: '/images/garden-before.png', alt: 'Riverside Landscaping groundworks example', position: 'object-bottom' },
+    { src: '/images/garden-after.webp', alt: 'Riverside Landscaping completed installation example', position: 'object-top' },
+    { src: '/images/garden-before.webp', alt: 'Riverside Landscaping groundworks example', position: 'object-bottom' },
     { src: '/images/materials/mat-1-1.jpg', alt: 'Riverside Landscaping material sample', position: 'object-center' },
-    { src: '/images/garden-after.png', alt: 'Riverside Landscaping finished detail example', position: 'object-left' },
-    { src: '/images/garden-before.png', alt: 'Riverside Landscaping site preparation example', position: 'object-right' },
+    { src: '/images/garden-after.webp', alt: 'Riverside Landscaping finished detail example', position: 'object-left' },
+    { src: '/images/garden-before.webp', alt: 'Riverside Landscaping site preparation example', position: 'object-right' },
   ]
   let i = 0
   while (images.length < 5) {
@@ -112,8 +112,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   const portfolioMatches = getPortfolioForService(service.slug)
   const articleMatches = getArticlesForService(service.slug)
   const galleryImages = buildGalleryImages(portfolioMatches)
-  const whyUsPhotoA = portfolioMatches[0]?.imageAfter ?? '/images/garden-after.png'
-  const whyUsPhotoB = portfolioMatches[0]?.imageBefore ?? '/images/garden-before.png'
+  const whyUsPhotoA = portfolioMatches[0]?.imageAfter ?? '/images/garden-after.webp'
+  const whyUsPhotoB = portfolioMatches[0]?.imageBefore ?? '/images/garden-before.webp'
 
   const schema = generateGraphSchema(
     `https://riverside-landscaping.co.uk/landscaping-services/${service.slug}`,
@@ -159,7 +159,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <Reveal>
         <section className="relative mt-8 h-[380px] w-full overflow-hidden sm:h-[440px]">
           <img
-            src="/images/garden-after.png"
+            src="/images/garden-after.webp"
             alt={`Riverside Landscaping ${service.primaryCategory.toLowerCase()} project in Glasgow`}
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

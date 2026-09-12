@@ -13,7 +13,7 @@ interface PageProps {
 
 // Real photos are limited to 2 general project shots — cycle through them
 // with distinct framing per article rather than fabricating stock photography.
-const ARTICLE_PHOTOS = ['/images/garden-after.png', '/images/garden-before.png']
+const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })

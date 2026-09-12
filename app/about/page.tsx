@@ -92,7 +92,7 @@ export default function AboutPage() {
       <Reveal>
         <section className="relative mt-8 h-[420px] w-full overflow-hidden sm:h-[480px]">
           <img
-            src="/images/garden-after.png"
+            src="/images/garden-after.webp"
             alt="A completed Riverside Landscaping porcelain patio installation"
             className="absolute inset-0 h-full w-full object-cover"
           />
@@ -115,28 +115,28 @@ export default function AboutPage() {
           <Reveal className="grid grid-cols-2 gap-4 lg:col-span-5">
             <div className="h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-before.png"
+                src="/images/garden-before.webp"
                 alt="A waterlogged clay garden before Riverside Landscaping drainage work"
                 className="h-full w-full object-cover object-left-top"
               />
             </div>
             <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-after.png"
+                src="/images/garden-after.webp"
                 alt="The finished patio after Riverside Landscaping's install"
                 className="h-full w-full object-cover object-right-top"
               />
             </div>
             <div className="h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-after.png"
+                src="/images/garden-after.webp"
                 alt="Detail of the finished patio's lighting and planting"
                 className="h-full w-full object-cover object-left-bottom"
               />
             </div>
             <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-before.png"
+                src="/images/garden-before.webp"
                 alt="Detail of the waterlogged lawn before drainage work"
                 className="h-full w-full object-cover object-right-bottom"
               />
@@ -211,7 +211,7 @@ export default function AboutPage() {
               <RibbonAccent className="-bottom-4 -right-4 rotate-[15deg]" />
               <div className="relative h-80 overflow-hidden border border-border sm:h-[420px]">
                 <img
-                  src="/images/garden-after.png"
+                  src="/images/garden-after.webp"
                   alt="Completed Riverside Landscaping hardscaping project"
                   className="h-full w-full object-cover"
                 />

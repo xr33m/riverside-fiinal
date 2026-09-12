@@ -789,8 +789,8 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'porcelain',
     description: 'Transformation of a waterlogged clay rear garden into a multi-tiered luxury outdoor dining space with integrated perimeter slot drainage and ambient LED step lighting.',
     specs: ['60m² 20mm Italian Porcelain', 'Sub-Surface Slot Drainage', 'Heated Pergola Footings', 'BS7533 Sub-Base'],
-    imageBefore: '/images/garden-before.png',
-    imageAfter: '/images/garden-after.png',
+    imageBefore: '/images/garden-before.webp',
+    imageAfter: '/images/garden-after.webp',
     metric: '100% Sub-Surface Water Mitigation',
   },
   {
@@ -802,7 +802,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'drainage',
     description: 'Complete excavation of boggy clay soil replaced with 300mm MOT Type 1 sub-base, geotextile membrane grid, and dark slate porcelain coping edges.',
     specs: ['Geotextile Clay Separation', 'ACO Slot Drain Channeling', '300mm Excavation Depth', 'Scottish Whinstone Borders'],
-    imageAfter: '/images/garden-after.png',
+    imageAfter: '/images/garden-after.webp',
     metric: 'Eliminated Standing Water',
   },
   {
@@ -814,7 +814,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'porcelain',
     description: 'Precision-cut light beige vitrified porcelain with R11 anti-slip rating, built with flush threshold drainage against sliding glass doors.',
     specs: ['Vitrified R11 Anti-Slip', 'Flush Door Threshold Drain', 'Concealed Access Inspection Covers'],
-    imageAfter: '/images/garden-after.png',
+    imageAfter: '/images/garden-after.webp',
     metric: 'Zero-Step Threshold Transition',
   },
   {
@@ -826,7 +826,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'driveway',
     description: 'Heavy vehicle load-rated granite block paving combined with structural retaining walls to handle steep elevation runoff.',
     specs: ['BS7533 Load-Bearing Foundation', 'Granite Coping Stones', 'Sub-Surface Retaining Wall Drainage'],
-    imageAfter: '/images/garden-after.png',
+    imageAfter: '/images/garden-after.webp',
     metric: 'Vehicle Load Certified',
   },
 ]

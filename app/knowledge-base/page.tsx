@@ -7,7 +7,7 @@ import { LeafCtaBanner } from '@/components/leaf-cta-banner'
 
 // Real photos are limited to 2 general project shots — cycle through them
 // with distinct framing per article rather than fabricating stock photography.
-const ARTICLE_PHOTOS = ['/images/garden-after.png', '/images/garden-before.png']
+const ARTICLE_PHOTOS = ['/images/garden-after.webp', '/images/garden-before.webp']
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
@@ -45,7 +45,7 @@ export default function KnowledgeBaseHubPage() {
       <Reveal>
         <section className="relative mt-8 h-[340px] w-full overflow-hidden sm:h-[400px]">
           <img
-            src="/images/garden-after.png"
+            src="/images/garden-after.webp"
             alt="Riverside Landscaping completed project in Glasgow"
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

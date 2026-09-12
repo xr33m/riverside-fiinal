@@ -23,8 +23,8 @@ const SOCIALS = [
 // Real project photos only — no repeats/stock stand-ins. The 4th tile is a
 // CTA through to the full portfolio rather than a fabricated placeholder.
 const RECENT_WORK = [
-  { src: '/images/garden-before.png', alt: 'Waterlogged clay garden before Riverside Landscaping drainage work' },
-  { src: '/images/garden-after.png', alt: 'Finished porcelain patio and drainage after Riverside Landscaping install' },
+  { src: '/images/garden-before.webp', alt: 'Waterlogged clay garden before Riverside Landscaping drainage work' },
+  { src: '/images/garden-after.webp', alt: 'Finished porcelain patio and drainage after Riverside Landscaping install' },
   { src: '/images/materials/mat-1-1.jpg', alt: 'Porcelain paving material sample used on a Riverside Landscaping job' },
 ]
 

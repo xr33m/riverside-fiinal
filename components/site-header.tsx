@@ -16,10 +16,13 @@ interface NavLink {
   description?: string
 }
 
-const serviceLinks: NavLink[] = SERVICES.map((s) => ({
-  label: s.name,
-  href: `/landscaping-services/${s.slug}`,
-}))
+const serviceLinks: NavLink[] = [
+  { label: 'View All Services', href: '/landscaping-services', description: 'Full services hub & overview' },
+  ...SERVICES.map((s) => ({
+    label: s.name,
+    href: `/landscaping-services/${s.slug}`,
+  })),
+]
 
 const areaLinks: NavLink[] = [
   ...SUBURBS.map((s) => ({

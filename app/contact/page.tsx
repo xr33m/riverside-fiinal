@@ -39,7 +39,7 @@ export default function ContactPage() {
       <Reveal>
         <section className="relative mt-8 h-[420px] w-full overflow-hidden sm:h-[480px]">
           <img
-            src="/images/garden-after.png"
+            src="/images/garden-after.webp"
             alt="A completed Riverside Landscaping porcelain patio installation"
             className="absolute inset-0 h-full w-full object-cover"
           />

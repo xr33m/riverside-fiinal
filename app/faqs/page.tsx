@@ -65,7 +65,7 @@ export default function FaqsPage() {
       <Reveal>
         <section className="relative mt-8 h-[340px] w-full overflow-hidden sm:h-[400px]">
           <img
-            src="/images/garden-after.png"
+            src="/images/garden-after.webp"
             alt="Riverside Landscaping completed project in Glasgow"
             className="absolute inset-0 h-full w-full scale-105 animate-[kenburns_16s_ease-in-out_infinite_alternate] object-cover"
           />

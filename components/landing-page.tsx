@@ -64,7 +64,7 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
   return (
     <section ref={heroRef} id="top" className="hero-full">
       <motion.div style={{ y: yMedia, scale: scaleMedia }} className="hero-full-media">
-        <video autoPlay loop muted playsInline poster="/images/garden-after.png">
+        <video autoPlay loop muted playsInline poster="/images/garden-after.webp">
           <source src="/videos/hero.mp4" type="video/mp4" />
         </video>
       </motion.div>
@@ -157,7 +157,7 @@ function AboutSection() {
           <div className="relative mx-auto max-w-[540px] pb-8 pr-8 sm:pb-10 sm:pr-10">
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border shadow-xl">
               <img
-                src="/images/garden-after.png"
+                src="/images/garden-after.webp"
                 alt="Completed Riverside Landscaping porcelain patio installation"
                 className="h-full w-full object-cover"
               />
@@ -165,7 +165,7 @@ function AboutSection() {
             <div className="absolute bottom-0 right-0 w-[52%] rotate-3 overflow-hidden rounded-2xl border-4 border-background shadow-2xl transition-transform duration-300 hover:rotate-0">
               <div className="aspect-[4/3] w-full overflow-hidden">
                 <img
-                  src="/images/garden-before.png"
+                  src="/images/garden-before.webp"
                   alt="The same garden before Riverside Landscaping's drainage and patio install"
                   className="h-full w-full object-cover"
                 />
@@ -260,9 +260,9 @@ function Proof() {
           aria-valuenow={Math.round(pos)}
           aria-valuetext={`${Math.round(pos)}% before image shown`}
         >
-          <img src="/images/garden-after.png" alt="Finished porcelain patio with perimeter drainage" />
+          <img src="/images/garden-after.webp" alt="Finished porcelain patio with perimeter drainage" />
           <div className="compare-before" style={{ width: `${pos}%` }}>
-            <img src="/images/garden-before.png" alt="Waterlogged clay garden before landscaping" />
+            <img src="/images/garden-before.webp" alt="Waterlogged clay garden before landscaping" />
           </div>
           <div className="compare-handle" style={{ left: `${pos}%` }}>
             <span>Drag</span>

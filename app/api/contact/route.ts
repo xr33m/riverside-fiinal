@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
+const FORMSPREE_ENDPOINT = process.env.FORMSPREE_ENDPOINT || 'https://formspree.io/f/myeyvqzd'
+
 export async function POST(req: Request) {
   try {
     const body = await req.json()
@@ -55,6 +57,29 @@ export async function POST(req: Request) {
     }
 
     console.log(`[Contact Message] ID: ${submission.id} - ${submission.firstName} ${submission.lastName} (${submission.email})`)
+
+    const formspreeRes = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({
+        name: `${submission.firstName} ${submission.lastName}`,
+        phone: submission.phone,
+        email: submission.email,
+        address: submission.address,
+        message: submission.message,
+        _subject: `New quote request from ${submission.firstName} ${submission.lastName}`,
+        _replyto: submission.email,
+      }),
+    })
+
+    if (!formspreeRes.ok) {
+      const errBody = await formspreeRes.text().catch(() => '')
+      console.error(`[Contact Message] Formspree delivery failed for ${submission.id}:`, formspreeRes.status, errBody)
+      return NextResponse.json(
+        { success: false, message: 'Could not send your message right now. Please call us directly.' },
+        { status: 502 }
+      )
+    }
 
     return NextResponse.json({
       success: true,

@@ -41,7 +41,7 @@ const nextConfig = {
       // extra 308 hop for those requests before landing here, which still
       // resolves to the correct final destination.
       { source: '/turfingservices-glasgow', destination: '/landscaping-services/artificial-grass-glasgow', permanent: true },
-      { source: '/treesurgery-glasgow', destination: '/landscaping-services', permanent: true },
+      { source: '/treesurgery-glasgow', destination: '/landscaping-services/tree-removal-glasgow', permanent: true },
       { source: '/fencing-glasgow', destination: '/landscaping-services/garden-fencing-glasgow', permanent: true },
       { source: '/hardlandscaping-surfacing-glasgow', destination: '/landscaping-services/retaining-walls-glasgow', permanent: true },
       { source: '/patios-gravelling-glasgow', destination: '/landscaping-services/porcelain-paving-glasgow', permanent: true },

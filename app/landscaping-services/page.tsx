@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ShieldCheck, ArrowRight, Layers, Star } from 'lucide-react'
+import { ShieldCheck, ArrowRight, Layers, Star, TreeDeciduous } from 'lucide-react'
 import { SERVICES, generateGraphSchema } from '@/lib/content'
 import { SERVICE_ICONS } from '@/lib/service-icons'
 import { TILE_GRADIENTS } from '@/lib/tile-gradients'
@@ -107,6 +107,29 @@ export default function LandscapingServicesHubPage() {
                 </Link>
               )
             })}
+            <Link
+              href="/landscaping-services/tree-removal-glasgow"
+              aria-label="Read complete tree removal specification"
+              className="group relative block h-80 overflow-hidden shadow-md transition-shadow duration-300 hover:shadow-xl sm:h-96"
+            >
+              <img
+                src="/images/portfolio/tree-removal.webp"
+                alt="Tree removal by Riverside Landscaping in Glasgow"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
+              <div className="absolute inset-0 flex flex-col items-start justify-end p-6 sm:p-8">
+                <TreeDeciduous className="mb-3 h-7 w-7 text-white/90" />
+                <h3 className="font-serif text-2xl font-bold leading-tight text-white sm:text-[26px]">Tree Removal</h3>
+                <p className="mt-2 max-w-sm text-sm leading-relaxed text-white/80 line-clamp-2">
+                  Removal, pruning and stump grinding — safely assessed and fully cleared up after.
+                </p>
+                <span className="button-clay mt-5 rounded-full text-xs">
+                  Learn More <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </Link>
           </RevealGrid>
         </div>
       </section>

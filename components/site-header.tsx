@@ -22,6 +22,7 @@ const serviceLinks: NavLink[] = [
     label: s.name,
     href: `/landscaping-services/${s.slug}`,
   })),
+  { label: 'Tree Removal & Surgery', href: '/landscaping-services/tree-removal-glasgow' },
 ]
 
 const areaLinks: NavLink[] = [

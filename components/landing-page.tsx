@@ -26,6 +26,7 @@ import {
   SUBURBS,
   TESTIMONIALS,
   AVG_GOOGLE_RATING,
+  GOOGLE_REVIEW_COUNT,
   MaterialSwatch,
   PortfolioItem,
 } from '@/lib/content'
@@ -33,6 +34,7 @@ import { SiteHeader } from '@/components/site-header'
 import { SiteFooter } from '@/components/site-footer'
 import { SurveyDialog } from '@/components/survey-dialog'
 import { Reveal, RevealGrid } from '@/components/reveal'
+import { AnimatedNumber } from '@/components/animated-number'
 import TestimonialMarquee from '@/components/ui/marquee-01'
 import { GlasgowWeatherBanner } from '@/components/ux/GlasgowWeatherBanner'
 import { CostEstimator } from '@/components/ux/CostEstimator'
@@ -112,28 +114,32 @@ function Hero({ onSurvey }: { onSurvey: (source: string) => void }) {
 /* ------------------------------------------------------------------ *
  * About Section (Trust & Credibility, sits directly under the Hero)
  * ------------------------------------------------------------------ */
-function AboutSection() {
-  const avgRating = AVG_GOOGLE_RATING
+const ABOUT_STATS: { value: number; suffix: string; label: string }[] = [
+  { value: AVG_GOOGLE_RATING, suffix: '★', label: 'Google Rating' },
+  { value: GOOGLE_REVIEW_COUNT, suffix: '+', label: 'Verified Reviews' },
+  { value: 10, suffix: '-Year', label: 'Structural Guarantee' },
+  { value: 100, suffix: '%', label: 'Sub-Surface Water Mitigation' },
+]
 
+function AboutSection() {
   return (
     <section id="about" className="section about-section border-t border-border">
-      <div className="grid gap-10 md:grid-cols-12 md:items-start">
+      <div className="grid gap-14 md:grid-cols-12 md:items-center">
         <Reveal className="md:col-span-5">
-          <div className="flex items-baseline gap-3">
-            <span className="font-serif text-5xl font-bold text-primary">{avgRating}★</span>
-            <span className="text-xs uppercase leading-snug tracking-wide text-muted-foreground">
-              From {TESTIMONIALS.length} verified<br />Google reviews
-            </span>
-          </div>
-          <p className="eyebrow mt-8 text-accent">About Us</p>
-          <h2 className="mt-1 font-serif text-3xl text-primary sm:text-4xl">
+          <p className="eyebrow text-accent">About Us</p>
+          <h2 className="mt-2 font-serif text-3xl text-primary sm:text-4xl">
             Family-run, engineered like a business built to last.
           </h2>
+          <p className="mt-5 leading-relaxed text-muted-foreground">
+            Riverside Landscaping is a Glasgow-based hardscaping team led by Leon and a small crew of dedicated
+            tradesmen. We don&apos;t treat drainage as an afterthought or paving as a weekend job.
+          </p>
           <p className="mt-4 leading-relaxed text-muted-foreground">
-            Riverside Landscaping is a Glasgow-based hardscaping team led by Leon and a small crew of dedicated tradesmen. We don&apos;t treat drainage as an afterthought or paving as a weekend job — every build is engineered to BS7533 standard, sized for Scottish clay and rainfall, and backed by a signed 10-year structural guarantee.
+            Every build is engineered to BS7533 standard, sized for Scottish clay and rainfall, and backed by a
+            signed 10-year structural guarantee — not a verbal promise.
           </p>
           <div className="mt-6 flex flex-wrap gap-2">
-            {['BS7533 Certified', "Marshall's Approved Installer", '10-Year Guarantee'].map((badge) => (
+            {['BS7533 Certified', "Marshall's Approved Installer"].map((badge) => (
               <span
                 key={badge}
                 className="inline-flex items-center gap-1.5 border border-accent/30 bg-accent/10 px-3 py-1.5 text-xs font-bold text-accent"
@@ -142,40 +148,47 @@ function AboutSection() {
               </span>
             ))}
           </div>
-          <Link href="/about" className="button-outline mt-6 inline-flex text-sm">
-            Read Our Full Story <ArrowRight size={16} />
+          <Link href="/about" className="button-clay mt-7 inline-flex w-fit rounded-full text-sm">
+            More About Us <ArrowRight size={16} />
           </Link>
         </Reveal>
 
         <Reveal delay={0.1} className="md:col-span-7">
-          <div className="relative h-[320px] w-full overflow-hidden border border-border sm:h-[420px]">
-            <img
-              src="/images/garden-after.png"
-              alt="Completed Riverside Landscaping porcelain patio installation"
-              className="h-full w-full object-cover"
-            />
-          </div>
-          <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <div className="border border-border bg-secondary/40 p-6">
-              <h3 className="font-serif text-lg font-bold text-primary">Built for Scottish Weather</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Every job is engineered around heavy clay soil and year-round rainfall, not a fair-weather install that fails by the second winter.
-              </p>
+          <div className="relative mx-auto max-w-[540px] pb-8 pr-8 sm:pb-10 sm:pr-10">
+            <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border shadow-xl">
+              <img
+                src="/images/garden-after.png"
+                alt="Completed Riverside Landscaping porcelain patio installation"
+                className="h-full w-full object-cover"
+              />
             </div>
-            <div className="flex flex-col justify-between bg-primary p-6 text-primary-foreground">
-              <div>
-                <p className="font-serif text-3xl font-bold">{avgRating}★</p>
-                <p className="mt-1 text-xs text-primary-foreground/70">
-                  {TESTIMONIALS.length} verified Google reviews, no fabricated testimonials
-                </p>
+            <div className="absolute bottom-0 right-0 w-[52%] rotate-3 overflow-hidden rounded-2xl border-4 border-background shadow-2xl transition-transform duration-300 hover:rotate-0">
+              <div className="aspect-[4/3] w-full overflow-hidden">
+                <img
+                  src="/images/garden-before.png"
+                  alt="The same garden before Riverside Landscaping's drainage and patio install"
+                  className="h-full w-full object-cover"
+                />
               </div>
-              <a href="/#testimonials" className="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-[#8fe3ae]">
-                Read the reviews <ArrowRight size={14} />
-              </a>
+            </div>
+            <div className="absolute -top-4 left-4 flex items-center gap-2 rounded-full border border-accent bg-background px-3.5 py-2 text-xs font-bold text-primary shadow-lg sm:-top-5">
+              <ShieldCheck size={14} className="text-accent" /> 10-Year Guarantee
             </div>
           </div>
         </Reveal>
       </div>
+
+      <Reveal delay={0.15} className="mt-16 grid grid-cols-2 gap-x-6 gap-y-10 border-t border-border pt-10 sm:mt-20 sm:grid-cols-4">
+        {ABOUT_STATS.map((stat) => (
+          <div key={stat.label}>
+            <p className="font-serif text-3xl font-bold text-primary sm:text-4xl">
+              <AnimatedNumber value={stat.value} />
+              <span className="text-accent">{stat.suffix}</span>
+            </p>
+            <p className="mt-1.5 text-xs leading-snug text-muted-foreground sm:text-sm">{stat.label}</p>
+          </div>
+        ))}
+      </Reveal>
     </section>
   )
 }

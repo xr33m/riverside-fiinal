@@ -162,16 +162,16 @@ function AboutSection() {
           <div className="relative mx-auto max-w-[540px] pb-8 pr-8 sm:pb-10 sm:pr-10">
             <div className="aspect-[4/3] w-full overflow-hidden rounded-2xl border border-border shadow-xl">
               <img
-                src="/images/garden-after.webp"
-                alt="Completed Riverside Landscaping porcelain patio installation"
+                src="/images/ai-garden-after.webp"
+                alt="Example of a landscaped porcelain patio and lawn with garden lighting"
                 className="h-full w-full object-cover"
               />
             </div>
             <div className="absolute bottom-0 right-0 w-[52%] rotate-3 overflow-hidden rounded-2xl border-4 border-background shadow-2xl transition-transform duration-300 hover:rotate-0">
               <div className="aspect-[4/3] w-full overflow-hidden">
                 <img
-                  src="/images/garden-before.webp"
-                  alt="The same garden before Riverside Landscaping's drainage and patio install"
+                  src="/images/ai-garden-before.webp"
+                  alt="Example of a waterlogged garden lawn in need of drainage work"
                   className="h-full w-full object-cover"
                 />
               </div>

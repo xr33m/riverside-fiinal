@@ -6,6 +6,20 @@ import { TILE_GRADIENTS } from '@/lib/tile-gradients'
 import { Eyebrow } from '@/components/silo-ui'
 import { Reveal, RevealGrid } from '@/components/reveal'
 
+/**
+ * Illustrative AI-generated tile images, used only in this "What We Can Do
+ * For You" teaser grid — kept separate from `service.heroImage` (the real
+ * project photos used on the services hub grid and each detail page hero)
+ * so this teaser can show a picture per tile without touching those.
+ */
+const AI_TILE_IMAGES: Record<string, string> = {
+  'porcelain-paving-glasgow': '/images/portfolio/ai-porcelain-paving-tile.webp',
+  'driveway-installers-glasgow': '/images/portfolio/ai-driveway-installers-tile.webp',
+  'garden-drainage-solutions-glasgow': '/images/portfolio/ai-garden-drainage-tile.webp',
+  'composite-decking-glasgow': '/images/portfolio/ai-composite-decking-tile.webp',
+  'garden-fencing-glasgow': '/images/portfolio/ai-garden-fencing-tile.webp',
+}
+
 interface ServicesShowcaseProps {
   excludeSlug?: string
   eyebrow?: string
@@ -60,6 +74,7 @@ export function ServicesShowcase({
         <RevealGrid className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5" stagger={0.06}>
           {items.map((service, i) => {
             const Icon = SERVICE_ICONS[service.slug] ?? Wrench
+            const tileImage = AI_TILE_IMAGES[service.slug]
             return (
               <Link
                 key={service.slug}
@@ -67,11 +82,20 @@ export function ServicesShowcase({
                 aria-label={`Explore our ${service.primaryCategory.toLowerCase()} service`}
                 className="group relative block aspect-[3/4] overflow-hidden rounded-2xl shadow-md transition-shadow duration-300 hover:shadow-xl"
               >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 group-hover:scale-110 ${
-                    TILE_GRADIENTS[i % TILE_GRADIENTS.length]
-                  }`}
-                />
+                {tileImage ? (
+                  <img
+                    src={tileImage}
+                    alt={`Illustrative example of ${service.primaryCategory.toLowerCase()}`}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                ) : (
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 group-hover:scale-110 ${
+                      TILE_GRADIENTS[i % TILE_GRADIENTS.length]
+                    }`}
+                  />
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
 
                 <Icon className="absolute left-4 top-4 h-5 w-5 text-white/35" />

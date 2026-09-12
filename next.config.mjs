@@ -33,17 +33,18 @@ const nextConfig = {
       { source: '/reviews', destination: '/#testimonials', permanent: true },
       { source: '/faqs.html', destination: '/#faq', permanent: true },
 
-      // Live Old-Site URLs — confirmed via a `site:riverside-landscaping.co.uk`
-      // search of the currently-indexed pages (this environment can't reach
-      // the live domain directly to crawl it, so these are the real indexed
-      // paths the user reported). Regex-suffixed sources cover the full slug
-      // even where Google's result truncated it, so the redirect still fires
-      // if the real suffix differs slightly from the guessed one.
-      { source: '/:slug(turfingservices-gla.*)', destination: '/landscaping-services/artificial-grass-glasgow', permanent: true },
+      // Live Old-Site URLs — sourced from the old site's own Yoast XML
+      // sitemap (page-sitemap.xml), which lists the complete, authoritative
+      // set of 8 real pages on riverside-landscaping.co.uk (exact slugs,
+      // not guessed). The old site serves these with a trailing slash;
+      // Next's own trailing-slash normalization runs first and adds one
+      // extra 308 hop for those requests before landing here, which still
+      // resolves to the correct final destination.
+      { source: '/turfingservices-glasgow', destination: '/landscaping-services/artificial-grass-glasgow', permanent: true },
       { source: '/treesurgery-glasgow', destination: '/landscaping-services', permanent: true },
       { source: '/fencing-glasgow', destination: '/landscaping-services/garden-fencing-glasgow', permanent: true },
-      { source: '/:slug(hardlandscaping-s.*)', destination: '/landscaping-services/retaining-walls-glasgow', permanent: true },
-      { source: '/:slug(patios-gravelling-g.*)', destination: '/landscaping-services/porcelain-paving-glasgow', permanent: true },
+      { source: '/hardlandscaping-surfacing-glasgow', destination: '/landscaping-services/retaining-walls-glasgow', permanent: true },
+      { source: '/patios-gravelling-glasgow', destination: '/landscaping-services/porcelain-paving-glasgow', permanent: true },
     ]
   },
 }

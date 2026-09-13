@@ -1,4 +1,5 @@
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import { WhatsappWidget } from '@/components/ux/WhatsappWidget'
@@ -45,6 +46,7 @@ export default function RootLayout({
         {children}
         <WhatsappWidget />
         {process.env.NODE_ENV === 'production' && process.env.VERCEL && <Analytics />}
+        {process.env.NODE_ENV === 'production' && process.env.VERCEL && <SpeedInsights />}
       </body>
     </html>
   )

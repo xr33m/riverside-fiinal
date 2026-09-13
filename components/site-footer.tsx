@@ -34,12 +34,12 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-border bg-secondary/40">
-      <div className="site-footer-inner mx-auto grid max-w-[1180px] gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+      <div className="site-footer-inner grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
         {/* Brand */}
         <div>
-          <Link href="/#top" className="wordmark">
+          <Link href="/#top" className="wordmark !flex-col !items-start !gap-1.5">
             <img src="/images/riverside-logo.png" alt="Riverside Landscaping" className="wordmark-logo wordmark-logo-lg" />
-            <small>GLASGOW LANDSCAPING</small>
+            <small className="!mt-0">GLASGOW LANDSCAPING</small>
           </Link>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted-foreground">
             Riverside Landscaping specialises in bespoke porcelain patios, driveways, and BS7533-engineered garden
@@ -140,7 +140,7 @@ export function SiteFooter() {
             fixed .sticky-cta bar (~79px tall, pinned to the viewport bottom
             once visible) — otherwise the Terms/Privacy links sit permanently
             behind it at the true bottom of the page. */}
-        <div className="site-footer-inner mx-auto flex max-w-[1180px] flex-col-reverse items-center gap-3 pb-28 pt-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
+        <div className="site-footer-inner flex flex-col-reverse items-center gap-3 pb-28 pt-6 text-xs text-muted-foreground sm:flex-row sm:justify-between">
           <p>© Copyright {new Date().getFullYear()} — {BRAND.name}. All Rights Reserved.</p>
           <div className="flex gap-4">
             <Link href="/terms" className="hover:text-accent">

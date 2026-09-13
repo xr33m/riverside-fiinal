@@ -42,7 +42,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased" suppressHydrationWarning>
         {children}
-        {process.env.NODE_ENV === 'production' && process.env.VERCEL && <Analytics />}
+        <Analytics />
       </body>
     </html>
   )

@@ -1,0 +1,30 @@
+{
+  "redirects": [
+    { "source": "/services.html", "destination": "/landscaping-services", "statusCode": 301 },
+    { "source": "/services", "destination": "/landscaping-services", "statusCode": 301 },
+    { "source": "/services/:slug*", "destination": "/landscaping-services/:slug*", "statusCode": 301 },
+
+    { "source": "/areas.html", "destination": "/locations", "statusCode": 301 },
+    { "source": "/areas", "destination": "/locations", "statusCode": 301 },
+    { "source": "/areas/:slug*", "destination": "/locations/:slug*", "statusCode": 301 },
+
+    { "source": "/porcelain-paving", "destination": "/landscaping-services/porcelain-paving-glasgow", "statusCode": 301 },
+    { "source": "/garden-drainage", "destination": "/landscaping-services/garden-drainage-solutions-glasgow", "statusCode": 301 },
+    { "source": "/driveways", "destination": "/landscaping-services/driveway-installers-glasgow", "statusCode": 301 },
+    { "source": "/landscaping-bearsden", "destination": "/locations/bearsden", "statusCode": 301 },
+    { "source": "/patios-newton-mearns", "destination": "/locations/newton-mearns", "statusCode": 301 },
+    { "source": "/driveways-giffnock", "destination": "/locations/giffnock", "statusCode": 301 },
+
+    { "source": "/contact.html", "destination": "/contact", "statusCode": 301 },
+    { "source": "/gallery.html", "destination": "/portfolio", "statusCode": 301 },
+    { "source": "/gallery", "destination": "/portfolio", "statusCode": 301 },
+    { "source": "/reviews", "destination": "/#testimonials", "statusCode": 301 },
+    { "source": "/faqs.html", "destination": "/faqs", "statusCode": 301 },
+
+    { "source": "/turfingservices-glasgow", "destination": "/landscaping-services/artificial-grass-glasgow", "statusCode": 301 },
+    { "source": "/treesurgery-glasgow", "destination": "/landscaping-services/tree-removal-glasgow", "statusCode": 301 },
+    { "source": "/fencing-glasgow", "destination": "/landscaping-services/garden-fencing-glasgow", "statusCode": 301 },
+    { "source": "/hardlandscaping-surfacing-glasgow", "destination": "/landscaping-services/retaining-walls-glasgow", "statusCode": 301 },
+    { "source": "/patios-gravelling-glasgow", "destination": "/landscaping-services/porcelain-paving-glasgow", "statusCode": 301 }
+  ]
+}

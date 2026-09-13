@@ -6,6 +6,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // NOTE: vercel.json (at the repo root) mirrors this same list as explicit
+  // 301s applied at Vercel's edge network, ahead of the Next.js server. On
+  // Vercel, vercel.json is authoritative; this next.config.mjs copy exists
+  // so redirects still work if the app is ever built/run somewhere else
+  // (Next.js emits 308 here instead of 301 — functionally equivalent for
+  // SEO, but keep both files' entries in sync when adding new redirects).
   async redirects() {
     return [
       // Physical Silo Category Hub Redirects

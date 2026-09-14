@@ -56,23 +56,31 @@ function Dropdown({ label, links, wide }: { label: string; links: NavLink[]; wid
         <ChevronDown size={14} className={`transition-transform duration-200 ${open ? 'rotate-180' : ''}`} />
       </button>
       {open && (
-        <div
-          className={`absolute left-0 top-full z-50 mt-2 border border-border bg-background shadow-xl ${
-            wide ? 'grid grid-cols-2 gap-1 p-3' : 'grid gap-1 p-3'
-          } ${wide ? 'min-w-[440px]' : 'min-w-[240px]'}`}
-        >
-          {links.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="block border-b border-transparent px-3 py-2 text-xs transition-colors hover:border-accent hover:bg-muted/40"
-            >
-              <span className="block font-bold text-foreground">{link.label}</span>
-              {link.description && (
-                <span className="block text-[10px] text-muted-foreground">{link.description}</span>
-              )}
-            </a>
-          ))}
+        // pt-2 (not mt-2) on this flush, top-full wrapper — a margin-based gap
+        // here sits outside this div's own hoverable box (the absolutely
+        // positioned panel overflows below it), so the mouse crosses a dead
+        // zone between the button and the panel and mouseleave fires before
+        // a link can be reached. Padding keeps that same visual spacing
+        // inside the element that's actually part of the hover chain.
+        <div className="absolute left-0 top-full z-50 pt-2">
+          <div
+            className={`border border-border bg-background shadow-xl ${
+              wide ? 'grid grid-cols-2 gap-1 p-3' : 'grid gap-1 p-3'
+            } ${wide ? 'min-w-[440px]' : 'min-w-[240px]'}`}
+          >
+            {links.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="block border-b border-transparent px-3 py-2 text-xs transition-colors hover:border-accent hover:bg-muted/40"
+              >
+                <span className="block font-bold text-foreground">{link.label}</span>
+                {link.description && (
+                  <span className="block text-[10px] text-muted-foreground">{link.description}</span>
+                )}
+              </a>
+            ))}
+          </div>
         </div>
       )}
     </div>

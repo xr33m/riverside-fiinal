@@ -441,6 +441,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Garden Drainage Solutions Glasgow - If you're looking for land drains near me or patio drainage near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/ai-hero-garden-drainage.webp',
   },
   {
     slug: 'composite-decking-glasgow',
@@ -536,6 +537,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Resin Bound Driveways Glasgow - If you're looking for resin driveways near me or permeable paving near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/ai-hero-resin-driveways.webp',
   },
   {
     slug: 'retaining-walls-glasgow',
@@ -564,6 +566,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Retaining Wall Builders Glasgow - If you're looking for stone wall builders near me or terraced landscaping near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/ai-hero-retaining-walls.webp',
   },
   {
     slug: 'artificial-grass-glasgow',
@@ -623,6 +626,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST Garden Landscaping Glasgow - If you're looking for garden designers near me or landscape gardeners near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/ai-hero-garden-landscaping.webp',
   },
   {
     slug: 'garden-rooms-glasgow',
@@ -686,6 +690,7 @@ export const SERVICES: ServiceDetail[] = [
       },
     ],
     titleTag: "BEST 3D Garden Design Glasgow - If you're looking for garden designers near me or landscape visualisation near me - Riverside Landscaping is the #1 Landscaper in Glasgow",
+    heroImage: '/images/portfolio/ai-hero-3d-garden-design.webp',
   },
 ]
 
@@ -796,7 +801,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     description: 'Transformation of a waterlogged clay rear garden into a multi-tiered luxury outdoor dining space with integrated perimeter slot drainage and ambient LED step lighting.',
     specs: ['60m² 20mm Italian Porcelain', 'Sub-Surface Slot Drainage', 'Heated Pergola Footings', 'BS7533 Sub-Base'],
     imageBefore: '/images/garden-before.webp',
-    imageAfter: '/images/garden-after.webp',
+    imageAfter: '/images/portfolio/ai-portfolio-bearsden.webp',
     metric: '100% Sub-Surface Water Mitigation',
   },
   {
@@ -808,7 +813,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'drainage',
     description: 'Complete excavation of boggy clay soil replaced with 300mm MOT Type 1 sub-base, geotextile membrane grid, and dark slate porcelain coping edges.',
     specs: ['Geotextile Clay Separation', 'ACO Slot Drain Channeling', '300mm Excavation Depth', 'Scottish Whinstone Borders'],
-    imageAfter: '/images/garden-after.webp',
+    imageAfter: '/images/portfolio/ai-portfolio-newton-mearns.webp',
     metric: 'Eliminated Standing Water',
   },
   {
@@ -820,7 +825,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'porcelain',
     description: 'Precision-cut light beige vitrified porcelain with R11 anti-slip rating, built with flush threshold drainage against sliding glass doors.',
     specs: ['Vitrified R11 Anti-Slip', 'Flush Door Threshold Drain', 'Concealed Access Inspection Covers'],
-    imageAfter: '/images/garden-after.webp',
+    imageAfter: '/images/portfolio/ai-portfolio-giffnock.webp',
     metric: 'Zero-Step Threshold Transition',
   },
   {
@@ -832,7 +837,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     category: 'driveway',
     description: 'Heavy vehicle load-rated granite block paving combined with structural retaining walls to handle steep elevation runoff.',
     specs: ['BS7533 Load-Bearing Foundation', 'Granite Coping Stones', 'Sub-Surface Retaining Wall Drainage'],
-    imageAfter: '/images/garden-after.webp',
+    imageAfter: '/images/portfolio/ai-portfolio-clarkston.webp',
     metric: 'Vehicle Load Certified',
   },
 ]

@@ -110,35 +110,33 @@ export default function AboutPage() {
       <div className="mx-auto max-w-6xl space-y-20 px-4 pb-20 pt-16 sm:px-6 sm:pt-20 lg:px-8">
         {/* Philosophy */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:items-center">
-          {/* Only 2 real project photos exist (before/after) — shown 4x here
-              with different crops/framing rather than inventing more photos. */}
           <Reveal className="grid grid-cols-2 gap-4 lg:col-span-5">
             <div className="h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-before.webp"
-                alt="A waterlogged clay garden before Riverside Landscaping drainage work"
-                className="h-full w-full object-cover object-left-top"
+                src="/images/ai-about-before-wide.webp"
+                alt="Example of a waterlogged garden before drainage work"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-after.webp"
-                alt="The finished patio after Riverside Landscaping's install"
-                className="h-full w-full object-cover object-right-top"
+                src="/images/ai-about-after-wide.webp"
+                alt="Example of a finished porcelain patio and lawn"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-after.webp"
-                alt="Detail of the finished patio's lighting and planting"
-                className="h-full w-full object-cover object-left-bottom"
+                src="/images/ai-about-after-detail.webp"
+                alt="Detail of patio step lighting and planting"
+                className="h-full w-full object-cover"
               />
             </div>
             <div className="mt-6 h-40 overflow-hidden border border-border sm:h-52">
               <img
-                src="/images/garden-before.webp"
-                alt="Detail of the waterlogged lawn before drainage work"
-                className="h-full w-full object-cover object-right-bottom"
+                src="/images/ai-about-before-detail.webp"
+                alt="Detail of a waterlogged garden lawn before drainage work"
+                className="h-full w-full object-cover"
               />
             </div>
           </Reveal>

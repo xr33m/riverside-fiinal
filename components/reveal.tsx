@@ -1,6 +1,6 @@
 'use client'
 
-import type { ReactNode } from 'react'
+import { Children, type ReactNode } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 
 /**
@@ -35,19 +35,27 @@ export function Reveal({
   )
 }
 
-/** Wraps a card grid's children with a small stagger, one Reveal per child. */
+/**
+ * Wraps a card grid's children with a small stagger, one Reveal per child.
+ * Uses Children.toArray rather than a raw .map() because JSX children that
+ * mix an array (e.g. items.map(...)) with a plain sibling element don't
+ * arrive as one flat array — React.Children.toArray flattens both into a
+ * single list so every card becomes its own grid item (otherwise the whole
+ * mapped array gets wrapped in a single cell, and the rest of the grid
+ * collapses to one column of stacked cards next to it).
+ */
 export function RevealGrid({
   children,
   className = '',
   stagger = 0.08,
 }: {
-  children: ReactNode[]
+  children: ReactNode
   className?: string
   stagger?: number
 }) {
   return (
     <div className={className}>
-      {children.map((child, i) => (
+      {Children.toArray(children).map((child, i) => (
         <Reveal key={i} delay={Math.min(i * stagger, 0.4)}>
           {child}
         </Reveal>

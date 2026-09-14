@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   generator: 'Riverside Landscaping',
   icons: {
     icon: [
+      { url: '/favicon.ico', sizes: 'any' },
       {
         url: '/icon-light-32x32.png',
         media: '(prefers-color-scheme: light)',
